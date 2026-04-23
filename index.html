@@ -6,18 +6,115 @@
 <title>GTVZ MODDED</title>
 
 <style>
+:root {
+    --bg-gradient-start: #0a2f0a;
+    --bg-gradient-end: #031003;
+    --card-bg: #0a1f0a;
+    --card-border: #00ff0033;
+    --text-primary: white;
+    --text-secondary: #aaffaa;
+    --neon-color: #00ff00;
+    --neon-shadow: 0 0 10px #00ff00;
+    --btn-gradient-start: #006400;
+    --btn-gradient-end: #00aa00;
+    --btn-hover-start: #008000;
+    --btn-hover-end: #00ff00;
+    --input-bg: #052005;
+    --result-bg: #052005;
+    --result-border: #00ff0033;
+    --result-hover-border: #00ff00;
+    --copy-btn-bg: linear-gradient(45deg, #006400, #00aa00);
+    --raw-btn-bg: linear-gradient(45deg, #4a0080, #8000ff);
+}
+
+body[data-theme="original"] {
+    --bg-gradient-start: #0a2f0a;
+    --bg-gradient-end: #031003;
+    --neon-color: #00ff00;
+    --btn-gradient-start: #006400;
+    --btn-gradient-end: #00aa00;
+    --btn-hover-start: #008000;
+    --btn-hover-end: #00ff00;
+    --raw-btn-bg: linear-gradient(45deg, #4a0080, #8000ff);
+}
+
+body[data-theme="br"] {
+    --bg-gradient-start: #009c3b;
+    --bg-gradient-end: #002776;
+    --card-bg: #00277633;
+    --neon-color: #ffdf00;
+    --neon-shadow: 0 0 10px #ffdf00;
+    --btn-gradient-start: #009c3b;
+    --btn-gradient-end: #ffdf00;
+    --btn-hover-start: #00aa00;
+    --btn-hover-end: #ffee00;
+    --raw-btn-bg: linear-gradient(45deg, #002776, #009c3b);
+}
+
+body[data-theme="us"] {
+    --bg-gradient-start: #002868;
+    --bg-gradient-end: #bf0a30;
+    --card-bg: #00286833;
+    --neon-color: #ffffff;
+    --neon-shadow: 0 0 10px #ffffff;
+    --btn-gradient-start: #002868;
+    --btn-gradient-end: #bf0a30;
+    --btn-hover-start: #003da0;
+    --btn-hover-end: #d01040;
+    --raw-btn-bg: linear-gradient(45deg, #bf0a30, #002868);
+}
+
+body[data-theme="vn"] {
+    --bg-gradient-start: #da251d;
+    --bg-gradient-end: #ffff00;
+    --card-bg: #da251d33;
+    --neon-color: #ffff00;
+    --neon-shadow: 0 0 10px #ffff00;
+    --btn-gradient-start: #da251d;
+    --btn-gradient-end: #ffff00;
+    --btn-hover-start: #e03028;
+    --btn-hover-end: #ffff20;
+    --raw-btn-bg: linear-gradient(45deg, #ffff00, #da251d);
+}
+
+body[data-theme="de"] {
+    --bg-gradient-start: #000000;
+    --bg-gradient-end: #dd0000;
+    --card-bg: #00000033;
+    --neon-color: #ffcc00;
+    --neon-shadow: 0 0 10px #ffcc00;
+    --btn-gradient-start: #000000;
+    --btn-gradient-end: #dd0000;
+    --btn-hover-start: #222222;
+    --btn-hover-end: #ee0000;
+    --raw-btn-bg: linear-gradient(45deg, #dd0000, #000000);
+}
+
+body[data-theme="ar"] {
+    --bg-gradient-start: #006c35;
+    --bg-gradient-end: #ffffff;
+    --card-bg: #006c3533;
+    --neon-color: #ffffff;
+    --neon-shadow: 0 0 10px #ffffff;
+    --btn-gradient-start: #006c35;
+    --btn-gradient-end: #ffffff;
+    --btn-hover-start: #008040;
+    --btn-hover-end: #fffff0;
+    --raw-btn-bg: linear-gradient(45deg, #ffffff, #006c35);
+}
+
 body{
 margin:0;
 font-family:Arial, Helvetica, sans-serif;
-background: radial-gradient(circle at top, #0a2f0a, #031003);
-color:white;
+background: radial-gradient(circle at top, var(--bg-gradient-start), var(--bg-gradient-end));
+color:var(--text-primary);
 text-align:center;
 overflow-x:hidden;
 position:relative;
 min-height:100vh;
+transition: background 0.5s ease;
 }
 
-/* BOLHAS VERDE NEON - MOVENDO DE UM LADO PARA OUTRO */
 .bubbles{
 position:fixed;
 top:0;
@@ -36,10 +133,9 @@ height:var(--size);
 background:rgba(0, 255, 0, 0.1);
 border-radius:50%;
 border:1px solid rgba(0, 255, 0, 0.5);
-box-shadow:0 0 15px #00ff00, 0 0 30px #00ff00;
+box-shadow:0 0 15px var(--neon-color), 0 0 30px var(--neon-color);
 animation:moveBubble var(--duration) linear infinite;
 opacity:var(--opacity);
-/* SEM DELAY - começa imediatamente */
 animation-delay:0s;
 }
 
@@ -60,13 +156,10 @@ opacity:0;
 }
 }
 
-/* Conteúdo principal */
 .content{
 position:relative;
 z-index:2;
 }
-
-/* HEADER */
 
 header{
 display:flex;
@@ -75,7 +168,7 @@ align-items:center;
 padding:18px 25px;
 background:rgba(0,20,0,0.7);
 backdrop-filter: blur(6px);
-border-bottom:1px solid #00ff0033;
+border-bottom:1px solid var(--neon-color);
 position:relative;
 z-index:3;
 }
@@ -85,31 +178,32 @@ font-size:28px;
 font-weight:bold;
 letter-spacing:2px;
 animation: glow 2s infinite alternate;
-text-shadow:0 0 10px #00ff00;
+text-shadow:0 0 10px var(--neon-color);
+color:var(--neon-color);
 }
 
 @keyframes glow{
-from{ text-shadow:0 0 5px #00ff00, 0 0 10px #00ff00;}
-to{ text-shadow:0 0 20px #00ff00, 0 0 40px #00ff00;}
+from{ text-shadow:0 0 5px var(--neon-color), 0 0 10px var(--neon-color);}
+to{ text-shadow:0 0 20px var(--neon-color), 0 0 40px var(--neon-color);}
 }
 
 .menu{
 font-size:28px;
 cursor:pointer;
 transition:0.3s;
+color:var(--neon-color);
 }
 
 .menu:hover{
 transform:scale(1.2);
-color:#00ff00;
+color:var(--neon-color);
 }
 
-/* MENU COM ANIMAÇÃO */
 .menu-box{
 display:none;
 background:#051005;
 padding:20px;
-border:1px solid #00ff0033;
+border:1px solid var(--neon-color);
 position:relative;
 z-index:3;
 opacity:0;
@@ -135,49 +229,40 @@ transform:translateX(-10px);
 animation:fadeInItem 0.4s ease forwards;
 }
 
-.menu-box a:nth-child(1){
-animation-delay:0.1s;
-}
-.menu-box a:nth-child(2){
-animation-delay:0.2s;
-}
-.menu-box a:nth-child(3){
-animation-delay:0.3s;
-}
+.menu-box a:nth-child(1){ animation-delay:0.1s; }
+.menu-box a:nth-child(2){ animation-delay:0.2s; }
+.menu-box a:nth-child(3){ animation-delay:0.3s; }
 
 .menu-box a:hover{
-color:#00ff00;
+color:var(--neon-color);
 transform:translateX(6px) !important;
-text-shadow:0 0 10px #00ff00;
+text-shadow:0 0 10px var(--neon-color);
 }
 
-/* LINHA NEON MAIS VISÍVEL ENTRE REDES E LINGUAGEM */
 .menu-divider{
 width:100%;
 height:3px;
-background:linear-gradient(90deg, transparent, #00ff00, #00ff00, #00ff00, transparent);
+background:linear-gradient(90deg, transparent, var(--neon-color), var(--neon-color), var(--neon-color), transparent);
 margin:20px 0 15px 0;
-box-shadow:0 0 25px #00ff00, 0 0 50px #00ff00;
+box-shadow:0 0 25px var(--neon-color), 0 0 50px var(--neon-color);
 border-radius:2px;
 }
 
-/* TEXTO LINGUAGEM */
 .language-title{
-color:#00ff00;
+color:var(--neon-color);
 font-size:16px;
 font-weight:bold;
 letter-spacing:2px;
 margin-bottom:15px;
-text-shadow:0 0 15px #00ff00, 0 0 30px #00ff00;
+text-shadow:0 0 15px var(--neon-color), 0 0 30px var(--neon-color);
 animation:pulse 2s infinite alternate;
 }
 
 @keyframes pulse{
-from{ opacity:0.8; text-shadow:0 0 10px #00ff00; }
-to{ opacity:1; text-shadow:0 0 25px #00ff00, 0 0 45px #00ff00; }
+from{ opacity:0.8; text-shadow:0 0 10px var(--neon-color); }
+to{ opacity:1; text-shadow:0 0 25px var(--neon-color), 0 0 45px var(--neon-color); }
 }
 
-/* DROPDOWN DE LINGUAGENS - CORRIGIDO */
 .language-dropdown {
     position: relative;
     width: 100%;
@@ -187,8 +272,8 @@ to{ opacity:1; text-shadow:0 0 25px #00ff00, 0 0 45px #00ff00; }
 
 .dropdown-btn {
     background: transparent;
-    border: 2px solid #00ff00;
-    color: #00ff00;
+    border: 2px solid var(--neon-color);
+    color: var(--neon-color);
     padding: 12px 15px;
     border-radius: 8px;
     cursor: pointer;
@@ -206,16 +291,16 @@ to{ opacity:1; text-shadow:0 0 25px #00ff00, 0 0 45px #00ff00; }
 }
 
 .dropdown-btn:hover {
-    background: #00ff00;
+    background: var(--neon-color);
     color: #031003;
-    box-shadow: 0 0 30px #00ff00;
+    box-shadow: 0 0 30px var(--neon-color);
 }
 
 .dropdown-btn.active {
-    background: #00ff00;
+    background: var(--neon-color);
     color: #031003;
     font-weight: bold;
-    box-shadow: 0 0 30px #00ff00;
+    box-shadow: 0 0 30px var(--neon-color);
 }
 
 .dropdown-arrow {
@@ -233,7 +318,7 @@ to{ opacity:1; text-shadow:0 0 25px #00ff00, 0 0 45px #00ff00; }
     left: 0;
     width: 100%;
     background: #0a1f0a;
-    border: 2px solid #00ff00;
+    border: 2px solid var(--neon-color);
     border-radius: 8px;
     margin-top: 5px;
     overflow: hidden;
@@ -256,9 +341,9 @@ to{ opacity:1; text-shadow:0 0 25px #00ff00, 0 0 45px #00ff00; }
 }
 
 .dropdown-content::-webkit-scrollbar-thumb {
-    background: #00ff00;
+    background: var(--neon-color);
     border-radius: 4px;
-    box-shadow: 0 0 10px #00ff00;
+    box-shadow: 0 0 10px var(--neon-color);
 }
 
 .dropdown-content.show {
@@ -270,30 +355,28 @@ to{ opacity:1; text-shadow:0 0 25px #00ff00, 0 0 45px #00ff00; }
 .lang-option {
     padding: 12px 15px;
     cursor: pointer;
-    color: #00ff00;
+    color: var(--neon-color);
     transition: 0.3s;
-    border-bottom: 1px solid #00ff0033;
+    border-bottom: 1px solid var(--neon-color);
     text-align: left;
     box-sizing: border-box;
+    font-size: 14px;
 }
 
-.lang-option:last-child {
-    border-bottom: none;
-}
+.lang-option:last-child { border-bottom: none; }
 
 .lang-option:hover {
-    background: #00ff00;
+    background: var(--neon-color);
     color: #031003;
     transform: translateX(5px);
 }
 
 .lang-option.selected {
-    background: #00ff00;
+    background: var(--neon-color);
     color: #031003;
     font-weight: bold;
 }
 
-/* NOVO DROPDOWN PARA SELEÇÃO DE CATEGORIA */
 .category-dropdown {
     position: relative;
     width: 100%;
@@ -302,8 +385,8 @@ to{ opacity:1; text-shadow:0 0 25px #00ff00, 0 0 45px #00ff00; }
 
 .category-btn {
     background: transparent;
-    border: 2px solid #00ff00;
-    color: #00ff00;
+    border: 2px solid var(--neon-color);
+    color: var(--neon-color);
     padding: 12px 15px;
     border-radius: 8px;
     cursor: pointer;
@@ -317,16 +400,16 @@ to{ opacity:1; text-shadow:0 0 25px #00ff00, 0 0 45px #00ff00; }
 }
 
 .category-btn:hover {
-    background: #00ff00;
+    background: var(--neon-color);
     color: #031003;
-    box-shadow: 0 0 30px #00ff00;
+    box-shadow: 0 0 30px var(--neon-color);
 }
 
 .category-btn.active {
-    background: #00ff00;
+    background: var(--neon-color);
     color: #031003;
     font-weight: bold;
-    box-shadow: 0 0 30px #00ff00;
+    box-shadow: 0 0 30px var(--neon-color);
 }
 
 .category-content {
@@ -335,7 +418,7 @@ to{ opacity:1; text-shadow:0 0 25px #00ff00, 0 0 45px #00ff00; }
     left: 0;
     width: 100%;
     background: #0a1f0a;
-    border: 2px solid #00ff00;
+    border: 2px solid var(--neon-color);
     border-radius: 8px;
     margin-top: 5px;
     overflow: hidden;
@@ -356,46 +439,89 @@ to{ opacity:1; text-shadow:0 0 25px #00ff00, 0 0 45px #00ff00; }
 .category-option {
     padding: 12px 15px;
     cursor: pointer;
-    color: #00ff00;
+    color: var(--neon-color);
     transition: 0.3s;
-    border-bottom: 1px solid #00ff0033;
+    border-bottom: 1px solid var(--neon-color);
     text-align: left;
     box-sizing: border-box;
 }
 
-.category-option:last-child {
-    border-bottom: none;
-}
+.category-option:last-child { border-bottom: none; }
 
 .category-option:hover {
-    background: #00ff00;
+    background: var(--neon-color);
     color: #031003;
     transform: translateX(5px);
 }
 
 .category-option.selected {
-    background: #00ff00;
+    background: var(--neon-color);
     color: #031003;
     font-weight: bold;
 }
 
-/* SELETOR DE IDIOMAS (antigo, escondido) */
-.language-selector{
-display:none;
+.theme-toggle-container {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px solid var(--neon-color);
 }
+
+.theme-toggle-title {
+    color: var(--neon-color);
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-shadow: 0 0 5px var(--neon-color);
+}
+
+.theme-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.theme-btn {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: 0.3s;
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+}
+
+.theme-btn:hover {
+    transform: scale(1.1);
+    border-color: white;
+    box-shadow: 0 0 10px white;
+}
+
+.theme-btn.active {
+    border-color: white;
+    transform: scale(1.1);
+    box-shadow: 0 0 15px white;
+}
+
+.theme-original { background: radial-gradient(circle at top, #0a2f0a, #00ff00, #031003); }
+.theme-br { background: linear-gradient(135deg, #009c3b, #ffdf00, #002776); }
+.theme-us { background: linear-gradient(135deg, #002868, #ffffff, #bf0a30); }
+.theme-vn { background: linear-gradient(135deg, #da251d, #ffff00); }
+.theme-de { background: linear-gradient(135deg, #000000, #dd0000, #ffcc00); }
+.theme-ar { background: linear-gradient(135deg, #006c35, #ffffff, #006c35); }
 
 @keyframes fadeInItem{
-0%{
-opacity:0;
-transform:translateX(-10px);
-}
-100%{
-opacity:1;
-transform:translateX(0);
-}
+0%{ opacity:0; transform:translateX(-10px); }
+100%{ opacity:1; transform:translateX(0); }
 }
 
-/* HERO */
+.category-section {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.hidden-category {
+    display: none !important;
+}
 
 .hero{
 padding:70px 20px;
@@ -407,23 +533,22 @@ z-index:2;
 font-size:40px;
 margin-bottom:10px;
 animation:floatText 3s ease-in-out infinite;
-text-shadow:0 0 15px #00ff00;
-color:#ccffcc;
+text-shadow:0 0 15px var(--neon-color);
+color:var(--neon-color);
 }
 
 @keyframes floatText{
-0%{transform:translateY(0px);}
-50%{transform:translateY(-8px);}
-100%{transform:translateY(0px);}
+0%{ transform:translateY(0px); }
+50%{ transform:translateY(-8px); }
+100%{ transform:translateY(0px); }
 }
 
 .hero p{
 opacity:0.9;
-color:#aaffaa;
+color:var(--text-secondary);
 font-size:18px;
 }
 
-/* SEÇÃO DE CANAIS */
 .canais-section{
 margin-top:40px;
 display:flex;
@@ -447,45 +572,43 @@ margin:0 auto;
 flex:1;
 min-width:250px;
 max-width:350px;
-background:#0a1f0a;
-border:2px solid #00ff0033;
+background:var(--card-bg);
+border:2px solid var(--card-border);
 border-radius:20px;
 padding:25px 20px;
-box-shadow:0 0 30px #00ff0033;
+box-shadow:0 0 30px var(--card-border);
 cursor:pointer;
 transition:0.3s;
 }
 
 .canal-card:hover{
 transform:scale(1.05);
-border-color:#00ff00;
-box-shadow:0 0 50px #00ff00;
+border-color:var(--neon-color);
+box-shadow:0 0 50px var(--neon-color);
 }
 
 .canal-nome{
 font-size:24px;
-color:#00ff00;
+color:var(--neon-color);
 margin-bottom:10px;
-text-shadow:0 0 10px #00ff00;
+text-shadow:0 0 10px var(--neon-color);
 }
 
 .canal-sub{
 font-size:16px;
-color:#aaffaa;
+color:var(--text-secondary);
 opacity:0.9;
 }
 
-/* LINHA SEPARADORA */
 .separator{
 width:80%;
 max-width:600px;
 height:2px;
-background:linear-gradient(90deg, transparent, #00ff00, #00ff00, #00ff00, transparent);
+background:linear-gradient(90deg, transparent, var(--neon-color), var(--neon-color), var(--neon-color), transparent);
 margin:30px auto;
-box-shadow:0 0 20px #00ff00;
+box-shadow:0 0 20px var(--neon-color);
 }
 
-/* CARDS DE EXECUTORES */
 .executors-grid{
 display:flex;
 flex-direction:column;
@@ -498,18 +621,18 @@ width:100%;
 .executor-card{
 width:90%;
 max-width:500px;
-background:#0a1f0a;
-border:2px solid #00ff0033;
+background:var(--card-bg);
+border:2px solid var(--card-border);
 border-radius:20px;
 padding:20px;
-box-shadow:0 0 30px #00ff0033;
+box-shadow:0 0 30px var(--card-border);
 }
 
 .executor-title{
 font-size:24px;
-color:#00ff00;
+color:var(--neon-color);
 margin-bottom:15px;
-text-shadow:0 0 10px #00ff00;
+text-shadow:0 0 10px var(--neon-color);
 }
 
 .download-btn{
@@ -519,10 +642,10 @@ border:none;
 border-radius:12px;
 cursor:pointer;
 color:white;
-background:linear-gradient(45deg,#006400,#00aa00);
+background:linear-gradient(45deg, var(--btn-gradient-start), var(--btn-gradient-end));
 transition:0.3s;
-box-shadow:0 0 20px #00ff00;
-border:1px solid #aaffaa;
+box-shadow:0 0 20px var(--neon-color);
+border:1px solid var(--text-secondary);
 width:100%;
 font-weight:bold;
 letter-spacing:1px;
@@ -531,17 +654,16 @@ margin-bottom:20px;
 
 .download-btn:hover{
 transform:scale(1.02);
-box-shadow:0 0 35px #00ff00;
-background:linear-gradient(45deg,#008000,#00ff00);
+box-shadow:0 0 35px var(--neon-color);
+background:linear-gradient(45deg, var(--btn-hover-start), var(--btn-hover-end));
 }
 
-/* IMAGEM DO EXECUTOR */
 .executor-image{
 width:100%;
 height:200px;
 border-radius:15px;
-border:2px solid #00ff00;
-box-shadow:0 0 40px #00ff00;
+border:2px solid var(--neon-color);
+box-shadow:0 0 40px var(--neon-color);
 background:linear-gradient(145deg, #0a3a0a, #052005);
 display:flex;
 align-items:center;
@@ -557,167 +679,436 @@ object-fit:cover;
 display:block;
 }
 
-/* SEÇÃO ROBLOX LITE */
-.roblox-section{
-margin:40px auto;
-width:90%;
-max-width:500px;
+.scripts-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    margin: 30px 0;
+    width: 100%;
 }
 
-.roblox-card{
-background:#0a1f0a;
-border:2px solid #00ff0033;
-border-radius:20px;
-padding:20px;
-box-shadow:0 0 30px #00ff0033;
+.search-script-section {
+    width: 90%;
+    max-width: 800px;
+    margin: 30px auto;
 }
 
-.roblox-title{
-font-size:28px;
-color:#00ff00;
-margin-bottom:15px;
-text-shadow:0 0 15px #00ff00;
+.search-container {
+    background: var(--card-bg);
+    border: 2px solid var(--card-border);
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 0 30px var(--card-border);
 }
 
-.roblox-image{
-width:100%;
-height:200px;
-border-radius:15px;
-border:2px solid #00ff00;
-box-shadow:0 0 40px #00ff00;
-background:linear-gradient(145deg, #0a3a0a, #052005);
-margin-bottom:20px;
-overflow:hidden;
+.search-box {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
-.roblox-image img{
-width:100%;
-height:100%;
-object-fit:cover;
-display:block;
+.search-input {
+    flex: 1;
+    min-width: 250px;
+    padding: 15px 20px;
+    background: var(--input-bg);
+    border: 2px solid var(--neon-color);
+    border-radius: 25px;
+    color: var(--neon-color);
+    font-size: 16px;
+    outline: none;
+    transition: 0.3s;
 }
 
-.roblox-btn{
-padding:16px 35px;
-font-size:20px;
-border:none;
-border-radius:12px;
-cursor:pointer;
-color:white;
-background:linear-gradient(45deg,#006400,#00aa00);
-transition:0.3s;
-box-shadow:0 0 20px #00ff00;
-border:1px solid #aaffaa;
-width:100%;
-font-weight:bold;
-letter-spacing:1px;
-margin-bottom:0;
+.search-input:focus {
+    box-shadow: 0 0 20px var(--neon-color);
+    border-color: var(--neon-color);
 }
 
-.roblox-btn:hover{
-transform:scale(1.02);
-box-shadow:0 0 35px #00ff00;
-background:linear-gradient(45deg,#008000,#00ff00);
+.search-input::placeholder {
+    color: var(--neon-color);
+    opacity: 0.6;
 }
 
-/* SEÇÃO SCRIPT GT */
-.script-section{
-margin:40px auto;
-width:90%;
-max-width:500px;
+.search-btn {
+    padding: 15px 30px;
+    background: linear-gradient(45deg, var(--btn-gradient-start), var(--btn-gradient-end));
+    border: 2px solid var(--neon-color);
+    border-radius: 25px;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: 0.3s;
+    box-shadow: 0 0 10px var(--neon-color);
 }
 
-.script-card{
-background:#0a1f0a;
-border:2px solid #00ff0033;
-border-radius:20px;
-padding:20px;
-box-shadow:0 0 30px #00ff0033;
+.search-btn:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 25px var(--neon-color);
 }
 
-.script-title{
-font-size:28px;
-color:#00ff00;
-margin-bottom:15px;
-text-shadow:0 0 15px #00ff00;
+.loading {
+    text-align: center;
+    padding: 40px;
+    color: var(--neon-color);
+    font-size: 18px;
 }
 
-.script-image{
-width:100%;
-height:200px;
-border-radius:15px;
-border:2px solid #00ff00;
-box-shadow:0 0 40px #00ff00;
-background:linear-gradient(145deg, #0a3a0a, #052005);
-margin-bottom:20px;
-overflow:hidden;
+.results-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-height: 600px;
+    overflow-y: auto;
+    padding: 5px;
 }
 
-.script-image img{
-width:100%;
-height:100%;
-object-fit:cover;
-display:block;
+.results-grid::-webkit-scrollbar {
+    width: 8px;
 }
 
-.script-btn{
-padding:16px 35px;
-font-size:20px;
-border:none;
-border-radius:12px;
-cursor:pointer;
-color:white;
-background:linear-gradient(45deg,#006400,#00aa00);
-transition:0.3s;
-box-shadow:0 0 20px #00ff00;
-border:1px solid #aaffaa;
-width:100%;
-font-weight:bold;
-letter-spacing:1px;
-margin-bottom:0;
+.results-grid::-webkit-scrollbar-track {
+    background: var(--card-bg);
+    border-radius: 4px;
 }
 
-.script-btn:hover{
-transform:scale(1.02);
-box-shadow:0 0 35px #00ff00;
-background:linear-gradient(45deg,#008000,#00ff00);
+.results-grid::-webkit-scrollbar-thumb {
+    background: var(--neon-color);
+    border-radius: 4px;
+    box-shadow: 0 0 10px var(--neon-color);
 }
 
-/* ESTILO PARA ÁRABE (RTL) */
+.result-card {
+    background: var(--result-bg);
+    border: 1px solid var(--result-border);
+    border-radius: 15px;
+    padding: 18px;
+    transition: 0.3s;
+    text-align: left;
+}
+
+.result-card:hover {
+    border-color: var(--result-hover-border);
+    box-shadow: 0 0 20px var(--neon-color);
+}
+
+.result-header {
+    margin-bottom: 12px;
+}
+
+.result-name {
+    font-size: 20px;
+    color: var(--neon-color);
+    font-weight: bold;
+    text-shadow: 0 0 5px var(--neon-color);
+    text-align: left;
+}
+
+.result-script {
+    background: #031003;
+    border-radius: 10px;
+    padding: 12px;
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    color: var(--text-secondary);
+    text-align: left;
+    white-space: pre-wrap;
+    word-break: break-all;
+    max-height: 100px;
+    overflow-y: auto;
+    margin-bottom: 15px;
+    user-select: none;
+    -webkit-user-select: none;
+    pointer-events: none;
+}
+
+.result-script::-webkit-scrollbar {
+    width: 5px;
+}
+
+.result-script::-webkit-scrollbar-track {
+    background: #0a1f0a;
+}
+
+.result-script::-webkit-scrollbar-thumb {
+    background: var(--neon-color);
+    border-radius: 3px;
+}
+
+/* BOTÕES CENTRALIZADOS E DO MESMO TAMANHO */
+.result-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.result-copy-btn, .result-download-btn, .result-raw-btn {
+    padding: 10px 20px;
+    min-width: 100px;
+    background: var(--copy-btn-bg);
+    border: 2px solid var(--neon-color);
+    border-radius: 25px;
+    color: white;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: bold;
+    transition: 0.3s;
+    box-shadow: 0 0 8px var(--neon-color);
+    text-align: center;
+    display: inline-block;
+}
+
+.result-copy-btn:hover, .result-download-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px var(--neon-color);
+}
+
+.result-raw-btn {
+    background: var(--raw-btn-bg);
+}
+
+.result-raw-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px var(--neon-color);
+}
+
+.no-results {
+    text-align: center;
+    padding: 40px;
+    color: var(--text-secondary);
+    font-size: 18px;
+}
+
+.no-results span {
+    color: var(--neon-color);
+    font-weight: bold;
+}
+
+.script-card-script {
+    width: 90%;
+    max-width: 600px;
+    background: var(--card-bg);
+    border: 2px solid var(--card-border);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 0 30px var(--card-border);
+    transition: 0.3s;
+}
+
+.script-card-script:hover {
+    border-color: var(--neon-color);
+    box-shadow: 0 0 40px var(--neon-color);
+}
+
+.script-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.script-name {
+    font-size: 24px;
+    color: var(--neon-color);
+    text-shadow: 0 0 10px var(--neon-color);
+    text-align: left;
+}
+
+.script-game {
+    font-size: 14px;
+    color: var(--text-secondary);
+    background: rgba(0, 255, 0, 0.1);
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 1px solid var(--neon-color);
+}
+
+.script-image-top {
+    width: 100%;
+    height: 200px;
+    border-radius: 15px;
+    border: 2px solid var(--neon-color);
+    box-shadow: 0 0 30px var(--neon-color);
+    background: linear-gradient(145deg, #0a3a0a, #052005);
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.script-image-top img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.script-content-area {
+    display: flex;
+    gap: 15px;
+    background: #031003;
+    border-radius: 12px;
+    border: 1px solid var(--card-border);
+    overflow: hidden;
+    margin-top: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.script-text {
+    flex: 1;
+    padding: 15px;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    color: var(--text-secondary);
+    background: #052005;
+    text-align: left;
+    white-space: pre-wrap;
+    word-break: break-all;
+    max-height: 150px;
+    overflow-y: auto;
+    line-height: 1.5;
+    user-select: none;
+    -webkit-user-select: none;
+    pointer-events: none;
+}
+
+.script-text::-webkit-scrollbar {
+    width: 6px;
+}
+
+.script-text::-webkit-scrollbar-track {
+    background: #0a1f0a;
+}
+
+.script-text::-webkit-scrollbar-thumb {
+    background: var(--neon-color);
+    border-radius: 3px;
+}
+
+.copy-btn {
+    padding: 10px 20px;
+    min-width: 100px;
+    background: var(--copy-btn-bg);
+    border: 2px solid var(--neon-color);
+    border-radius: 25px;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: 0.3s;
+    box-shadow: 0 0 10px var(--neon-color);
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+.copy-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px var(--neon-color);
+    background: linear-gradient(45deg, var(--btn-hover-start), var(--btn-hover-end));
+}
+
+.copy-btn.copied {
+    background: var(--btn-gradient-start);
+    box-shadow: 0 0 30px var(--neon-color);
+}
+
+.roblox-section {
+    margin: 20px auto;
+    width: 90%;
+    max-width: 500px;
+}
+
+.roblox-card {
+    background: var(--card-bg);
+    border: 2px solid var(--card-border);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 0 30px var(--card-border);
+}
+
+.roblox-title {
+    font-size: 28px;
+    color: var(--neon-color);
+    margin-bottom: 15px;
+    text-shadow: 0 0 15px var(--neon-color);
+}
+
+.roblox-image {
+    width: 100%;
+    height: 200px;
+    border-radius: 15px;
+    border: 2px solid var(--neon-color);
+    box-shadow: 0 0 40px var(--neon-color);
+    background: linear-gradient(145deg, #0a3a0a, #052005);
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.roblox-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.roblox-btn {
+    padding: 16px 35px;
+    font-size: 20px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    color: white;
+    background: linear-gradient(45deg, var(--btn-gradient-start), var(--btn-gradient-end));
+    transition: 0.3s;
+    box-shadow: 0 0 20px var(--neon-color);
+    border: 1px solid var(--text-secondary);
+    width: 100%;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.roblox-btn:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 35px var(--neon-color);
+}
+
+footer {
+    margin-top: 50px;
+    opacity: 0.7;
+    font-size: 14px;
+    padding: 20px;
+    border-top: 1px solid var(--card-border);
+    color: var(--text-secondary);
+    position: relative;
+    z-index: 2;
+}
+
 html[lang="ar"] {
-direction: rtl;
+    direction: rtl;
 }
 
-html[lang="ar"] .menu-box a:hover{
-transform:translateX(-6px) !important;
+html[lang="ar"] .menu-box a:hover {
+    transform: translateX(-6px) !important;
 }
 
 html[lang="ar"] .lang-option:hover {
     transform: translateX(-5px);
 }
 
-footer{
-margin-top:50px;
-opacity:0.7;
-font-size:14px;
-padding:20px;
-border-top:1px solid #00ff0033;
-color:#aaffaa;
-position:relative;
-z-index:2;
+html[lang="ar"] .result-buttons {
+    justify-content: center;
 }
-
-/* Classe para esconder elementos */
-.hidden-category {
-    display: none !important;
-}
-
 </style>
 </head>
-
 <body>
 
-<!-- BOLHAS VERDE NEON - MOVENDO DE UM LADO PARA OUTRO -->
 <div class="bubbles" id="bubbles"></div>
 
 <div class="content">
@@ -731,52 +1122,58 @@ z-index:2;
 <a href="#" onclick="abrirCanal2()" id="linkCanal2">CANAL GT_GTVZ MODDED</a>
 <a href="#" onclick="abrirDiscord()" id="linkDiscord">DISCORD OFC</a>
 
-<!-- LINHA NEON MAIS VISÍVEL -->
 <div class="menu-divider"></div>
 
-<!-- NOVO DROPDOWN PARA SELEÇÃO DE CATEGORIA -->
 <div class="category-dropdown">
     <div class="category-btn" onclick="toggleCategoryDropdown()">
-        <span id="selectedCategory">📦 EXECUTORES</span>
+        <span id="selectedCategory">EXECUTORES</span>
         <span class="dropdown-arrow">▼</span>
     </div>
     <div class="category-content" id="categoryContent">
-        <div class="category-option selected" onclick="selectCategory('executors')">📦 EXECUTORES</div>
-        <div class="category-option" onclick="selectCategory('roblox')">🎮 ROBLOX LITE</div>
-        <div class="category-option" onclick="selectCategory('script')">💻 SCRIPT GT</div>
+        <div class="category-option selected" onclick="selectCategory('executors')">EXECUTORES</div>
+        <div class="category-option" onclick="selectCategory('roblox')">ROBLOX LITE</div>
+        <div class="category-option" onclick="selectCategory('script')">SCRIPT GT</div>
+        <div class="category-option" onclick="selectCategory('search')">PESQUISAR SCRIPT</div>
     </div>
 </div>
 
-<!-- LINHA NEON MAIS VISÍVEL -->
 <div class="menu-divider"></div>
 
-<!-- TEXTO LINGUAGEM -->
 <div class="language-title">LINGUAGEM</div>
 
-<!-- DROPDOWN DE LINGUAGENS - CORRIGIDO -->
 <div class="language-dropdown">
     <div class="dropdown-btn" onclick="toggleDropdown()">
-        <span id="selectedLanguage">🇧🇷 PORTUGUÊS</span>
+        <span id="selectedLanguage">PORTUGUÊS</span>
         <span class="dropdown-arrow">▼</span>
     </div>
     <div class="dropdown-content" id="dropdownContent">
-        <div class="lang-option selected" onclick="selectLanguage('pt')">🇧🇷 PORTUGUÊS</div>
-        <div class="lang-option" onclick="selectLanguage('en')">🇺🇸 ENGLISH</div>
-        <div class="lang-option" onclick="selectLanguage('vi')">🇻🇳 VIÁTINA</div>
-        <div class="lang-option" onclick="selectLanguage('de')">🇩🇪 ALEMANHA</div>
-        <div class="lang-option" onclick="selectLanguage('ar')">🇸🇦 العربية</div>
+        <div class="lang-option selected" onclick="selectLanguage('pt')">PORTUGUÊS</div>
+        <div class="lang-option" onclick="selectLanguage('en')">ENGLISH</div>
+        <div class="lang-option" onclick="selectLanguage('vi')">TIẾNG VIỆT</div>
+        <div class="lang-option" onclick="selectLanguage('de')">DEUTSCH</div>
+        <div class="lang-option" onclick="selectLanguage('ar')">العربية</div>
+    </div>
+</div>
+
+<div class="theme-toggle-container">
+    <div class="theme-toggle-title">TEMA</div>
+    <div class="theme-buttons">
+        <div class="theme-btn theme-original" onclick="changeTheme('original')" id="themeOriginal" title="Original"></div>
+        <div class="theme-btn theme-br" onclick="changeTheme('br')" id="themeBr" title="Brasil"></div>
+        <div class="theme-btn theme-us" onclick="changeTheme('us')" id="themeUs" title="EUA"></div>
+        <div class="theme-btn theme-vn" onclick="changeTheme('vn')" id="themeVn" title="Vietnã"></div>
+        <div class="theme-btn theme-de" onclick="changeTheme('de')" id="themeDe" title="Alemanha"></div>
+        <div class="theme-btn theme-ar" onclick="changeTheme('ar')" id="themeAr" title="Arábia"></div>
     </div>
 </div>
 </div>
 
 <section class="hero">
-
 <h1 id="tituloPrincipal">GTVZ MODDED</h1>
 <p id="descricaoPrincipal">ESSE SITE HOSPEDA TODOS SITE OFICIAL DO GTVZ MODDED</p>
 
-<!-- CARDS DOS CANAIS -->
 <div class="canais-section">
-<h2 style="color:#00ff00; margin-bottom:10px;" id="tituloCanais">MEUS CANAIS</h2>
+<h2 style="color:var(--neon-color); margin-bottom:10px;" id="tituloCanais">MEUS CANAIS</h2>
 <div class="canais-container">
 <div class="canal-card" onclick="abrirCanal1()">
 <div class="canal-nome">GT_MINGUI</div>
@@ -789,86 +1186,57 @@ z-index:2;
 </div>
 </div>
 
-<!-- LINHA SEPARADORA ACIMA DOS EXECUTORES -->
 <div class="separator"></div>
 
-<!-- SEÇÃO EXECUTORES (visível por padrão) -->
 <div id="executorsSection" class="category-section">
 <div class="executors-grid">
-
-<!-- EXECUTOR V1 -->
 <div class="executor-card">
-<div class="executor-image">
-<img src="https://i.postimg.cc/DzSX6Lf3/file-00000000c3cc720eb507e969ef6e219d.png">
-</div>
+<div class="executor-image"><img src="https://i.postimg.cc/DzSX6Lf3/file-00000000c3cc720eb507e969ef6e219d.png"></div>
 <div class="executor-title" id="executor1">SITE EXECUTO MODIFICADO NORMAL</div>
-<button class="download-btn" onclick="baixar('v1')" id="btnBaixar1">
-⬇️ BAIXAR AGORA
-</button>
+<button class="download-btn" onclick="baixar('v1')" id="btnBaixar1">BAIXAR AGORA</button>
 </div>
-
-<!-- EXECUTOR V2 KEYLESS -->
 <div class="executor-card">
-<div class="executor-image">
-<img src="https://i.postimg.cc/nVSMRMWR/file-00000000333c720e8eaea601e4770d9f.png">
-</div>
+<div class="executor-image"><img src="https://i.postimg.cc/nVSMRMWR/file-00000000333c720e8eaea601e4770d9f.png"></div>
 <div class="executor-title" id="executor2">SITE EXECUTO MODIFICADO VNG</div>
-<button class="download-btn" onclick="baixar('v2')" id="btnBaixar2">
-⬇️ BAIXAR AGORA
-</button>
+<button class="download-btn" onclick="baixar('v2')" id="btnBaixar2">BAIXAR AGORA</button>
 </div>
-
-<!-- EXECUTOR V3 PREMIUM -->
 <div class="executor-card">
-<div class="executor-image">
-<img src="https://i.postimg.cc/Wb6mB9NY/file-000000002bb0720eac4136ad88338532.png" alt="GTVZ V3">
-</div>
+<div class="executor-image"><img src="https://i.postimg.cc/W41WgjW9/file-000000006d5c71f582716593daf5f811.png"></div>
 <div class="executor-title" id="executor3">SITE EXECUTO ORIGINAL</div>
-<button class="download-btn" onclick="baixar('v3')" id="btnBaixar3">
-⬇️ BAIXAR AGORA
-</button>
+<button class="download-btn" onclick="baixar('v3')" id="btnBaixar3">BAIXAR AGORA</button>
 </div>
-
-<!-- SCRIPT GENERATOR -->
 <div class="executor-card">
-<div class="executor-image">
-<img src="https://i.postimg.cc/Znfb3tPf/file-0000000025f071f598654ef7618e92aa.png" alt="GTVZ GEN">
-</div>
+<div class="executor-image"><img src="https://i.postimg.cc/tC095mHj/file-00000000686c71f5bc4b1b7e5aad1d39.png"></div>
 <div class="executor-title" id="executor4">SITE EXECUTO ORIGINAL VNG</div>
-<button class="download-btn" onclick="baixar('v4')" id="btnBaixar4">
-⬇️ BAIXAR AGORA
-</button>
+<button class="download-btn" onclick="baixar('v4')" id="btnBaixar4">BAIXAR AGORA</button>
 </div>
-
 </div>
 </div>
 
-<!-- SEÇÃO ROBLOX LITE (escondida por padrão) -->
 <div id="robloxSection" class="category-section hidden-category">
 <div class="roblox-section">
 <div class="roblox-card">
-<div class="roblox-image">
-<img src="https://i.postimg.cc/Kc6JMc5D/file-00000000449c720eb3931b5e06030041.png" alt="Roblox Lite">
-</div>
+<div class="roblox-image"><img src="https://i.postimg.cc/pTNs78VF/file-000000001ecc720eabf31fa46f3cbb49.png"></div>
 <div class="roblox-title" id="robloxTitulo">ROBLOX LITE</div>
-<button class="roblox-btn" onclick="baixarRoblox()" id="btnRoblox">
-⬇️ BAIXAR ROBLOX LITE
-</button>
+<button class="roblox-btn" onclick="baixarRoblox()" id="btnRoblox">BAIXAR ROBLOX LITE</button>
 </div>
 </div>
 </div>
 
-<!-- SEÇÃO SCRIPT GT (escondida por padrão) -->
 <div id="scriptSection" class="category-section hidden-category">
-<div class="script-section">
-<div class="script-card">
-<div class="script-image">
-<img src="https://i.postimg.cc/Znfb3tPf/file-0000000025f071f598654ef7618e92aa.png" alt="Script GT">
+<div class="scripts-grid" id="scriptsContainer"></div>
 </div>
-<div class="script-title" id="scriptTitulo">SCRIPT GT</div>
-<button class="script-btn" onclick="baixarScript()" id="btnScript">
-⬇️ BAIXAR SCRIPT GT
-</button>
+
+<div id="searchSection" class="category-section hidden-category">
+<div class="search-script-section">
+<div class="search-container">
+<div class="search-box">
+<input type="text" class="search-input" id="searchInput" placeholder="DIGITE O NOME DO SCRIPT..." onkeypress="if(event.key === 'Enter') buscarScripts()">
+<button class="search-btn" onclick="buscarScripts()" id="searchButton">PESQUISAR</button>
+</div>
+<div id="searchResults" class="results-grid">
+<div class="no-results">PESQUISAR SCRIPTS</div>
+</div>
 </div>
 </div>
 </div>
@@ -876,149 +1244,499 @@ z-index:2;
 </section>
 
 <footer>
-<span id="footerTexto">GTVZ MODDED 2026 - Todos os direitos reservados</span><br>
-<span style="color:#00ff00; font-size:12px;">By GTVZ</span>
+<span id="footerTexto">GTVZ MODDED 2026 - TODOS OS DIREITOS RESERVADOS</span><br>
+<span style="color:var(--neon-color); font-size:12px;">BY GTVZ</span>
 </footer>
 </div>
 
 <script>
-// GERAR BOLHAS QUE SE MOVEM DE UM LADO PARA OUTRO - SEM DELAY
+const scriptsData = [
+    {
+        nome: "GTVZ HUB UNI",
+        jogo: "UNIVERSAL",
+        script: `loadstring(game:HttpGet("https://raw.githubusercontent.com/gtvz/gtvzhub/main/uni.lua"))()`
+    },
+    {
+        nome: "CLIPESE TRUE HUB",
+        jogo: "BLOX FRUITS",
+        script: `loadstring(game:HttpGet("https://raw.githubusercontent.com/clipese/truehub/main/bloxfruits.lua"))()`
+    },
+    {
+        nome: "MINGUI HUB",
+        jogo: "NATURAL DISASTER",
+        script: `loadstring(game:HttpGet("https://raw.githubusercontent.com/mingui/hub/main/natural.lua"))()`
+    },
+    {
+        nome: "GTFLUP",
+        jogo: "MEME SEA",
+        script: `loadstring(game:HttpGet("https://raw.githubusercontent.com/gtflup/memesea/main/script.lua"))()`
+    },
+    {
+        nome: "GTVZ HUB",
+        jogo: "PECA DE MARINHEIRO",
+        script: `loadstring(game:HttpGet("https://raw.githubusercontent.com/gtvz/hub/main/marinheiro.lua"))()`
+    }
+];
+
+const translations = {
+    pt: {
+        linkCanal1: 'CANAL GT_MINGUI',
+        linkCanal2: 'CANAL GT_GTVZ MODDED',
+        linkDiscord: 'DISCORD OFC',
+        tituloPrincipal: 'GTVZ MODDED',
+        descricaoPrincipal: 'ESSE SITE HOSPEDA TODOS SITE OFICIAL DO GTVZ MODDED',
+        tituloCanais: 'MEUS CANAIS',
+        inscreva1: 'SE-INSCREVA',
+        inscreva2: 'SE-INSCREVA',
+        executor1: 'SITE EXECUTO MODIFICADO NORMAL',
+        executor2: 'SITE EXECUTO MODIFICADO VNG',
+        executor3: 'SITE EXECUTO ORIGINAL',
+        executor4: 'SITE EXECUTO ORIGINAL VNG',
+        btnBaixar: 'BAIXAR AGORA',
+        robloxTitulo: 'ROBLOX LITE',
+        btnRoblox: 'BAIXAR ROBLOX LITE',
+        footerTexto: 'GTVZ MODDED 2026 - TODOS OS DIREITOS RESERVADOS',
+        copyText: 'COPIAR',
+        copiedText: 'COPIADO',
+        categoryExecutors: 'EXECUTORES',
+        categoryRoblox: 'ROBLOX LITE',
+        categoryScript: 'SCRIPT GT',
+        categorySearch: 'PESQUISAR SCRIPT',
+        searchPlaceholder: 'DIGITE O NOME DO SCRIPT...',
+        searchButton: 'PESQUISAR',
+        searchDefault: 'PESQUISAR SCRIPTS',
+        loading: 'CARREGANDO SCRIPTS...',
+        noResults: 'NENHUM RESULTADO ENCONTRADO PARA',
+        copy: 'COPIAR',
+        copied: 'COPIADO',
+        download: 'DOWNLOAD',
+        raw: 'RAW',
+        language: 'LINGUAGEM',
+        theme: 'TEMA'
+    },
+    en: {
+        linkCanal1: 'CHANNEL GT_MINGUI',
+        linkCanal2: 'CHANNEL GT_GTVZ MODDED',
+        linkDiscord: 'OFFICIAL DISCORD',
+        tituloPrincipal: 'GTVZ MODDED',
+        descricaoPrincipal: 'THIS SITE HOSTS ALL OFFICIAL GTVZ MODDED SITES',
+        tituloCanais: 'MY CHANNELS',
+        inscreva1: 'SUBSCRIBE',
+        inscreva2: 'SUBSCRIBE',
+        executor1: 'MODIFIED EXECUTOR SITE NORMAL',
+        executor2: 'MODIFIED EXECUTOR SITE VNG',
+        executor3: 'ORIGINAL EXECUTOR SITE',
+        executor4: 'ORIGINAL EXECUTOR SITE VNG',
+        btnBaixar: 'DOWNLOAD NOW',
+        robloxTitulo: 'ROBLOX LITE',
+        btnRoblox: 'DOWNLOAD ROBLOX LITE',
+        footerTexto: 'GTVZ MODDED 2026 - ALL RIGHTS RESERVED',
+        copyText: 'COPY',
+        copiedText: 'COPIED',
+        categoryExecutors: 'EXECUTORS',
+        categoryRoblox: 'ROBLOX LITE',
+        categoryScript: 'SCRIPT GT',
+        categorySearch: 'SEARCH SCRIPT',
+        searchPlaceholder: 'ENTER SCRIPT NAME...',
+        searchButton: 'SEARCH',
+        searchDefault: 'SEARCH SCRIPTS',
+        loading: 'LOADING SCRIPTS...',
+        noResults: 'NO RESULTS FOUND FOR',
+        copy: 'COPY',
+        copied: 'COPIED',
+        download: 'DOWNLOAD',
+        raw: 'RAW',
+        language: 'LANGUAGE',
+        theme: 'THEME'
+    },
+    vi: {
+        linkCanal1: 'KÊNH GT_MINGUI',
+        linkCanal2: 'KÊNH GT_GTVZ MODDED',
+        linkDiscord: 'DISCORD CHÍNH THỨC',
+        tituloPrincipal: 'GTVZ MODDED',
+        descricaoPrincipal: 'TRANG WEB NÀY LƯU TRỮ TẤT CẢ CÁC TRANG WEB CHÍNH THỨC CỦA GTVZ MODDED',
+        tituloCanais: 'KÊNH CỦA TÔI',
+        inscreva1: 'ĐĂNG KÝ',
+        inscreva2: 'ĐĂNG KÝ',
+        executor1: 'TRANG EXECUTOR ĐÃ SỬA ĐỔI BÌNH THƯỜNG',
+        executor2: 'TRANG EXECUTOR ĐÃ SỬA ĐỔI VNG',
+        executor3: 'TRANG EXECUTOR GỐC',
+        executor4: 'TRANG EXECUTOR GỐC VNG',
+        btnBaixar: 'TẢI XUỐNG NGAY',
+        robloxTitulo: 'ROBLOX LITE',
+        btnRoblox: 'TẢI ROBLOX LITE',
+        footerTexto: 'GTVZ MODDED 2026 - TẤT CẢ CÁC QUYỀN ĐƯỢC BẢO LƯU',
+        copyText: 'SAO CHÉP',
+        copiedText: 'ĐÃ SAO CHÉP',
+        categoryExecutors: 'EXECUTORS',
+        categoryRoblox: 'ROBLOX LITE',
+        categoryScript: 'SCRIPT GT',
+        categorySearch: 'TÌM SCRIPT',
+        searchPlaceholder: 'NHẬP TÊN SCRIPT...',
+        searchButton: 'TÌM KIẾM',
+        searchDefault: 'TÌM SCRIPT',
+        loading: 'ĐANG TẢI SCRIPT...',
+        noResults: 'KHÔNG TÌM THẤY KẾT QUẢ CHO',
+        copy: 'SAO CHÉP',
+        copied: 'ĐÃ SAO CHÉP',
+        download: 'TẢI XUỐNG',
+        raw: 'THÔ',
+        language: 'NGÔN NGỮ',
+        theme: 'CHỦ ĐỀ'
+    },
+    de: {
+        linkCanal1: 'KANAL GT_MINGUI',
+        linkCanal2: 'KANAL GT_GTVZ MODDED',
+        linkDiscord: 'OFFIZIELLER DISCORD',
+        tituloPrincipal: 'GTVZ MODDED',
+        descricaoPrincipal: 'DIESE WEBSITE HOSTET ALLE OFFIZIELLEN GTVZ MODDED WEBSITES',
+        tituloCanais: 'MEINE KANÄLE',
+        inscreva1: 'ABONNIEREN',
+        inscreva2: 'ABONNIEREN',
+        executor1: 'MODIFIZIERTE EXECUTOR SEITE NORMAL',
+        executor2: 'MODIFIZIERTE EXECUTOR SEITE VNG',
+        executor3: 'ORIGINAL EXECUTOR SEITE',
+        executor4: 'ORIGINAL EXECUTOR SEITE VNG',
+        btnBaixar: 'JETZT HERUNTERLADEN',
+        robloxTitulo: 'ROBLOX LITE',
+        btnRoblox: 'ROBLOX LITE HERUNTERLADEN',
+        footerTexto: 'GTVZ MODDED 2026 - ALLE RECHTE VORBEHALTEN',
+        copyText: 'KOPIEREN',
+        copiedText: 'KOPIERT',
+        categoryExecutors: 'EXECUTORS',
+        categoryRoblox: 'ROBLOX LITE',
+        categoryScript: 'SCRIPT GT',
+        categorySearch: 'SCRIPT SUCHE',
+        searchPlaceholder: 'SCRIPT-NAMEN EINGEBEN...',
+        searchButton: 'SUCHEN',
+        searchDefault: 'SUCHE SKRIPTE',
+        loading: 'SKRIPTE WERDEN GELADEN...',
+        noResults: 'KEINE ERGEBNISSE GEFUNDEN FÜR',
+        copy: 'KOPIEREN',
+        copied: 'KOPIERT',
+        download: 'HERUNTERLADEN',
+        raw: 'ROH',
+        language: 'SPRACHE',
+        theme: 'THEMA'
+    },
+    ar: {
+        linkCanal1: 'قناة GT_MINGUI',
+        linkCanal2: 'قناة GT_GTVZ MODDED',
+        linkDiscord: 'ديسكورد الرسمي',
+        tituloPrincipal: 'GTVZ مودد',
+        descricaoPrincipal: 'هذا الموقع يستضيف جميع المواقع الرسمية لـ GTVZ مودد',
+        tituloCanais: 'قنواتي',
+        inscreva1: 'اشترك',
+        inscreva2: 'اشترك',
+        executor1: 'موقع المنفذ المعدل العادي',
+        executor2: 'موقع المنفذ المعدل VNG',
+        executor3: 'موقع المنفذ الأصلي',
+        executor4: 'موقع المنفذ الأصلي VNG',
+        btnBaixar: 'تحميل الآن',
+        robloxTitulo: 'روبلوكس لايت',
+        btnRoblox: 'تحميل روبلوكس لايت',
+        footerTexto: 'GTVZ مودد 2026 - جميع الحقوق محفوظة',
+        copyText: 'نسخ',
+        copiedText: 'تم النسخ',
+        categoryExecutors: 'المنفذين',
+        categoryRoblox: 'روبلوكس لايت',
+        categoryScript: 'سكريبت',
+        categorySearch: 'بحث سكريبت',
+        searchPlaceholder: 'ادخل اسم السكريبت...',
+        searchButton: 'بحث',
+        searchDefault: 'بحث سكريبت',
+        loading: 'جاري التحميل...',
+        noResults: 'لا توجد نتائج لـ',
+        copy: 'نسخ',
+        copied: 'تم النسخ',
+        download: 'تحميل',
+        raw: 'خام',
+        language: 'اللغة',
+        theme: 'الثيم'
+    }
+};
+
+function changeTheme(theme) {
+    document.body.setAttribute('data-theme', theme);
+    
+    document.querySelectorAll('.theme-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    const themeBtn = document.getElementById(`theme${theme.charAt(0).toUpperCase() + theme.slice(1)}`);
+    if(themeBtn) themeBtn.classList.add('active');
+    
+    localStorage.setItem('selectedTheme', theme);
+}
+
+function loadSavedTheme() {
+    const savedTheme = localStorage.getItem('selectedTheme');
+    if(savedTheme) {
+        changeTheme(savedTheme);
+    } else {
+        changeTheme('original');
+    }
+}
+
+async function buscarScripts() {
+    const searchInput = document.getElementById('searchInput');
+    const searchTerm = searchInput.value.trim();
+    
+    if (!searchTerm) return;
+    
+    const resultsDiv = document.getElementById('searchResults');
+    const currentLang = document.documentElement.lang;
+    const t = translations[currentLang] || translations.pt;
+    
+    resultsDiv.innerHTML = `<div class="loading">${t.loading}</div>`;
+    
+    try {
+        const apiUrl = `https://scriptblox.com/api/script/search?q=${encodeURIComponent(searchTerm)}&page=1&max=999999`;
+        
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+        
+        if (data.result && data.result.scripts && data.result.scripts.length > 0) {
+            displaySearchResults(data.result.scripts, searchTerm);
+        } else {
+            resultsDiv.innerHTML = `<div class="no-results">${t.noResults} "<span>${searchTerm}</span>"</div>`;
+        }
+    } catch (error) {
+        console.error('Erro ao buscar scripts:', error);
+        resultsDiv.innerHTML = `<div class="no-results">ERRO AO CARREGAR SCRIPTS. TENTE NOVAMENTE.</div>`;
+    }
+}
+
+function extractRawUrl(scriptCode) {
+    if (!scriptCode) return null;
+    const match = scriptCode.match(/game:HttpGet\(["']([^"']+)["']\)/);
+    return match ? match[1] : null;
+}
+
+function displaySearchResults(scripts, searchTerm) {
+    const resultsDiv = document.getElementById('searchResults');
+    const currentLang = document.documentElement.lang;
+    const t = translations[currentLang] || translations.pt;
+    
+    resultsDiv.innerHTML = '';
+    
+    scripts.forEach((script, index) => {
+        let scriptTitle = script.title || 'SCRIPT';
+        const scriptCode = script.script || '';
+        const rawUrl = extractRawUrl(scriptCode);
+        
+        scriptTitle = String(scriptTitle).replace('[object Object]', '').replace('object Object', '').trim();
+        
+        if (!scriptTitle || scriptTitle === '') scriptTitle = 'SCRIPT';
+        
+        const resultCard = document.createElement('div');
+        resultCard.className = 'result-card';
+        resultCard.innerHTML = `
+            <div class="result-header">
+                <div class="result-name">${scriptTitle}</div>
+            </div>
+            <div class="result-script" id="searchScriptText${index}">${scriptCode}</div>
+            <div class="result-buttons">
+                <button class="result-copy-btn" onclick="copySearchScript(${index})" id="searchCopyBtn${index}">${t.copy}</button>
+                <button class="result-download-btn" onclick="downloadSearchScript(${index})" id="searchDownloadBtn${index}">${t.download}</button>
+                ${rawUrl ? `<button class="result-raw-btn" onclick="openRawScript('${rawUrl}')" id="searchRawBtn${index}">${t.raw}</button>` : ''}
+            </div>
+        `;
+        resultsDiv.appendChild(resultCard);
+    });
+    
+    window.currentSearchResults = scripts;
+}
+
+function downloadSearchScript(index) {
+    if (!window.currentSearchResults || !window.currentSearchResults[index]) return;
+    
+    const scriptCode = window.currentSearchResults[index].script || '';
+    let scriptTitle = window.currentSearchResults[index].title || 'script';
+    scriptTitle = String(scriptTitle).replace('[object Object]', '').replace('object Object', '').trim();
+    if (!scriptTitle || scriptTitle === '') scriptTitle = 'script';
+    
+    const blob = new Blob([scriptCode], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${scriptTitle.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.lua`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+function openRawScript(rawUrl) {
+    if (rawUrl) {
+        window.open(rawUrl, '_blank');
+    }
+}
+
+function copySearchScript(index) {
+    if (!window.currentSearchResults || !window.currentSearchResults[index]) return;
+    
+    const scriptCode = window.currentSearchResults[index].script || '';
+    
+    const textArea = document.createElement('textarea');
+    textArea.value = scriptCode;
+    textArea.style.position = 'fixed';
+    textArea.style.left = '-9999px';
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textArea);
+    
+    const currentLang = document.documentElement.lang;
+    const t = translations[currentLang] || translations.pt;
+    
+    const btn = document.getElementById(`searchCopyBtn${index}`);
+    const originalText = btn.innerHTML;
+    btn.innerHTML = t.copied;
+    btn.style.background = '#00aa00';
+    setTimeout(() => {
+        btn.innerHTML = originalText;
+        btn.style.background = '';
+    }, 2000);
+}
+
 function criarBubbles() {
     const bubblesContainer = document.getElementById('bubbles');
     const numeroBubbles = 30;
-    
     for(let i = 0; i < numeroBubbles; i++) {
         const bubble = document.createElement('div');
         bubble.className = 'bubble';
-        
         const size = 5 + Math.random() * 35;
         bubble.style.setProperty('--size', size + 'px');
-        
         const yPos = Math.random() * 100;
-        
         const yStart = (Math.random() * 20 - 10) + 'vh';
         const yEnd = (Math.random() * 20 - 10) + 'vh';
         bubble.style.setProperty('--y-start', yStart);
         bubble.style.setProperty('--y-end', yEnd);
-        
         bubble.style.left = '0';
         bubble.style.top = yPos + '%';
-        
         const duration = 5 + Math.random() * 10;
         bubble.style.setProperty('--duration', duration + 's');
-        
         bubble.style.animationDelay = '0s';
-        
         const opacity = 0.2 + Math.random() * 0.5;
         bubble.style.setProperty('--opacity', opacity);
-        
         if (i % 3 === 0) {
             bubble.style.left = 'auto';
             bubble.style.right = '0';
             bubble.style.animation = 'moveBubbleReverse var(--duration) linear infinite';
             bubble.style.animationDelay = '0s';
-            
             if (!document.getElementById('reverseStyle')) {
                 const styleSheet = document.createElement("style");
                 styleSheet.id = 'reverseStyle';
                 styleSheet.textContent = `
                     @keyframes moveBubbleReverse{
-                        0%{
-                            transform:translateX(100px) translateY(var(--y-start));
-                            opacity:0;
-                        }
-                        5%{
-                            opacity:var(--opacity);
-                        }
-                        95%{
-                            opacity:var(--opacity);
-                        }
-                        100%{
-                            transform:translateX(calc(-100vw - 100px)) translateY(var(--y-end));
-                            opacity:0;
-                        }
+                        0%{ transform:translateX(100px) translateY(var(--y-start)); opacity:0; }
+                        5%{ opacity:var(--opacity); }
+                        95%{ opacity:var(--opacity); }
+                        100%{ transform:translateX(calc(-100vw - 100px)) translateY(var(--y-end)); opacity:0; }
                     }
                 `;
                 document.head.appendChild(styleSheet);
             }
         }
-        
         bubblesContainer.appendChild(bubble);
     }
 }
 
-// FUNÇÃO DO MENU COM ANIMAÇÃO
-function toggleMenu(){
-let menu = document.getElementById("menu")
+let scriptsLoaded = false;
 
-if(menu.classList.contains("show")){
-    menu.classList.remove("show");
-    document.getElementById('dropdownContent').classList.remove('show');
-    document.querySelector('.dropdown-btn').classList.remove('active');
-    document.getElementById('categoryContent').classList.remove('show');
-    document.querySelector('.category-btn').classList.remove('active');
+function loadScripts() {
+    if(scriptsLoaded) return;
+    scriptsLoaded = true;
+    
+    const container = document.getElementById('scriptsContainer');
+    container.innerHTML = '';
+    
+    scriptsData.forEach((script, index) => {
+        const scriptCard = document.createElement('div');
+        scriptCard.className = 'script-card-script';
+        scriptCard.innerHTML = `
+            <div class="script-header">
+                <div class="script-name">${script.nome}</div>
+                <div class="script-game">${script.jogo}</div>
+            </div>
+            <div class="script-image-top">
+                <img src="https://i.postimg.cc/Znfb3tPf/file-0000000025f071f598654ef7618e92aa.png" alt="${script.nome}">
+            </div>
+            <div class="script-content-area">
+                <div class="script-text" id="scriptText${index}">${script.script}</div>
+                <button class="copy-btn" onclick="copyScript(${index})" id="copyBtn${index}">COPIAR</button>
+            </div>
+        `;
+        container.appendChild(scriptCard);
+    });
+    
+    const currentLang = document.documentElement.lang;
+    const t = translations[currentLang] || translations.pt;
+    for(let i = 0; i < scriptsData.length; i++) {
+        const btn = document.getElementById(`copyBtn${i}`);
+        if(btn) btn.innerHTML = t.copyText;
+    }
+}
+
+function copyScript(index) {
+    const scriptText = document.getElementById(`scriptText${index}`);
+    const textToCopy = scriptText.innerText;
+    
+    const textArea = document.createElement('textarea');
+    textArea.value = textToCopy;
+    textArea.style.position = 'fixed';
+    textArea.style.left = '-9999px';
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textArea);
+    
+    const currentLang = document.documentElement.lang;
+    const t = translations[currentLang] || translations.pt;
+    
+    const btn = document.getElementById(`copyBtn${index}`);
+    const originalText = btn.innerHTML;
+    btn.innerHTML = t.copiedText;
+    btn.classList.add('copied');
     setTimeout(() => {
-        if(!menu.classList.contains("show")){
-            menu.style.display = "none";
-        }
-    }, 400);
-}else{
-    menu.style.display = "block";
-    setTimeout(() => {
-        menu.classList.add("show");
-    }, 10);
-}
+        btn.innerHTML = originalText;
+        btn.classList.remove('copied');
+    }, 2000);
 }
 
-// FUNÇÕES PARA ABRIR OS CANAIS
-function abrirCanal1(){
-window.open("https://youtube.com/@gtvzmodded-7?si=NLtaOGasGcr6qSR3", "_blank");
+function toggleMenu() {
+    let menu = document.getElementById("menu")
+    if(menu.classList.contains("show")){
+        menu.classList.remove("show");
+        document.getElementById('dropdownContent').classList.remove('show');
+        document.querySelector('.dropdown-btn').classList.remove('active');
+        document.getElementById('categoryContent').classList.remove('show');
+        document.querySelector('.category-btn').classList.remove('active');
+        setTimeout(() => { if(!menu.classList.contains("show")) menu.style.display = "none"; }, 400);
+    }else{
+        menu.style.display = "block";
+        setTimeout(() => menu.classList.add("show"), 10);
+    }
 }
 
-function abrirCanal2(){
-window.open("https://youtube.com/@gtxteam_psicopata?si=X2dOSofWDqWL6-yG", "_blank");
-}
+function abrirCanal1(){ window.open("https://youtube.com/@gtvzmodded-7?si=NLtaOGasGcr6qSR3", "_blank"); }
+function abrirCanal2(){ window.open("https://youtube.com/@gtxteam_psicopata?si=X2dOSofWDqWL6-yG", "_blank"); }
+function abrirDiscord(){ window.open("https://discord.gg/SXtfYJSPny", "_blank"); }
 
-// FUNÇÃO PARA ABRIR O DISCORD
-function abrirDiscord(){
-window.open("https://discord.gg/SXtfYJSPny", "_blank");
-}
-
-// FUNÇÃO DOS BOTÕES DE DOWNLOAD EXECUTORES
 function baixar(versao){
-let linkDownload = "";
-
-switch(versao) {
-case "v1":
-linkDownload = "https://stanti.com.br/gtvzmodded";
-break;
-case "v2":
-linkDownload = "https://stanti.com.br/gtvzmm";
-break;
-case "v3":
-linkDownload = "https://stanti.com.br/gtvzmoddedoriginal";
-break;
-case "v4":
-linkDownload = "https://stanti.com.br/gtvzmoddedvngorginal";
-break;
-default:
-linkDownload = "https://stanti.com.br/gtvzmodded";
+    let linkDownload = "";
+    switch(versao) {
+        case "v1": linkDownload = "https://stanti.com.br/gtvzmodded"; break;
+        case "v2": linkDownload = "https://stanti.com.br/gtvzmm"; break;
+        case "v3": linkDownload = "https://stanti.com.br/gtvzmoddedoriginal"; break;
+        case "v4": linkDownload = "https://stanti.com.br/gtvzmoddedvngorginal"; break;
+        default: linkDownload = "https://stanti.com.br/gtvzmodded";
+    }
+    window.open(linkDownload, "_blank");
 }
 
-window.open(linkDownload, "_blank");
-}
+function baixarRoblox(){ window.open("https://stanti.com.br/robloxlite", "_blank"); }
 
-// FUNÇÃO DO BOTÃO ROBLOX LITE
-function baixarRoblox(){
-window.open("https://stanti.com.br/robloxlite", "_blank");
-}
-
-// FUNÇÃO DO BOTÃO SCRIPT GT
-function baixarScript(){
-window.open("https://stanti.com.br/scriptgt", "_blank");
-}
-
-// FUNÇÃO PARA ABRIR/FECHAR DROPDOWN DE LINGUAGEM
 function toggleDropdown() {
     const dropdown = document.getElementById('dropdownContent');
     const btn = document.querySelector('.dropdown-btn');
@@ -1026,7 +1744,6 @@ function toggleDropdown() {
     btn.classList.toggle('active');
 }
 
-// FUNÇÃO PARA ABRIR/FECHAR DROPDOWN DE CATEGORIA
 function toggleCategoryDropdown() {
     const dropdown = document.getElementById('categoryContent');
     const btn = document.querySelector('.category-btn');
@@ -1034,237 +1751,166 @@ function toggleCategoryDropdown() {
     btn.classList.toggle('active');
 }
 
-// FUNÇÃO PARA SELECIONAR CATEGORIA
 function selectCategory(category) {
-    // Fechar dropdown
     document.getElementById('categoryContent').classList.remove('show');
     document.querySelector('.category-btn').classList.remove('active');
     
-    // Remover selected de todas opções
-    document.querySelectorAll('.category-option').forEach(opt => {
-        opt.classList.remove('selected');
-    });
-    
-    // Adicionar selected na opção clicada
+    document.querySelectorAll('.category-option').forEach(opt => opt.classList.remove('selected'));
     const options = document.querySelectorAll('.category-option');
     let selectedText = '';
-    
     options.forEach((opt, index) => {
-        if ((category === 'executors' && index === 0) ||
-            (category === 'roblox' && index === 1) ||
-            (category === 'script' && index === 2)) {
+        if ((category === 'executors' && index === 0) || 
+            (category === 'roblox' && index === 1) || 
+            (category === 'script' && index === 2) ||
+            (category === 'search' && index === 3)) {
             opt.classList.add('selected');
             selectedText = opt.textContent;
         }
     });
-    
-    // Atualizar texto do botão
     document.getElementById('selectedCategory').textContent = selectedText;
     
-    // Esconder todas as seções
-    document.getElementById('executorsSection').classList.add('hidden-category');
-    document.getElementById('robloxSection').classList.add('hidden-category');
-    document.getElementById('scriptSection').classList.add('hidden-category');
+    const executorsSection = document.getElementById('executorsSection');
+    const robloxSection = document.getElementById('robloxSection');
+    const scriptSection = document.getElementById('scriptSection');
+    const searchSection = document.getElementById('searchSection');
     
-    // Mostrar a seção selecionada
-    if (category === 'executors') {
-        document.getElementById('executorsSection').classList.remove('hidden-category');
-    } else if (category === 'roblox') {
-        document.getElementById('robloxSection').classList.remove('hidden-category');
-    } else if (category === 'script') {
-        document.getElementById('scriptSection').classList.remove('hidden-category');
-    }
+    executorsSection.classList.add('hidden-category');
+    robloxSection.classList.add('hidden-category');
+    scriptSection.classList.add('hidden-category');
+    searchSection.classList.add('hidden-category');
     
-    // Fechar o menu após selecionar a categoria
+    setTimeout(() => {
+        if (category === 'executors') {
+            executorsSection.classList.remove('hidden-category');
+        } else if (category === 'roblox') {
+            robloxSection.classList.remove('hidden-category');
+        } else if (category === 'script') {
+            if(!scriptsLoaded) loadScripts();
+            scriptSection.classList.remove('hidden-category');
+        } else if (category === 'search') {
+            searchSection.classList.remove('hidden-category');
+        }
+    }, 10);
+    
     let menu = document.getElementById('menu');
     menu.classList.remove('show');
-    setTimeout(() => {
-        menu.style.display = 'none';
-    }, 400);
+    setTimeout(() => menu.style.display = 'none', 400);
 }
 
-// FUNÇÃO PARA SELECIONAR LINGUAGEM
 function selectLanguage(idioma) {
     document.getElementById('dropdownContent').classList.remove('show');
     document.querySelector('.dropdown-btn').classList.remove('active');
-    
-    document.querySelectorAll('.lang-option').forEach(opt => {
-        opt.classList.remove('selected');
-    });
-    
+    document.querySelectorAll('.lang-option').forEach(opt => opt.classList.remove('selected'));
     const options = document.querySelectorAll('.lang-option');
     let selectedText = '';
-    
     options.forEach((opt, index) => {
-        if ((idioma === 'pt' && index === 0) ||
-            (idioma === 'en' && index === 1) ||
-            (idioma === 'vi' && index === 2) ||
-            (idioma === 'de' && index === 3) ||
-            (idioma === 'ar' && index === 4)) {
+        if ((idioma === 'pt' && index === 0) || (idioma === 'en' && index === 1) || (idioma === 'vi' && index === 2) || (idioma === 'de' && index === 3) || (idioma === 'ar' && index === 4)) {
             opt.classList.add('selected');
             selectedText = opt.textContent;
         }
     });
-    
     document.getElementById('selectedLanguage').textContent = selectedText;
     mudarIdioma(idioma);
 }
 
-// FUNÇÃO PARA MUDAR IDIOMA
 function mudarIdioma(idioma) {
     document.documentElement.lang = idioma;
+    const t = translations[idioma] || translations.pt;
     
-    if (idioma === 'pt') {
-        document.getElementById('linkCanal1').textContent = 'CANAL GT_MINGUI';
-        document.getElementById('linkCanal2').textContent = 'CANAL GT_GTVZ MODDED';
-        document.getElementById('linkDiscord').textContent = 'DISCORD OFC';
-        document.getElementById('tituloPrincipal').textContent = 'GTVZ MODDED';
-        document.getElementById('descricaoPrincipal').textContent = 'ESSE SITE HOSPEDA TODOS SITE OFICIAL DO GTVZ MODDED';
-        document.getElementById('tituloCanais').textContent = 'MEUS CANAIS';
-        document.getElementById('inscreva1').textContent = 'SE-INSCREVA';
-        document.getElementById('inscreva2').textContent = 'SE-INSCREVA';
-        document.getElementById('executor1').textContent = 'SITE EXECUTO MODIFICADO NORMAL';
-        document.getElementById('executor2').textContent = 'SITE EXECUTO MODIFICADO VNG';
-        document.getElementById('executor3').textContent = 'SITE EXECUTO ORIGINAL';
-        document.getElementById('executor4').textContent = 'SITE EXECUTO ORIGINAL VNG';
-        document.getElementById('btnBaixar1').innerHTML = '⬇️ BAIXAR AGORA';
-        document.getElementById('btnBaixar2').innerHTML = '⬇️ BAIXAR AGORA';
-        document.getElementById('btnBaixar3').innerHTML = '⬇️ BAIXAR AGORA';
-        document.getElementById('btnBaixar4').innerHTML = '⬇️ BAIXAR AGORA';
-        document.getElementById('robloxTitulo').textContent = 'ROBLOX LITE';
-        document.getElementById('btnRoblox').innerHTML = '⬇️ BAIXAR ROBLOX LITE';
-        document.getElementById('scriptTitulo').textContent = 'SCRIPT GT';
-        document.getElementById('btnScript').innerHTML = '⬇️ BAIXAR SCRIPT GT';
-        document.getElementById('footerTexto').textContent = 'GTVZ MODDED 2026 - Todos os direitos reservados';
-        
-    } else if (idioma === 'en') {
-        document.getElementById('linkCanal1').textContent = 'CHANNEL GT_MINGUI';
-        document.getElementById('linkCanal2').textContent = 'CHANNEL GT_GTVZ MODDED';
-        document.getElementById('linkDiscord').textContent = 'OFFICIAL DISCORD';
-        document.getElementById('tituloPrincipal').textContent = 'GTVZ MODDED';
-        document.getElementById('descricaoPrincipal').textContent = 'THIS SITE HOSTS ALL OFFICIAL GTVZ MODDED SITES';
-        document.getElementById('tituloCanais').textContent = 'MY CHANNELS';
-        document.getElementById('inscreva1').textContent = 'SUBSCRIBE';
-        document.getElementById('inscreva2').textContent = 'SUBSCRIBE';
-        document.getElementById('executor1').textContent = 'MODIFIED EXECUTOR SITE NORMAL';
-        document.getElementById('executor2').textContent = 'MODIFIED EXECUTOR SITE VNG';
-        document.getElementById('executor3').textContent = 'ORIGINAL EXECUTOR SITE';
-        document.getElementById('executor4').textContent = 'ORIGINAL EXECUTOR SITE VNG';
-        document.getElementById('btnBaixar1').innerHTML = '⬇️ DOWNLOAD NOW';
-        document.getElementById('btnBaixar2').innerHTML = '⬇️ DOWNLOAD NOW';
-        document.getElementById('btnBaixar3').innerHTML = '⬇️ DOWNLOAD NOW';
-        document.getElementById('btnBaixar4').innerHTML = '⬇️ DOWNLOAD NOW';
-        document.getElementById('robloxTitulo').textContent = 'ROBLOX LITE';
-        document.getElementById('btnRoblox').innerHTML = '⬇️ DOWNLOAD ROBLOX LITE';
-        document.getElementById('scriptTitulo').textContent = 'SCRIPT GT';
-        document.getElementById('btnScript').innerHTML = '⬇️ DOWNLOAD SCRIPT GT';
-        document.getElementById('footerTexto').textContent = 'GTVZ MODDED 2026 - All rights reserved';
-        
-    } else if (idioma === 'vi') {
-        document.getElementById('linkCanal1').textContent = 'KÊNH GT_MINGUI';
-        document.getElementById('linkCanal2').textContent = 'KÊNH GT_GTVZ MODDED';
-        document.getElementById('linkDiscord').textContent = 'DISCORD CHÍNH THỨC';
-        document.getElementById('tituloPrincipal').textContent = 'GTVZ MODDED VIỆT NAM';
-        document.getElementById('descricaoPrincipal').textContent = 'TRANG NÀY LÀ TRANG CHÍNH THỨC CỦA GTVZ MODDED';
-        document.getElementById('tituloCanais').textContent = 'KÊNH CỦA TÔI';
-        document.getElementById('inscreva1').textContent = 'ĐĂNG KÝ';
-        document.getElementById('inscreva2').textContent = 'ĐĂNG KÝ';
-        document.getElementById('executor1').textContent = 'TRANG EXECUTOR MODIFIED NORMAL';
-        document.getElementById('executor2').textContent = 'TRANG EXECUTOR MODIFIED VNG';
-        document.getElementById('executor3').textContent = 'TRANG EXECUTOR ORIGINAL';
-        document.getElementById('executor4').textContent = 'TRANG EXECUTOR ORIGINAL VNG';
-        document.getElementById('btnBaixar1').innerHTML = '⬇️ TẢI XUỐNG';
-        document.getElementById('btnBaixar2').innerHTML = '⬇️ TẢI XUỐNG';
-        document.getElementById('btnBaixar3').innerHTML = '⬇️ TẢI XUỐNG';
-        document.getElementById('btnBaixar4').innerHTML = '⬇️ TẢI XUỐNG';
-        document.getElementById('robloxTitulo').textContent = 'ROBLOX LITE';
-        document.getElementById('btnRoblox').innerHTML = '⬇️ TẢI ROBLOX LITE';
-        document.getElementById('scriptTitulo').textContent = 'SCRIPT GT';
-        document.getElementById('btnScript').innerHTML = '⬇️ TẢI SCRIPT GT';
-        document.getElementById('footerTexto').textContent = 'GTVZ MODDED 2026 - Tất cả các quyền được bảo lưu';
-        
-    } else if (idioma === 'de') {
-        document.getElementById('linkCanal1').textContent = 'KANAL GT_MINGUI';
-        document.getElementById('linkCanal2').textContent = 'KANAL GT_GTVZ MODDED';
-        document.getElementById('linkDiscord').textContent = 'OFFIZIELLER DISCORD';
-        document.getElementById('tituloPrincipal').textContent = 'GTVZ MODDED';
-        document.getElementById('descricaoPrincipal').textContent = 'DIESE SEITE HOSTET ALLE OFFIZIELLEN GTVZ MODDED SEITEN';
-        document.getElementById('tituloCanais').textContent = 'MEINE KANÄLE';
-        document.getElementById('inscreva1').textContent = 'ABONNIEREN';
-        document.getElementById('inscreva2').textContent = 'ABONNIEREN';
-        document.getElementById('executor1').textContent = 'MODIFIZIERTE EXECUTOR SEITE NORMAL';
-        document.getElementById('executor2').textContent = 'MODIFIZIERTE EXECUTOR SEITE VNG';
-        document.getElementById('executor3').textContent = 'ORIGINAL EXECUTOR SEITE';
-        document.getElementById('executor4').textContent = 'ORIGINAL EXECUTOR SEITE VNG';
-        document.getElementById('btnBaixar1').innerHTML = '⬇️ JETZT HERUNTERLADEN';
-        document.getElementById('btnBaixar2').innerHTML = '⬇️ JETZT HERUNTERLADEN';
-        document.getElementById('btnBaixar3').innerHTML = '⬇️ JETZT HERUNTERLADEN';
-        document.getElementById('btnBaixar4').innerHTML = '⬇️ JETZT HERUNTERLADEN';
-        document.getElementById('robloxTitulo').textContent = 'ROBLOX LITE';
-        document.getElementById('btnRoblox').innerHTML = '⬇️ ROBLOX LITE HERUNTERLADEN';
-        document.getElementById('scriptTitulo').textContent = 'SCRIPT GT';
-        document.getElementById('btnScript').innerHTML = '⬇️ SCRIPT GT HERUNTERLADEN';
-        document.getElementById('footerTexto').textContent = 'GTVZ MODDED 2026 - Alle Rechte vorbehalten';
-        
-    } else if (idioma === 'ar') {
-        document.getElementById('linkCanal1').textContent = 'قناة GT_MINGUI';
-        document.getElementById('linkCanal2').textContent = 'قناة GT_GTVZ MODDED';
-        document.getElementById('linkDiscord').textContent = 'ديسكورد الرسمي';
-        document.getElementById('tituloPrincipal').textContent = 'GTVZ مودد';
-        document.getElementById('descricaoPrincipal').textContent = 'هذا الموقع يستضيف جميع المواقع الرسمية لـ GTVZ مودد';
-        document.getElementById('tituloCanais').textContent = 'قنواتي';
-        document.getElementById('inscreva1').textContent = 'اشترك';
-        document.getElementById('inscreva2').textContent = 'اشترك';
-        document.getElementById('executor1').textContent = 'موقع المنفذ المعدل العادي';
-        document.getElementById('executor2').textContent = 'موقع المنفذ المعدل VNG';
-        document.getElementById('executor3').textContent = 'موقع المنفذ الأصلي';
-        document.getElementById('executor4').textContent = 'موقع المنفذ الأصلي VNG';
-        document.getElementById('btnBaixar1').innerHTML = '⬇️ تحميل الآن';
-        document.getElementById('btnBaixar2').innerHTML = '⬇️ تحميل الآن';
-        document.getElementById('btnBaixar3').innerHTML = '⬇️ تحميل الآن';
-        document.getElementById('btnBaixar4').innerHTML = '⬇️ تحميل الآن';
-        document.getElementById('robloxTitulo').textContent = 'روبلوكس لايت';
-        document.getElementById('btnRoblox').innerHTML = '⬇️ تحميل روبلوكس لايت';
-        document.getElementById('scriptTitulo').textContent = 'سكريبت GT';
-        document.getElementById('btnScript').innerHTML = '⬇️ تحميل سكريبت GT';
-        document.getElementById('footerTexto').textContent = 'GTVZ مودد 2026 - جميع الحقوق محفوظة';
+    document.getElementById('linkCanal1').textContent = t.linkCanal1;
+    document.getElementById('linkCanal2').textContent = t.linkCanal2;
+    document.getElementById('linkDiscord').textContent = t.linkDiscord;
+    document.getElementById('tituloPrincipal').textContent = t.tituloPrincipal;
+    document.getElementById('descricaoPrincipal').textContent = t.descricaoPrincipal;
+    document.getElementById('tituloCanais').textContent = t.tituloCanais;
+    document.getElementById('inscreva1').textContent = t.inscreva1;
+    document.getElementById('inscreva2').textContent = t.inscreva2;
+    document.getElementById('executor1').textContent = t.executor1;
+    document.getElementById('executor2').textContent = t.executor2;
+    document.getElementById('executor3').textContent = t.executor3;
+    document.getElementById('executor4').textContent = t.executor4;
+    document.getElementById('btnBaixar1').innerHTML = t.btnBaixar;
+    document.getElementById('btnBaixar2').innerHTML = t.btnBaixar;
+    document.getElementById('btnBaixar3').innerHTML = t.btnBaixar;
+    document.getElementById('btnBaixar4').innerHTML = t.btnBaixar;
+    document.getElementById('robloxTitulo').textContent = t.robloxTitulo;
+    document.getElementById('btnRoblox').innerHTML = t.btnRoblox;
+    document.getElementById('footerTexto').textContent = t.footerTexto;
+    
+    const languageTitle = document.querySelector('.language-title');
+    if(languageTitle) languageTitle.textContent = t.language;
+    
+    const themeTitle = document.querySelector('.theme-toggle-title');
+    if(themeTitle) themeTitle.textContent = t.theme;
+    
+    const searchInput = document.querySelector('.search-input');
+    if(searchInput) searchInput.placeholder = t.searchPlaceholder;
+    
+    const searchButton = document.querySelector('.search-btn');
+    if(searchButton) searchButton.innerHTML = t.searchButton;
+    
+    const searchDefault = document.querySelector('.no-results');
+    if(searchDefault && (searchDefault.innerHTML.includes('PESQUISAR') || searchDefault.innerHTML.includes('SEARCH') || searchDefault.innerHTML.includes('TÌM') || searchDefault.innerHTML.includes('SUCHE') || searchDefault.innerHTML.includes('بحث'))) {
+        searchDefault.innerHTML = t.searchDefault;
+    }
+    
+    if(scriptsLoaded) {
+        for(let i = 0; i < scriptsData.length; i++) {
+            const btn = document.getElementById(`copyBtn${i}`);
+            if(btn) btn.innerHTML = t.copyText;
+        }
+    }
+    
+    const categoryOptions = document.querySelectorAll('.category-option');
+    if(categoryOptions.length >= 4) {
+        categoryOptions[0].textContent = t.categoryExecutors;
+        categoryOptions[1].textContent = t.categoryRoblox;
+        categoryOptions[2].textContent = t.categoryScript;
+        categoryOptions[3].textContent = t.categorySearch;
+    }
+    
+    const selectedCategory = document.getElementById('selectedCategory');
+    const currentSelected = selectedCategory.textContent;
+    if(currentSelected === 'EXECUTORES' || currentSelected === 'EXECUTORS' || currentSelected === 'المنفذين') {
+        selectedCategory.textContent = t.categoryExecutors;
+    } else if(currentSelected === 'ROBLOX LITE') {
+        selectedCategory.textContent = t.categoryRoblox;
+    } else if(currentSelected === 'SCRIPT GT' || currentSelected === 'سكريبت') {
+        selectedCategory.textContent = t.categoryScript;
+    } else if(currentSelected === 'PESQUISAR SCRIPT' || currentSelected === 'SEARCH SCRIPT' || currentSelected === 'TÌM SCRIPT' || currentSelected === 'SCRIPT SUCHE' || currentSelected === 'بحث سكريبت') {
+        selectedCategory.textContent = t.categorySearch;
     }
     
     let menu = document.getElementById('menu');
-    menu.classList.remove('show');
-    setTimeout(() => {
-        menu.style.display = 'none';
-    }, 400);
+    if(menu.classList.contains('show')) {
+        menu.classList.remove('show');
+        setTimeout(() => menu.style.display = 'none', 400);
+    }
 }
 
-// Fechar dropdowns se clicar fora
 document.addEventListener('click', function(event) {
     const langDropdown = document.querySelector('.language-dropdown');
     const langBtn = document.querySelector('.dropdown-btn');
     const langContent = document.getElementById('dropdownContent');
-    
     const categoryDropdown = document.querySelector('.category-dropdown');
     const categoryBtn = document.querySelector('.category-btn');
     const categoryContent = document.getElementById('categoryContent');
     
-    if (langDropdown && !langDropdown.contains(event.target) && langContent.classList.contains('show')) {
+    if (langDropdown && !langDropdown.contains(event.target) && langContent?.classList.contains('show')) {
         langContent.classList.remove('show');
-        langBtn.classList.remove('active');
+        langBtn?.classList.remove('active');
     }
-    
-    if (categoryDropdown && !categoryDropdown.contains(event.target) && categoryContent.classList.contains('show')) {
+    if (categoryDropdown && !categoryDropdown.contains(event.target) && categoryContent?.classList.contains('show')) {
         categoryContent.classList.remove('show');
-        categoryBtn.classList.remove('active');
+        categoryBtn?.classList.remove('active');
     }
 });
 
-// INICIAR BOLHAS QUANDO A PÁGINA CARREGAR
 window.onload = function() {
-criarBubbles();
-mudarIdioma('pt');
+    criarBubbles();
+    loadSavedTheme();
+    mudarIdioma('pt');
 }
-
 </script>
-
 </body>
 </html>

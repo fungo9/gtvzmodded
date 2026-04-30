@@ -25,6 +25,9 @@
     --result-hover-border: #00ff00;
     --copy-btn-bg: linear-gradient(45deg, #006400, #00aa00);
     --raw-btn-bg: linear-gradient(45deg, #4a0080, #8000ff);
+    --key-needed-bg: #8b0000;
+    --key-free-bg: #006400;
+    --bio-bg: #0a2f0a;
 }
 
 body[data-theme="original"] {
@@ -919,6 +922,10 @@ display:block;
     color: var(--neon-color);
     text-shadow: 0 0 10px var(--neon-color);
     text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
 .script-game {
@@ -1021,6 +1028,44 @@ display:block;
     box-shadow: 0 0 30px var(--neon-color);
 }
 
+.key-status {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.key-needed {
+    background: #8b0000;
+    color: #ffcccc;
+    border: 1px solid #ff4444;
+}
+
+.key-free {
+    background: #006400;
+    color: #ccffcc;
+    border: 1px solid #00ff00;
+}
+
+.script-bio {
+    background: var(--bio-bg);
+    border: 1px solid var(--neon-color);
+    border-radius: 12px;
+    padding: 12px 15px;
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
+}
+
+.script-bio span {
+    color: var(--neon-color);
+    font-weight: bold;
+}
+
 .roblox-section {
     margin: 20px auto;
     width: 90%;
@@ -1081,157 +1126,6 @@ display:block;
     box-shadow: 0 0 35px var(--neon-color);
 }
 
-/* Seção de Keys dos Executores */
-.keys-section {
-    margin: 30px auto;
-    width: 90%;
-    max-width: 600px;
-}
-
-.keys-card {
-    background: var(--card-bg);
-    border: 2px solid var(--card-border);
-    border-radius: 20px;
-    padding: 25px;
-    box-shadow: 0 0 30px var(--card-border);
-    transition: 0.3s;
-}
-
-.keys-card:hover {
-    border-color: var(--neon-color);
-    box-shadow: 0 0 50px var(--neon-color);
-}
-
-.keys-title {
-    font-size: 26px;
-    color: var(--neon-color);
-    margin-bottom: 20px;
-    text-shadow: 0 0 10px var(--neon-color);
-}
-
-.keys-subtitle {
-    font-size: 14px;
-    color: var(--text-secondary);
-    margin-bottom: 20px;
-    opacity: 0.8;
-}
-
-.keys-input-group {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-bottom: 20px;
-}
-
-.keys-url-input {
-    width: 100%;
-    padding: 15px;
-    background: var(--input-bg);
-    border: 2px solid var(--neon-color);
-    border-radius: 12px;
-    color: var(--neon-color);
-    font-size: 14px;
-    outline: none;
-    transition: 0.3s;
-    box-sizing: border-box;
-}
-
-.keys-url-input:focus {
-    box-shadow: 0 0 20px var(--neon-color);
-}
-
-.keys-url-input::placeholder {
-    color: var(--neon-color);
-    opacity: 0.5;
-}
-
-.keys-bypass-btn {
-    padding: 15px;
-    background: linear-gradient(45deg, var(--btn-gradient-start), var(--btn-gradient-end));
-    border: 2px solid var(--neon-color);
-    border-radius: 12px;
-    color: white;
-    cursor: pointer;
-    font-size: 18px;
-    font-weight: bold;
-    transition: 0.3s;
-    box-shadow: 0 0 15px var(--neon-color);
-}
-
-.keys-bypass-btn:hover {
-    transform: scale(1.02);
-    box-shadow: 0 0 30px var(--neon-color);
-}
-
-.keys-bypass-btn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    transform: none;
-}
-
-.keys-result {
-    margin-top: 20px;
-    padding: 15px;
-    background: var(--result-bg);
-    border: 1px solid var(--result-border);
-    border-radius: 12px;
-    text-align: left;
-}
-
-.keys-result-label {
-    font-size: 12px;
-    color: var(--neon-color);
-    opacity: 0.7;
-    margin-bottom: 8px;
-}
-
-.keys-result-content {
-    font-family: 'Courier New', monospace;
-    font-size: 13px;
-    color: var(--text-secondary);
-    word-break: break-all;
-    white-space: pre-wrap;
-    max-height: 200px;
-    overflow-y: auto;
-}
-
-.keys-result-buttons {
-    display: flex;
-    gap: 10px;
-    margin-top: 12px;
-    justify-content: flex-start;
-}
-
-.keys-copy-btn {
-    padding: 8px 20px;
-    background: var(--copy-btn-bg);
-    border: 2px solid var(--neon-color);
-    border-radius: 20px;
-    color: white;
-    cursor: pointer;
-    font-size: 12px;
-    font-weight: bold;
-    transition: 0.3s;
-}
-
-.keys-copy-btn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 15px var(--neon-color);
-}
-
-.keys-error {
-    color: #ff4444;
-    text-align: center;
-    padding: 15px;
-}
-
-.keys-loading {
-    color: var(--neon-color);
-    text-align: center;
-    padding: 15px;
-    animation: pulse 1s infinite;
-}
-
 footer {
     margin-top: 50px;
     opacity: 0.7;
@@ -1287,7 +1181,6 @@ html[lang="ar"] .result-buttons {
         <div class="category-option" onclick="selectCategory('roblox')">ROBLOX LITE</div>
         <div class="category-option" onclick="selectCategory('script')">SCRIPT GT</div>
         <div class="category-option" onclick="selectCategory('search')">PESQUISAR SCRIPT</div>
-        <div class="category-option" onclick="selectCategory('keys')">PEGAR KEYS</div>
     </div>
 </div>
 
@@ -1395,21 +1288,6 @@ html[lang="ar"] .result-buttons {
 </div>
 </div>
 
-<!-- NOVA SEÇÃO: PEGAR KEYS DOS EXECUTORES -->
-<div id="keysSection" class="category-section hidden-category">
-<div class="keys-section">
-<div class="keys-card">
-<div class="keys-title" id="keysTitle">🔑 PEGAR KEY</div>
-<div class="keys-subtitle" id="keysSubtitle">Cole o link do key system (Linkvertise, Lootlabs, etc.)</div>
-<div class="keys-input-group">
-    <input type="text" class="keys-url-input" id="keyUrlInput" placeholder="https://linkvertise.com/...">
-    <button class="keys-bypass-btn" id="bypassKeyBtn" onclick="bypassKey()">BYPASS KEY</button>
-</div>
-<div id="keyResult"></div>
-</div>
-</div>
-</div>
-
 </section>
 
 <footer>
@@ -1419,31 +1297,33 @@ html[lang="ar"] .result-buttons {
 </div>
 
 <script>
+// ============================================
+// CONFIGURAÇÃO DE STATUS DE KEY INDIVIDUAL POR SCRIPT
+// ALTERE AQUI PARA CADA SCRIPT INDIVIDUALMENTE
+// ============================================
+// Para cada script, coloque "CHAVE" ou "SEM CHAVE"
+const keyConfigPorScript = {
+    "GTVZ HUB UNI": "SEM CHAVE",
+    "GTVZ HUB": "SEM CHAVE"
+};
+
+// BIO APENAS PARA O GTVZ HUB UNI
+const bioGtvzHubUni = "📢 GTVZ HUM UM SCRIPT UNI POSSUI FUNÇÕES E OUTROS SCRIPT ATÉ MESMO SCRIPT QUE TEM KEY NO GTVZ HUB ELES NÃO POSSUI KEY O GTVZ HUB SÓ POSSUI SCRIPTS SEM KEY";
+
 const scriptsData = [
     {
         nome: "GTVZ HUB UNI",
         jogo: "TODOS",
-        script: `loadstring(game:HttpGet("https://raw.githubusercontent.com/gtvz/gtvzhub/main/uni.lua"))()`
-    },
-    {
-        nome: "CLIPESE TRUE HUB",
-        jogo: "BLOX FRUITS",
-        script: `loadstring(game:HttpGet("https://raw.githubusercontent.com/clipese/truehub/main/bloxfruits.lua"))()`
-    },
-    {
-        nome: "MINGUI HUB",
-        jogo: "NATURAL DISASTER",
-        script: `loadstring(game:HttpGet("https://raw.githubusercontent.com/mingui/hub/main/natural.lua"))()`
-    },
-    {
-        nome: "GTFLUP",
-        jogo: "MEME SEA",
-        script: `loadstring(game:HttpGet("https://raw.githubusercontent.com/gtflup/memesea/main/script.lua"))()`
+        script: `loadstring((function() local s=[[GTVZ108GTVZ111GTVZ97GTVZ100GTVZ115GTVZ116GTVZ114GTVZ105GTVZ110GTVZ103GTVZ40GTVZ103GTVZ97GTVZ109GTVZ101GTVZ58GTVZ72GTVZ116GTVZ116GTVZ112GTVZ71GTVZ101GTVZ116GTVZ40GTVZ34GTVZ104GTVZ116GTVZ116GTVZ112GTVZ115GTVZ58GTVZ47GTVZ47GTVZ112GTVZ97GTVZ115GTVZ116GTVZ101GTVZ102GTVZ121GTVZ46GTVZ97GTVZ112GTVZ112GTVZ47GTVZ74GTVZ115GTVZ84GTVZ120GTVZ52GTVZ87GTVZ100GTVZ67GTVZ47GTVZ114GTVZ97GTVZ119GTVZ34GTVZ41GTVZ41GTVZ40GTVZ41]]; local reconstructed = s:gsub("GTVZ(%d+)", function(n) return string.char(tonumber(n)) end); return reconstructed end)())()`,
+        imagem: "https://i.postimg.cc/1RN8XywD/Screenshot-2026-04-29-17-42-29-343-gtvz-modded-3.jpg",
+        bio: bioGtvzHubUni
     },
     {
         nome: "GTVZ HUB",
         jogo: "PECA DE MARINHEIRO",
-        script: `loadstring(game:HttpGet("https://raw.githubusercontent.com/gtvz/hub/main/marinheiro.lua"))()`
+        script: `loadstring((function() local s=[[GTVZ108GTVZ111GTVZ97GTVZ100GTVZ115GTVZ116GTVZ114GTVZ105GTVZ110GTVZ103GTVZ40GTVZ103GTVZ97GTVZ109GTVZ101GTVZ58GTVZ72GTVZ116GTVZ116GTVZ112GTVZ71GTVZ101GTVZ116GTVZ40GTVZ34GTVZ104GTVZ116GTVZ116GTVZ112GTVZ115GTVZ58GTVZ47GTVZ47GTVZ112GTVZ97GTVZ115GTVZ116GTVZ101GTVZ102GTVZ121GTVZ46GTVZ97GTVZ112GTVZ112GTVZ47GTVZ57GTVZ88GTVZ75GTVZ111GTVZ75GTVZ107GTVZ103GTVZ122GTVZ47GTVZ114GTVZ97GTVZ119GTVZ34GTVZ41GTVZ41GTVZ40GTVZ41]]; local reconstructed = s:gsub("GTVZ(%d+)", function(n) return string.char(tonumber(n)) end); return reconstructed end)())()`,
+        imagem: "https://i.postimg.cc/Pxv5CML3/Screenshot-2026-04-29-17-34-46-811-gtvz-modded.jpg",
+        bio: null
     }
 ];
 
@@ -1471,7 +1351,6 @@ const translations = {
         categoryRoblox: 'ROBLOX LITE',
         categoryScript: 'SCRIPT GT',
         categorySearch: 'PESQUISAR SCRIPT',
-        categoryKeys: 'PEGAR KEYS',
         searchPlaceholder: 'DIGITE O NOME DO SCRIPT...',
         searchButton: 'PESQUISAR',
         searchDefault: 'PESQUISAR SCRIPTS',
@@ -1482,16 +1361,7 @@ const translations = {
         download: 'DOWNLOAD',
         raw: 'RAW',
         language: 'LINGUAGEM',
-        theme: 'TEMA',
-        keysTitle: '🔑 PEGAR KEY',
-        keysSubtitle: 'Cole o link do key system (Linkvertise, Lootlabs, etc.)',
-        keysButton: 'BYPASS KEY',
-        keysLoading: '⏳ BYPASSANDO LINK...',
-        keysPlaceholder: 'https://linkvertise.com/...',
-        keysResultLabel: '🔓 RESULTADO:',
-        keysCopy: 'COPIAR KEY',
-        keysError: '❌ ERRO AO BYPASSAR O LINK. VERIFIQUE A URL E TENTE NOVAMENTE.',
-        keysSuccess: '✅ KEY OBTIDA COM SUCESSO!'
+        theme: 'TEMA'
     },
     en: {
         linkCanal1: 'CHANNEL GT_MINGUI',
@@ -1516,7 +1386,6 @@ const translations = {
         categoryRoblox: 'ROBLOX LITE',
         categoryScript: 'SCRIPT GT',
         categorySearch: 'SEARCH SCRIPT',
-        categoryKeys: 'GET KEYS',
         searchPlaceholder: 'ENTER SCRIPT NAME...',
         searchButton: 'SEARCH',
         searchDefault: 'SEARCH SCRIPTS',
@@ -1527,16 +1396,7 @@ const translations = {
         download: 'DOWNLOAD',
         raw: 'RAW',
         language: 'LANGUAGE',
-        theme: 'THEME',
-        keysTitle: '🔑 GET KEY',
-        keysSubtitle: 'Paste your key system link (Linkvertise, Lootlabs, etc.)',
-        keysButton: 'BYPASS KEY',
-        keysLoading: '⏳ BYPASSING LINK...',
-        keysPlaceholder: 'https://linkvertise.com/...',
-        keysResultLabel: '🔓 RESULT:',
-        keysCopy: 'COPY KEY',
-        keysError: '❌ ERROR BYPASSING LINK. CHECK THE URL AND TRY AGAIN.',
-        keysSuccess: '✅ KEY OBTAINED SUCCESSFULLY!'
+        theme: 'THEME'
     },
     vi: {
         linkCanal1: 'KÊNH GT_MINGUI',
@@ -1561,7 +1421,6 @@ const translations = {
         categoryRoblox: 'ROBLOX LITE',
         categoryScript: 'SCRIPT GT',
         categorySearch: 'TÌM SCRIPT',
-        categoryKeys: 'LẤY KEY',
         searchPlaceholder: 'NHẬP TÊN SCRIPT...',
         searchButton: 'TÌM KIẾM',
         searchDefault: 'TÌM SCRIPT',
@@ -1572,16 +1431,7 @@ const translations = {
         download: 'TẢI XUỐNG',
         raw: 'THÔ',
         language: 'NGÔN NGỮ',
-        theme: 'CHỦ ĐỀ',
-        keysTitle: '🔑 LẤY KEY',
-        keysSubtitle: 'Dán link key system (Linkvertise, Lootlabs, etc.)',
-        keysButton: 'BYPASS KEY',
-        keysLoading: '⏳ ĐANG BYPASS LINK...',
-        keysPlaceholder: 'https://linkvertise.com/...',
-        keysResultLabel: '🔓 KẾT QUẢ:',
-        keysCopy: 'SAO CHÉP KEY',
-        keysError: '❌ LỖI KHI BYPASS LINK. KIỂM TRA URL VÀ THỬ LẠI.',
-        keysSuccess: '✅ LẤY KEY THÀNH CÔNG!'
+        theme: 'CHỦ ĐỀ'
     },
     de: {
         linkCanal1: 'KANAL GT_MINGUI',
@@ -1606,7 +1456,6 @@ const translations = {
         categoryRoblox: 'ROBLOX LITE',
         categoryScript: 'SCRIPT GT',
         categorySearch: 'SCRIPT SUCHE',
-        categoryKeys: 'KEY HOLEN',
         searchPlaceholder: 'SCRIPT-NAMEN EINGEBEN...',
         searchButton: 'SUCHEN',
         searchDefault: 'SUCHE SKRIPTE',
@@ -1617,16 +1466,7 @@ const translations = {
         download: 'HERUNTERLADEN',
         raw: 'ROH',
         language: 'SPRACHE',
-        theme: 'THEMA',
-        keysTitle: '🔑 KEY HOLEN',
-        keysSubtitle: 'Fügen Sie den Link Ihres Key-Systems ein (Linkvertise, Lootlabs, etc.)',
-        keysButton: 'KEY BYPASSEN',
-        keysLoading: '⏳ BYPASSE LINK...',
-        keysPlaceholder: 'https://linkvertise.com/...',
-        keysResultLabel: '🔓 ERGEBNIS:',
-        keysCopy: 'KEY KOPIEREN',
-        keysError: '❌ FEHLER BEIM BYPASSEN. ÜBERPRÜFEN SIE DIE URL UND VERSUCHEN SIE ES ERNEUT.',
-        keysSuccess: '✅ KEY ERFOLGREICH ERHALTEN!'
+        theme: 'THEMA'
     },
     ar: {
         linkCanal1: 'قناة GT_MINGUI',
@@ -1651,7 +1491,6 @@ const translations = {
         categoryRoblox: 'روبلوكس لايت',
         categoryScript: 'سكريبت',
         categorySearch: 'بحث سكريبت',
-        categoryKeys: 'الحصول على المفتاح',
         searchPlaceholder: 'ادخل اسم السكريبت...',
         searchButton: 'بحث',
         searchDefault: 'بحث سكريبت',
@@ -1662,153 +1501,41 @@ const translations = {
         download: 'تحميل',
         raw: 'خام',
         language: 'اللغة',
-        theme: 'الثيم',
-        keysTitle: '🔑 الحصول على المفتاح',
-        keysSubtitle: 'الصق رابط نظام المفاتيح (Linkvertise، Lootlabs، الخ)',
-        keysButton: 'تجاوز المفتاح',
-        keysLoading: '⏳ جاري تجاوز الرابط...',
-        keysPlaceholder: 'https://linkvertise.com/...',
-        keysResultLabel: '🔓 النتيجة:',
-        keysCopy: 'نسخ المفتاح',
-        keysError: '❌ خطأ في تجاوز الرابط. تحقق من الرابط وحاول مرة أخرى.',
-        keysSuccess: '✅ تم الحصول على المفتاح بنجاح!'
+        theme: 'الثيم'
     }
 };
 
 function changeTheme(theme) {
     document.body.setAttribute('data-theme', theme);
-    
-    document.querySelectorAll('.theme-btn').forEach(btn => {
-        btn.classList.remove('active');
-    });
+    document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
     const themeBtn = document.getElementById(`theme${theme.charAt(0).toUpperCase() + theme.slice(1)}`);
     if(themeBtn) themeBtn.classList.add('active');
-    
     localStorage.setItem('selectedTheme', theme);
 }
 
 function loadSavedTheme() {
     const savedTheme = localStorage.getItem('selectedTheme');
-    if(savedTheme) {
-        changeTheme(savedTheme);
-    } else {
-        changeTheme('original');
-    }
-}
-
-async function bypassKey() {
-    const urlInput = document.getElementById('keyUrlInput');
-    const url = urlInput.value.trim();
-    const resultDiv = document.getElementById('keyResult');
-    const bypassBtn = document.getElementById('bypassKeyBtn');
-    
-    if (!url) {
-        resultDiv.innerHTML = `<div class="keys-error">❌ DIGITE UMA URL VÁLIDA!</div>`;
-        return;
-    }
-    
-    const currentLang = document.documentElement.lang;
-    const t = translations[currentLang] || translations.pt;
-    
-    resultDiv.innerHTML = `<div class="keys-loading">${t.keysLoading}</div>`;
-    bypassBtn.disabled = true;
-    
-    try {
-        const response = await fetch('https://api.izen.lol/v1/bypass', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ url: url })
-        });
-        
-        const data = await response.json();
-        
-        if (data.success && data.result) {
-            let keyResult = data.result;
-            
-            // Se o resultado for HTML/JSON, tenta extrair a key
-            if (keyResult.includes('"key"') || keyResult.includes('"token"') || keyResult.includes('"code"')) {
-                try {
-                    const parsed = JSON.parse(keyResult);
-                    keyResult = parsed.key || parsed.token || parsed.code || parsed.result || keyResult;
-                } catch(e) {}
-            }
-            
-            resultDiv.innerHTML = `
-                <div class="keys-result">
-                    <div class="keys-result-label">${t.keysResultLabel}</div>
-                    <div class="keys-result-content" id="keyResultContent">${escapeHtml(keyResult)}</div>
-                    <div class="keys-result-buttons">
-                        <button class="keys-copy-btn" onclick="copyKeyResult()">${t.keysCopy}</button>
-                    </div>
-                </div>
-            `;
-            window.lastKeyResult = keyResult;
-        } else {
-            resultDiv.innerHTML = `<div class="keys-error">${t.keysError}</div>`;
-        }
-    } catch (error) {
-        console.error('Erro no bypass:', error);
-        resultDiv.innerHTML = `<div class="keys-error">${t.keysError}</div>`;
-    } finally {
-        bypassBtn.disabled = false;
-    }
-}
-
-function copyKeyResult() {
-    if (window.lastKeyResult) {
-        const textArea = document.createElement('textarea');
-        textArea.value = window.lastKeyResult;
-        textArea.style.position = 'fixed';
-        textArea.style.left = '-9999px';
-        document.body.appendChild(textArea);
-        textArea.select();
-        document.execCommand('copy');
-        document.body.removeChild(textArea);
-        
-        const copyBtn = document.querySelector('.keys-copy-btn');
-        const currentLang = document.documentElement.lang;
-        const t = translations[currentLang] || translations.pt;
-        const originalText = copyBtn.innerHTML;
-        copyBtn.innerHTML = '✓ COPIADO!';
-        setTimeout(() => {
-            copyBtn.innerHTML = originalText;
-        }, 2000);
-    }
-}
-
-function escapeHtml(text) {
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
+    changeTheme(savedTheme || 'original');
 }
 
 async function buscarScripts() {
     const searchInput = document.getElementById('searchInput');
     const searchTerm = searchInput.value.trim();
-    
     if (!searchTerm) return;
-    
     const resultsDiv = document.getElementById('searchResults');
     const currentLang = document.documentElement.lang;
     const t = translations[currentLang] || translations.pt;
-    
     resultsDiv.innerHTML = `<div class="loading">${t.loading}</div>`;
-    
     try {
         const apiUrl = `https://scriptblox.com/api/script/search?q=${encodeURIComponent(searchTerm)}&page=1&max=999999`;
-        
         const response = await fetch(apiUrl);
         const data = await response.json();
-        
         if (data.result && data.result.scripts && data.result.scripts.length > 0) {
             displaySearchResults(data.result.scripts, searchTerm);
         } else {
             resultsDiv.innerHTML = `<div class="no-results">${t.noResults} "<span>${searchTerm}</span>"</div>`;
         }
     } catch (error) {
-        console.error('Erro ao buscar scripts:', error);
         resultsDiv.innerHTML = `<div class="no-results">ERRO AO CARREGAR SCRIPTS. TENTE NOVAMENTE.</div>`;
     }
 }
@@ -1823,18 +1550,13 @@ function displaySearchResults(scripts, searchTerm) {
     const resultsDiv = document.getElementById('searchResults');
     const currentLang = document.documentElement.lang;
     const t = translations[currentLang] || translations.pt;
-    
     resultsDiv.innerHTML = '';
-    
     scripts.forEach((script, index) => {
         let scriptTitle = script.title || 'SCRIPT';
         const scriptCode = script.script || '';
         const rawUrl = extractRawUrl(scriptCode);
-        
         scriptTitle = String(scriptTitle).replace('[object Object]', '').replace('object Object', '').trim();
-        
         if (!scriptTitle || scriptTitle === '') scriptTitle = 'SCRIPT';
-        
         const resultCard = document.createElement('div');
         resultCard.className = 'result-card';
         resultCard.innerHTML = `
@@ -1850,18 +1572,15 @@ function displaySearchResults(scripts, searchTerm) {
         `;
         resultsDiv.appendChild(resultCard);
     });
-    
     window.currentSearchResults = scripts;
 }
 
 function downloadSearchScript(index) {
     if (!window.currentSearchResults || !window.currentSearchResults[index]) return;
-    
     const scriptCode = window.currentSearchResults[index].script || '';
     let scriptTitle = window.currentSearchResults[index].title || 'script';
     scriptTitle = String(scriptTitle).replace('[object Object]', '').replace('object Object', '').trim();
     if (!scriptTitle || scriptTitle === '') scriptTitle = 'script';
-    
     const blob = new Blob([scriptCode], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -1874,16 +1593,12 @@ function downloadSearchScript(index) {
 }
 
 function openRawScript(rawUrl) {
-    if (rawUrl) {
-        window.open(rawUrl, '_blank');
-    }
+    if (rawUrl) window.open(rawUrl, '_blank');
 }
 
 function copySearchScript(index) {
     if (!window.currentSearchResults || !window.currentSearchResults[index]) return;
-    
     const scriptCode = window.currentSearchResults[index].script || '';
-    
     const textArea = document.createElement('textarea');
     textArea.value = scriptCode;
     textArea.style.position = 'fixed';
@@ -1892,10 +1607,8 @@ function copySearchScript(index) {
     textArea.select();
     document.execCommand('copy');
     document.body.removeChild(textArea);
-    
     const currentLang = document.documentElement.lang;
     const t = translations[currentLang] || translations.pt;
-    
     const btn = document.getElementById(`searchCopyBtn${index}`);
     const originalText = btn.innerHTML;
     btn.innerHTML = t.copied;
@@ -1908,29 +1621,26 @@ function copySearchScript(index) {
 
 function criarBubbles() {
     const bubblesContainer = document.getElementById('bubbles');
-    const numeroBubbles = 30;
+    const numeroBubbles = 25;
     for(let i = 0; i < numeroBubbles; i++) {
         const bubble = document.createElement('div');
         bubble.className = 'bubble';
         const size = 5 + Math.random() * 35;
         bubble.style.setProperty('--size', size + 'px');
-        const yPos = Math.random() * 100;
         const yStart = (Math.random() * 20 - 10) + 'vh';
         const yEnd = (Math.random() * 20 - 10) + 'vh';
         bubble.style.setProperty('--y-start', yStart);
         bubble.style.setProperty('--y-end', yEnd);
         bubble.style.left = '0';
-        bubble.style.top = yPos + '%';
-        const duration = 5 + Math.random() * 10;
+        bubble.style.top = (Math.random() * 100) + '%';
+        const duration = 6 + Math.random() * 12;
         bubble.style.setProperty('--duration', duration + 's');
-        bubble.style.animationDelay = '0s';
-        const opacity = 0.2 + Math.random() * 0.5;
+        const opacity = 0.15 + Math.random() * 0.5;
         bubble.style.setProperty('--opacity', opacity);
-        if (i % 3 === 0) {
+        if (i % 4 === 0) {
             bubble.style.left = 'auto';
             bubble.style.right = '0';
             bubble.style.animation = 'moveBubbleReverse var(--duration) linear infinite';
-            bubble.style.animationDelay = '0s';
             if (!document.getElementById('reverseStyle')) {
                 const styleSheet = document.createElement("style");
                 styleSheet.id = 'reverseStyle';
@@ -1954,21 +1664,31 @@ let scriptsLoaded = false;
 function loadScripts() {
     if(scriptsLoaded) return;
     scriptsLoaded = true;
-    
     const container = document.getElementById('scriptsContainer');
     container.innerHTML = '';
     
     scriptsData.forEach((script, index) => {
+        const imagemValida = script.imagem && script.imagem !== "" ? script.imagem : "https://i.postimg.cc/Znfb3tPf/file-0000000025f071f598654ef7618e92aa.png";
+        const statusKey = keyConfigPorScript[script.nome] || "SEM CHAVE";
+        const keyClass = statusKey === "CHAVE" ? "key-needed" : "key-free";
+        const keyText = statusKey === "CHAVE" ? "🔑 CHAVE" : "✅ SEM CHAVE";
+        
+        let bioHtml = '';
+        if (script.bio) {
+            bioHtml = `<div class="script-bio"><span>📢 INFO:</span> ${script.bio}</div>`;
+        }
+        
         const scriptCard = document.createElement('div');
         scriptCard.className = 'script-card-script';
         scriptCard.innerHTML = `
             <div class="script-header">
-                <div class="script-name">${script.nome}</div>
+                <div class="script-name">${script.nome} <span class="key-status ${keyClass}">${keyText}</span></div>
                 <div class="script-game">${script.jogo}</div>
             </div>
             <div class="script-image-top">
-                <img src="https://i.postimg.cc/Znfb3tPf/file-0000000025f071f598654ef7618e92aa.png" alt="${script.nome}">
+                <img src="${imagemValida}" alt="${script.nome}" onerror="this.src='https://i.postimg.cc/Znfb3tPf/file-0000000025f071f598654ef7618e92aa.png'">
             </div>
+            ${bioHtml}
             <div class="script-content-area">
                 <div class="script-text" id="scriptText${index}">${script.script}</div>
                 <button class="copy-btn" onclick="copyScript(${index})" id="copyBtn${index}">COPIAR</button>
@@ -1976,7 +1696,6 @@ function loadScripts() {
         `;
         container.appendChild(scriptCard);
     });
-    
     const currentLang = document.documentElement.lang;
     const t = translations[currentLang] || translations.pt;
     for(let i = 0; i < scriptsData.length; i++) {
@@ -1988,7 +1707,6 @@ function loadScripts() {
 function copyScript(index) {
     const scriptText = document.getElementById(`scriptText${index}`);
     const textToCopy = scriptText.innerText;
-    
     const textArea = document.createElement('textarea');
     textArea.value = textToCopy;
     textArea.style.position = 'fixed';
@@ -1997,10 +1715,8 @@ function copyScript(index) {
     textArea.select();
     document.execCommand('copy');
     document.body.removeChild(textArea);
-    
     const currentLang = document.documentElement.lang;
     const t = translations[currentLang] || translations.pt;
-    
     const btn = document.getElementById(`copyBtn${index}`);
     const originalText = btn.innerHTML;
     btn.innerHTML = t.copiedText;
@@ -2016,9 +1732,9 @@ function toggleMenu() {
     if(menu.classList.contains("show")){
         menu.classList.remove("show");
         document.getElementById('dropdownContent').classList.remove('show');
-        document.querySelector('.dropdown-btn').classList.remove('active');
+        document.querySelector('.dropdown-btn')?.classList.remove('active');
         document.getElementById('categoryContent').classList.remove('show');
-        document.querySelector('.category-btn').classList.remove('active');
+        document.querySelector('.category-btn')?.classList.remove('active');
         setTimeout(() => { if(!menu.classList.contains("show")) menu.style.display = "none"; }, 400);
     }else{
         menu.style.display = "block";
@@ -2061,7 +1777,6 @@ function toggleCategoryDropdown() {
 function selectCategory(category) {
     document.getElementById('categoryContent').classList.remove('show');
     document.querySelector('.category-btn').classList.remove('active');
-    
     document.querySelectorAll('.category-option').forEach(opt => opt.classList.remove('selected'));
     const options = document.querySelectorAll('.category-option');
     let selectedText = '';
@@ -2069,41 +1784,26 @@ function selectCategory(category) {
         if ((category === 'executors' && index === 0) || 
             (category === 'roblox' && index === 1) || 
             (category === 'script' && index === 2) ||
-            (category === 'search' && index === 3) ||
-            (category === 'keys' && index === 4)) {
+            (category === 'search' && index === 3)) {
             opt.classList.add('selected');
             selectedText = opt.textContent;
         }
     });
     document.getElementById('selectedCategory').textContent = selectedText;
-    
     const executorsSection = document.getElementById('executorsSection');
     const robloxSection = document.getElementById('robloxSection');
     const scriptSection = document.getElementById('scriptSection');
     const searchSection = document.getElementById('searchSection');
-    const keysSection = document.getElementById('keysSection');
-    
     executorsSection.classList.add('hidden-category');
     robloxSection.classList.add('hidden-category');
     scriptSection.classList.add('hidden-category');
     searchSection.classList.add('hidden-category');
-    keysSection.classList.add('hidden-category');
-    
     setTimeout(() => {
-        if (category === 'executors') {
-            executorsSection.classList.remove('hidden-category');
-        } else if (category === 'roblox') {
-            robloxSection.classList.remove('hidden-category');
-        } else if (category === 'script') {
-            if(!scriptsLoaded) loadScripts();
-            scriptSection.classList.remove('hidden-category');
-        } else if (category === 'search') {
-            searchSection.classList.remove('hidden-category');
-        } else if (category === 'keys') {
-            keysSection.classList.remove('hidden-category');
-        }
+        if (category === 'executors') executorsSection.classList.remove('hidden-category');
+        else if (category === 'roblox') robloxSection.classList.remove('hidden-category');
+        else if (category === 'script') { if(!scriptsLoaded) loadScripts(); scriptSection.classList.remove('hidden-category'); }
+        else if (category === 'search') searchSection.classList.remove('hidden-category');
     }, 10);
-    
     let menu = document.getElementById('menu');
     menu.classList.remove('show');
     setTimeout(() => menu.style.display = 'none', 400);
@@ -2128,7 +1828,6 @@ function selectLanguage(idioma) {
 function mudarIdioma(idioma) {
     document.documentElement.lang = idioma;
     const t = translations[idioma] || translations.pt;
-    
     document.getElementById('linkCanal1').textContent = t.linkCanal1;
     document.getElementById('linkCanal2').textContent = t.linkCanal2;
     document.getElementById('linkDiscord').textContent = t.linkDiscord;
@@ -2148,67 +1847,37 @@ function mudarIdioma(idioma) {
     document.getElementById('robloxTitulo').textContent = t.robloxTitulo;
     document.getElementById('btnRoblox').innerHTML = t.btnRoblox;
     document.getElementById('footerTexto').textContent = t.footerTexto;
-    
     const languageTitle = document.querySelector('.language-title');
     if(languageTitle) languageTitle.textContent = t.language;
-    
     const themeTitle = document.querySelector('.theme-toggle-title');
     if(themeTitle) themeTitle.textContent = t.theme;
-    
     const searchInput = document.querySelector('.search-input');
     if(searchInput) searchInput.placeholder = t.searchPlaceholder;
-    
     const searchButton = document.querySelector('.search-btn');
     if(searchButton) searchButton.innerHTML = t.searchButton;
-    
     const searchDefault = document.querySelector('.no-results');
     if(searchDefault && (searchDefault.innerHTML.includes('PESQUISAR') || searchDefault.innerHTML.includes('SEARCH') || searchDefault.innerHTML.includes('TÌM') || searchDefault.innerHTML.includes('SUCHE') || searchDefault.innerHTML.includes('بحث'))) {
         searchDefault.innerHTML = t.searchDefault;
     }
-    
-    // Keys section translations
-    const keysTitle = document.getElementById('keysTitle');
-    if(keysTitle) keysTitle.innerHTML = t.keysTitle;
-    
-    const keysSubtitle = document.getElementById('keysSubtitle');
-    if(keysSubtitle) keysSubtitle.textContent = t.keysSubtitle;
-    
-    const bypassBtn = document.getElementById('bypassKeyBtn');
-    if(bypassBtn) bypassBtn.innerHTML = t.keysButton;
-    
-    const keyUrlInput = document.getElementById('keyUrlInput');
-    if(keyUrlInput) keyUrlInput.placeholder = t.keysPlaceholder;
-    
     if(scriptsLoaded) {
         for(let i = 0; i < scriptsData.length; i++) {
             const btn = document.getElementById(`copyBtn${i}`);
             if(btn) btn.innerHTML = t.copyText;
         }
     }
-    
     const categoryOptions = document.querySelectorAll('.category-option');
-    if(categoryOptions.length >= 5) {
+    if(categoryOptions.length >= 4) {
         categoryOptions[0].textContent = t.categoryExecutors;
         categoryOptions[1].textContent = t.categoryRoblox;
         categoryOptions[2].textContent = t.categoryScript;
         categoryOptions[3].textContent = t.categorySearch;
-        categoryOptions[4].textContent = t.categoryKeys;
     }
-    
     const selectedCategory = document.getElementById('selectedCategory');
     const currentSelected = selectedCategory.textContent;
-    if(currentSelected === 'EXECUTORES' || currentSelected === 'EXECUTORS' || currentSelected === 'المنفذين') {
-        selectedCategory.textContent = t.categoryExecutors;
-    } else if(currentSelected === 'ROBLOX LITE') {
-        selectedCategory.textContent = t.categoryRoblox;
-    } else if(currentSelected === 'SCRIPT GT' || currentSelected === 'سكريبت') {
-        selectedCategory.textContent = t.categoryScript;
-    } else if(currentSelected === 'PESQUISAR SCRIPT' || currentSelected === 'SEARCH SCRIPT' || currentSelected === 'TÌM SCRIPT' || currentSelected === 'SCRIPT SUCHE' || currentSelected === 'بحث سكريبت') {
-        selectedCategory.textContent = t.categorySearch;
-    } else if(currentSelected === 'PEGAR KEYS' || currentSelected === 'GET KEYS' || currentSelected === 'LẤY KEY' || currentSelected === 'KEY HOLEN' || currentSelected === 'الحصول على المفتاح') {
-        selectedCategory.textContent = t.categoryKeys;
-    }
-    
+    if(currentSelected === 'EXECUTORES' || currentSelected === 'EXECUTORS' || currentSelected === 'المنفذين') selectedCategory.textContent = t.categoryExecutors;
+    else if(currentSelected === 'ROBLOX LITE') selectedCategory.textContent = t.categoryRoblox;
+    else if(currentSelected === 'SCRIPT GT' || currentSelected === 'سكريبت') selectedCategory.textContent = t.categoryScript;
+    else if(currentSelected === 'PESQUISAR SCRIPT' || currentSelected === 'SEARCH SCRIPT' || currentSelected === 'TÌM SCRIPT' || currentSelected === 'SCRIPT SUCHE' || currentSelected === 'بحث سكريبت') selectedCategory.textContent = t.categorySearch;
     let menu = document.getElementById('menu');
     if(menu.classList.contains('show')) {
         menu.classList.remove('show');
@@ -2223,7 +1892,6 @@ document.addEventListener('click', function(event) {
     const categoryDropdown = document.querySelector('.category-dropdown');
     const categoryBtn = document.querySelector('.category-btn');
     const categoryContent = document.getElementById('categoryContent');
-    
     if (langDropdown && !langDropdown.contains(event.target) && langContent?.classList.contains('show')) {
         langContent.classList.remove('show');
         langBtn?.classList.remove('active');

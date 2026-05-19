@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GTVZ HOSP</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #0a0c10;
+      font-family: 'Courier New', 'Fira Code', monospace;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #2a2e3a;
+    }
+
+    .title {
+      font-size: 24px;
+      font-weight: bold;
+      color: #60a5fa;
+      letter-spacing: -0.5px;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      background: #1e222d;
+      border: 1px solid #3a4055;
+      padding: 8px 18px;
+      border-radius: 6px;
+      color: #e2e8f0;
+      font-family: monospace;
+      font-weight: bold;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #2d3448;
+    }
+
+    .btn-green {
+      background: #10b981;
+      border-color: #10b981;
+      color: white;
+    }
+
+    .btn-green:hover {
+      background: #059669;
+    }
+
+    .btn-blue {
+      background: #3b82f6;
+      border-color: #3b82f6;
+      color: white;
+    }
+
+    .btn-blue:hover {
+      background: #2563eb;
+    }
+
+    .editor-area {
+      background: #0f121b;
+      border: 1px solid #252b3b;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 28px;
+    }
+
+    .info-bar {
+      padding: 10px 16px;
+      background: #0b0e14;
+      border-bottom: 1px solid #252b3b;
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      font-family: monospace;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 520px;
+      background: #0b0e16;
+      border: none;
+      color: #e2e8f0;
+      font-family: 'Courier New', 'Fira Code', monospace;
+      font-size: 13px;
+      line-height: 1.5;
+      padding: 18px;
+      resize: vertical;
+      outline: none;
+    }
+
+    .raw-link-area {
+      background: #0f121b;
+      border: 1px solid #252b3b;
+      border-radius: 12px;
+      margin-top: 20px;
+      padding: 16px;
+    }
+
+    .raw-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .raw-url {
+      background: #0b0e14;
+      padding: 12px;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 13px;
+      word-break: break-all;
+      border: 1px solid #2a2e3a;
+      color: #86efac;
+    }
+
+    .loadstring-area {
+      background: #0f121b;
+      border: 1px solid #3b82f6;
+      border-radius: 12px;
+      margin-top: 16px;
+      padding: 16px;
+    }
+
+    .loadstring-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .loadstring-code {
+      background: #0b0e14;
+      padding: 12px;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 12px;
+      word-break: break-all;
+      border: 1px solid #2a2e3a;
+      color: #fbbf24;
+    }
+
+    .paste-list {
+      margin-top: 28px;
+    }
+
+    .list-header {
+      font-size: 14px;
+      font-weight: bold;
+      margin-bottom: 12px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #2a2e3a;
+    }
+
+    .paste-items {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .paste-row {
+      background: #0f121b;
+      border: 1px solid #252b3b;
+      border-radius: 8px;
+      padding: 10px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .paste-info {
+      font-family: monospace;
+      font-size: 12px;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .paste-name {
+      font-weight: bold;
+      color: #60a5fa;
+    }
+
+    .paste-date {
+      color: #6b7280;
+      font-size: 10px;
+      margin-left: 12px;
+    }
+
+    .paste-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .small-btn {
+      padding: 4px 12px;
+      font-size: 11px;
+      background: #1a1f2c;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 40px;
+      color: #6b7280;
+      background: #0f121b;
+      border-radius: 12px;
+    }
+
+    .status {
+      font-size: 11px;
+      color: #6b7280;
+    }
+
+    @media (max-width: 700px) {
+      body { padding: 12px; }
+      textarea { min-height: 320px; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="top-bar">
+    <div class="title">GTVZ HOSP</div>
+    <div class="btn-group">
+      <button id="newBtn">NEW</button>
+      <button id="saveRawBtn" class="btn-green">CREATE PASTE</button>
+    </div>
+  </div>
+
+  <div class="editor-area">
+    <div class="info-bar">
+      <span>SCRIPT INPUT</span>
+      <span id="stats">0 chars | 0 KB</span>
+    </div>
+    <textarea id="scriptInput" placeholder="Cole seu script aqui..."></textarea>
+  </div>
+
+  <div class="raw-link-area" id="rawPanel" style="display: none;">
+    <div class="raw-header">
+      <span style="font-weight: bold;">RAW LINK</span>
+      <button id="copyRawBtn" class="small-btn">COPY RAW URL</button>
+    </div>
+    <div class="raw-url" id="rawUrlDisplay"></div>
+  </div>
+
+  <div class="loadstring-area" id="loadstringPanel" style="display: none;">
+    <div class="loadstring-header">
+      <span style="font-weight: bold;">LOADSTRING READY</span>
+      <button id="copyLoadstringBtn" class="small-btn">COPY LOADSTRING</button>
+    </div>
+    <div class="loadstring-code" id="loadstringCode"></div>
+    <div class="status" style="margin-top: 8px;">execute no executor: loadstring(game:HttpGet("URL"))()</div>
+  </div>
+
+  <div class="paste-list">
+    <div class="list-header">MEUS PASTES</div>
+    <div id="pasteListContainer" class="paste-items"></div>
+  </div>
+</div>
+
+<script>
+  const STORAGE_KEY = 'gtvz_hosp_db';
+  let pastes = [];
+
+  const textarea = document.getElementById('scriptInput');
+  const statsSpan = document.getElementById('stats');
+  const rawPanel = document.getElementById('rawPanel');
+  const rawUrlDisplay = document.getElementById('rawUrlDisplay');
+  const copyRawBtn = document.getElementById('copyRawBtn');
+  const loadstringPanel = document.getElementById('loadstringPanel');
+  const loadstringCode = document.getElementById('loadstringCode');
+  const copyLoadstringBtn = document.getElementById('copyLoadstringBtn');
+  const saveBtn = document.getElementById('saveRawBtn');
+  const newBtn = document.getElementById('newBtn');
+  const pasteContainer = document.getElementById('pasteListContainer');
+
+  function updateStats() {
+    const txt = textarea.value;
+    const bytes = new Blob([txt]).size;
+    const kb = (bytes / 1024).toFixed(1);
+    statsSpan.innerText = txt.length + ' chars | ' + kb + ' KB';
+  }
+
+  textarea.addEventListener('input', updateStats);
+  updateStats();
+
+  function loadPastes() {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored) {
+      try {
+        pastes = JSON.parse(stored);
+        if (!Array.isArray(pastes)) pastes = [];
+      } catch(e) { pastes = []; }
+    } else {
+      pastes = [];
+    }
+    renderPasteList();
+  }
+
+  function savePastes() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(pastes));
+    renderPasteList();
+  }
+
+  function generateTitle(content) {
+    const firstLine = content.split(/\r?\n/)[0].trim();
+    if (firstLine && firstLine.length > 0) {
+      return firstLine.substring(0, 45) + (firstLine.length > 45 ? '..' : '');
+    }
+    return 'paste_' + Date.now();
+  }
+
+  function createPaste() {
+    const content = textarea.value;
+    if (!content.trim()) {
+      alert('empty content');
+      return null;
+    }
+    const id = Date.now() + '_' + Math.random().toString(36).substr(2, 8);
+    const newPaste = {
+      id: id,
+      title: generateTitle(content),
+      content: content,
+      createdAt: Date.now()
+    };
+    pastes.unshift(newPaste);
+    savePastes();
+    return newPaste;
+  }
+
+  function getRawUrl(id) {
+    return window.location.origin + window.location.pathname + '#raw_' + id;
+  }
+
+  function getLoadstringUrl(id) {
+    return 'loadstring(game:HttpGet("' + getRawUrl(id) + '"))()';
+  }
+
+  function showRawPanel(id) {
+    const url = getRawUrl(id);
+    rawUrlDisplay.textContent = url;
+    rawPanel.style.display = 'block';
+  }
+
+  function showLoadstringPanel(id) {
+    const ls = getLoadstringUrl(id);
+    loadstringCode.textContent = ls;
+    loadstringPanel.style.display = 'block';
+  }
+
+  function loadPasteById(id) {
+    const paste = pastes.find(p => p.id === id);
+    if (paste) {
+      textarea.value = paste.content;
+      updateStats();
+      alert('loaded: ' + paste.title);
+    } else {
+      alert('not found');
+    }
+  }
+
+  function deletePasteById(id) {
+    const index = pastes.findIndex(p => p.id === id);
+    if (index !== -1) {
+      const removed = pastes[index];
+      pastes.splice(index, 1);
+      savePastes();
+      alert('deleted: ' + removed.title);
+    }
+  }
+
+  function renderPasteList() {
+    if (!pasteContainer) return;
+    if (pastes.length === 0) {
+      pasteContainer.innerHTML = '<div class="empty">no pastes saved</div>';
+      return;
+    }
+    const sorted = [...pastes].sort((a,b) => b.createdAt - a.createdAt);
+    pasteContainer.innerHTML = sorted.map(p => {
+      const date = new Date(p.createdAt);
+      const dateStr = date.toLocaleString();
+      const size = (new Blob([p.content]).size / 1024).toFixed(1);
+      const safeTitle = p.title.replace(/[<>&]/g, function(m) {
+        if (m === '<') return '&lt;';
+        if (m === '>') return '&gt;';
+        if (m === '&') return '&amp;';
+        return m;
+      });
+      return `
+        <div class="paste-row" data-id="${p.id}">
+          <div class="paste-info">
+            <span class="paste-name">${safeTitle}</span>
+            <span class="paste-date">${dateStr} | ${size} KB</span>
+          </div>
+          <div class="paste-actions">
+            <button class="small-btn raw-btn" data-id="${p.id}" data-raw="true">RAW</button>
+            <button class="small-btn ls-btn" data-id="${p.id}" data-ls="true">LOADSTR</button>
+            <button class="small-btn load-btn" data-id="${p.id}" data-load="true">LOAD</button>
+            <button class="small-btn del-btn" data-id="${p.id}" data-del="true">DEL</button>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    document.querySelectorAll('.raw-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const id = btn.getAttribute('data-id');
+        const paste = pastes.find(p => p.id === id);
+        if (paste) {
+          showRawPanel(id);
+          alert('raw link generated');
+        }
+      });
+    });
+
+    document.querySelectorAll('.ls-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const id = btn.getAttribute('data-id');
+        const paste = pastes.find(p => p.id === id);
+        if (paste) {
+          showLoadstringPanel(id);
+          alert('loadstring generated');
+        }
+      });
+    });
+
+    document.querySelectorAll('.load-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const id = btn.getAttribute('data-id');
+        loadPasteById(id);
+      });
+    });
+
+    document.querySelectorAll('.del-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const id = btn.getAttribute('data-id');
+        if (confirm('delete this paste?')) {
+          deletePasteById(id);
+        }
+      });
+    });
+  }
+
+  saveBtn.addEventListener('click', () => {
+    if (!textarea.value.trim()) {
+      alert('paste something first');
+      return;
+    }
+    const newPaste = createPaste();
+    if (newPaste) {
+      showRawPanel(newPaste.id);
+      showLoadstringPanel(newPaste.id);
+      alert('paste created: ' + newPaste.title);
+    }
+  });
+
+  newBtn.addEventListener('click', () => {
+    if (textarea.value.trim() !== '' && confirm('clear editor?')) {
+      textarea.value = '';
+      updateStats();
+      rawPanel.style.display = 'none';
+      loadstringPanel.style.display = 'none';
+    } else if (textarea.value.trim() === '') {
+      textarea.value = '';
+      updateStats();
+      rawPanel.style.display = 'none';
+      loadstringPanel.style.display = 'none';
+    }
+  });
+
+  copyRawBtn.addEventListener('click', async () => {
+    const url = rawUrlDisplay.textContent;
+    if (!url) return;
+    try {
+      await navigator.clipboard.writeText(url);
+      alert('raw url copied');
+    } catch(e) {
+      prompt('copy manually:', url);
+    }
+  });
+
+  copyLoadstringBtn.addEventListener('click', async () => {
+    const ls = loadstringCode.textContent;
+    if (!ls) return;
+    try {
+      await navigator.clipboard.writeText(ls);
+      alert('loadstring copied');
+    } catch(e) {
+      prompt('copy manually:', ls);
+    }
+  });
+
+  function handleHash() {
+    const hash = window.location.hash;
+    if (hash && hash.startsWith('#raw_')) {
+      const id = hash.substring(5);
+      const paste = pastes.find(p => p.id === id);
+      if (paste) {
+        document.body.innerHTML = '<pre style="background:#0a0c10;color:#86efac;padding:20px;font-family:monospace;white-space:pre-wrap;word-break:break-all;margin:0;min-height:100vh;">' + escapeRaw(paste.content) + '</pre>';
+      } else {
+        document.body.innerHTML = '<div style="background:#0a0c10;color:#f87171;padding:40px;font-family:monospace;text-align:center;">paste not found</div>';
+      }
+    }
+  }
+
+  function escapeRaw(str) {
+    return str.replace(/[&<>]/g, function(m) {
+      if (m === '&') return '&amp;';
+      if (m === '<') return '&lt;';
+      if (m === '>') return '&gt;';
+      return m;
+    });
+  }
+
+  loadPastes();
+  handleHash();
+  window.addEventListener('hashchange', handleHash);
+</script>
+</body>
+</html>

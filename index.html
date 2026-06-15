@@ -535,9 +535,16 @@ footer {
     border-radius: 3px;
 }
 
-.copy-code-btn {
-    padding: 10px 24px;
-    background: linear-gradient(45deg, #006400, #00aa00);
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.copy-code-btn, .download-code-btn {
+    padding: 10px 20px;
     border: 2px solid #000000;
     border-radius: 25px;
     color: white;
@@ -546,11 +553,18 @@ footer {
     font-weight: bold;
     transition: 0.3s;
     box-shadow: 0 0 10px var(--neon-color);
-    margin-top: 15px;
     width: auto;
 }
 
-.copy-code-btn:hover {
+.copy-code-btn {
+    background: linear-gradient(45deg, #006400, #00aa00);
+}
+
+.download-code-btn {
+    background: linear-gradient(45deg, #00008b, #4169e1);
+}
+
+.copy-code-btn:hover, .download-code-btn:hover {
     transform: scale(1.02);
     box-shadow: 0 0 20px var(--neon-color);
 }
@@ -782,9 +796,9 @@ const scriptsData = [
     },
     {
         nome: "GTVZ HUB PS",
-        jogo: "FPS PASSEIO",
+        jogo: "BROOKHAVEN",
         script: `loadstring(game:HttpGet("COPIA MEU MINI PAU"))()`,
-        imagem: "https://i.postimg.cc/pT520KZy/Screenshot-2026-06-14-11-25-01-290-gtvz-modded.jpg",
+        imagem: "https://i.postimg.cc/VvszNMrg/Screenshot-2026-05-31-11-27-24-924-gtvz-modded.jpg",
         bio: null
     }
 ];
@@ -804,7 +818,8 @@ const ptTexts = {
     statusMaintenance: "MANUTENÇÃO",
     statusOutdated: "DESATUALIZADO",
     copyText: "COPIAR",
-    copiedText: "COPIADO"
+    copiedText: "COPIADO",
+    downloadText: "BAIXAR"
 };
 
 function getStatusInfo(scriptNome) {
@@ -814,6 +829,25 @@ function getStatusInfo(scriptNome) {
 }
 
 let scriptsLoaded = false;
+
+function downloadScript(scriptNome, scriptConteudo, index) {
+    const blob = new Blob([scriptConteudo], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${scriptNome.replace(/ /g, "_")}.txt`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    
+    const btn = document.getElementById(`downloadBtn${index}`);
+    const originalText = btn.innerHTML;
+    btn.innerHTML = "BAIXADO!";
+    setTimeout(() => {
+        btn.innerHTML = originalText;
+    }, 2000);
+}
 
 function loadScripts() {
     if(scriptsLoaded) return;
@@ -874,7 +908,10 @@ function loadScripts() {
                     ${bioHtml}
                     <div class="script-code-area">
                         <div class="script-code-text" id="scriptText${index}">${script.script}</div>
-                        <button class="copy-code-btn" onclick="copyScriptWithTab(${index})" id="copyBtn${index}">${ptTexts.copyText}</button>
+                        <div class="button-group">
+                            <button class="copy-code-btn" onclick="copyScriptWithTab(${index})" id="copyBtn${index}">${ptTexts.copyText}</button>
+                            <button class="download-code-btn" onclick="downloadScript('${script.nome}', document.getElementById('scriptText${index}').innerText, ${index})" id="downloadBtn${index}">${ptTexts.downloadText}</button>
+                        </div>
                     </div>
                 </div>
                 <div class="tab-pane" id="keyPane${index}">

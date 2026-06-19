@@ -740,12 +740,11 @@ const keyConfigPorScript = {
 // CONFIGURAÇÃO DE STATUS DO SCRIPT (ATUALIZADO/DESATUALIZADO/MANUTENÇÃO)
 // ============================================
 const scriptStatusConfig = {
-    "GTVZ HUB UNI": { status: "green", text: "MANUTENÇÃO", desc: "SEXO" },
-    "CLIPESE TRUE HUB": { status: "orange", text: "ATUALIZADO", desc: "EM BREVE" },
+    "GTVZ HUB UNI": { status: "green", text: "MANUTENÇÃO", desc: "" },
+    "CLIPESE TRUE HUB": { status: "green", text: "ATUALIZADO", desc: "" },
     "GTVZ HUB CPB": { status: "orange", text: "ATUALIZADO", desc: "EM BREVE" },
     "GTVZ HUB PCM": { status: "orange", text: "ATUALIZADO", desc: "EM BREVE" },
     "GTVZ FARM HUB": { status: "orange", text: "MANUTENÇÃO", desc: "EM BREVE" },
-    "GTVZ HUB BK": { status: "orange", text: "MANUTENÇÃO", desc: "EM BREVE" },
     "GTVZ HUB PS": { status: "orange", text: "MANUTENÇÃO", desc: "EM BREVE" },
 };
 
@@ -762,22 +761,15 @@ const scriptsData = [
     {
         nome: "CLIPESE TRUE HUB",
         jogo: "BLOX FRUITS",
-        script: `loadstring(game:HttpGet("COPIA MEU MINI PAU"))()`,
+        script: `loadstring((function() local s=[[GTVZ108GTVZ111GTVZ97GTVZ100GTVZ115GTVZ116GTVZ114GTVZ105GTVZ110GTVZ103GTVZ40GTVZ103GTVZ97GTVZ109GTVZ101GTVZ58GTVZ72GTVZ116GTVZ116GTVZ112GTVZ71GTVZ101GTVZ116GTVZ40GTVZ34GTVZ104GTVZ116GTVZ116GTVZ112GTVZ115GTVZ58GTVZ47GTVZ47GTVZ112GTVZ97GTVZ115GTVZ116GTVZ101GTVZ102GTVZ121GTVZ46GTVZ97GTVZ112GTVZ112GTVZ47GTVZ49GTVZ88GTVZ90GTVZ81GTVZ104GTVZ112GTVZ78GTVZ87GTVZ47GTVZ114GTVZ97GTVZ119GTVZ34GTVZ41GTVZ41GTVZ40GTVZ41]]; local reconstructed = s:gsub("GTVZ(%d+)", function(n) return string.char(tonumber(n)) end); return reconstructed end)())()`,
         imagem: "https://i.postimg.cc/RF9BPd3S/Screenshot-2026-06-03-08-40-54-190-gtvz-modded.jpg",
         bio: null
     },
     {
         nome: "GTVZ HUB CPB",
         jogo: "CAMPO DE BATALHA",
-        script: `loadstring(game:HttpGet("COPIA MEU MINI PAU"))()`,
+        script: `loadstring((function() local s=[[GTVZ108GTVZ111GTVZ97GTVZ100GTVZ115GTVZ116GTVZ114GTVZ105GTVZ110GTVZ103GTVZ40GTVZ103GTVZ97GTVZ109GTVZ101GTVZ58GTVZ72GTVZ116GTVZ116GTVZ112GTVZ71GTVZ101GTVZ116GTVZ40GTVZ34GTVZ104GTVZ116GTVZ116GTVZ112GTVZ115GTVZ58GTVZ47GTVZ47GTVZ112GTVZ97GTVZ115GTVZ116GTVZ101GTVZ102GTVZ121GTVZ46GTVZ97GTVZ112GTVZ112GTVZ47GTVZ116GTVZ121GTVZ106GTVZ104GTVZ115GTVZ66GTVZ108GTVZ90GTVZ47GTVZ114GTVZ97GTVZ119GTVZ34GTVZ41GTVZ41GTVZ40GTVZ41]]; local reconstructed = s:gsub("GTVZ(%d+)", function(n) return string.char(tonumber(n)) end); return reconstructed end)())()`,
         imagem: "https://i.postimg.cc/sgqKDKW8/Screenshot-2026-06-05-07-36-55-066-gtvz-modded.jpg",
-        bio: null
-    },
-    {
-        nome: "GTVZ HUB PCM",
-        jogo: "PECA DE MARINHEIRO",
-        script: `loadstring(game:HttpGet("COPIA MEU MINI PAU"))()`,
-        imagem: "https://i.postimg.cc/Pxv5CML3/Screenshot-2026-04-29-17-34-46-811-gtvz-modded.jpg",
         bio: null
     },
     {
@@ -788,17 +780,10 @@ const scriptsData = [
         bio: null
     },
     {
-        nome: "GTVZ HUB BK",
-        jogo: "BROOKHAVEN",
-        script: `loadstring(game:HttpGet("COPIA MEU MINI PAU"))()`,
-        imagem: "https://i.postimg.cc/VvszNMrg/Screenshot-2026-05-31-11-27-24-924-gtvz-modded.jpg",
-        bio: null
-    },
-    {
         nome: "GTVZ HUB PS",
-        jogo: "BROOKHAVEN",
+        jogo: "FPS PSSEIO",
         script: `loadstring(game:HttpGet("COPIA MEU MINI PAU"))()`,
-        imagem: "https://i.postimg.cc/VvszNMrg/Screenshot-2026-05-31-11-27-24-924-gtvz-modded.jpg",
+        imagem: "https://i.postimg.cc/1zmCZrFx/Screenshot-2026-06-18-13-49-05-446-gtvz-modded.jpg",
         bio: null
     }
 ];

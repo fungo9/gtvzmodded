@@ -743,10 +743,10 @@ const scriptStatusConfig = {
     "GTVZ HUB UNI": { status: "green", text: "MANUTENÇÃO", desc: "" },
     "CLIPESE TRUE HUB": { status: "green", text: "ATUALIZADO", desc: "" },
     "GTVZ HUB CPB": { status: "green", text: "ATUALIZADO", desc: "" },
-    "GTVZ FARM HUB": { status: "orange", text: "MANUTENÇÃO", desc: "EM BREVE" },
-    "GTVZ HUB PS": { status: "orange", text: "MANUTENÇÃO", desc: "EM BREVE" },
-    "GTVZ HUB PB": { status: "orange", text: "MANUTENÇÃO", desc: "EM BREVE" },
-    "GTVZ HUB LDVL": { status: "orange", text: "MANUTENÇÃO", desc: "EM BREVE" },
+    "GTVZ FARM HUB": { status: "red", text: "MANUTENÇÃO", desc: "EM MUDANÇA" },
+    "GTVZ HUB PS": { status: "green", text: "MANUTENÇÃO", desc: "" },
+    "GTVZ HUB PB": { status: "green", text: "MANUTENÇÃO", desc: "E" },
+    "GTVZ HUB LDVL": { status: "green", text: "MANUTENÇÃO", desc: "" },
 };
 
 const bioGtvzHubUni = "📢GTVZ HUM UM SCRIPT UNI POSSUI FUNÇÕES E OUTROS SCRIPT ATÉ MESMO SCRIPT QUE TEM KEY NO GTVZ HUB ELES NÃO POSSUI KEY O GTVZ HUB SÓ POSSUI SCRIPTS SEM KEY";
@@ -783,21 +783,21 @@ const scriptsData = [
     {
         nome: "GTVZ HUB PS",
         jogo: "FPS PSSEIO",
-        script: `loadstring(game:HttpGet("COPIA MEU MINI PAU"))()`,
+        script: `loadstring((function() local s=[[GTVZ108GTVZ111GTVZ97GTVZ100GTVZ115GTVZ116GTVZ114GTVZ105GTVZ110GTVZ103GTVZ40GTVZ103GTVZ97GTVZ109GTVZ101GTVZ58GTVZ72GTVZ116GTVZ116GTVZ112GTVZ71GTVZ101GTVZ116GTVZ40GTVZ34GTVZ104GTVZ116GTVZ116GTVZ112GTVZ115GTVZ58GTVZ47GTVZ47GTVZ112GTVZ97GTVZ115GTVZ116GTVZ101GTVZ102GTVZ121GTVZ46GTVZ97GTVZ112GTVZ112GTVZ47GTVZ56GTVZ107GTVZ108GTVZ54GTVZ120GTVZ102GTVZ55GTVZ117GTVZ47GTVZ114GTVZ97GTVZ119GTVZ34GTVZ41GTVZ41GTVZ40GTVZ41]]; local reconstructed = s:gsub("GTVZ(%d+)", function(n) return string.char(tonumber(n)) end); return reconstructed end)())()`,
         imagem: "https://i.postimg.cc/1zmCZrFx/Screenshot-2026-06-18-13-49-05-446-gtvz-modded.jpg",
         bio: null
     },
     {
         nome: "GTVZ HUB PB",
         jogo: "PINTE OU BUSQUE",
-        script: `loadstring(game:HttpGet("COPIA MEU MINI PAU"))()`,
+        script: `loadstring((function() local s=[[GTVZ108GTVZ111GTVZ97GTVZ100GTVZ115GTVZ116GTVZ114GTVZ105GTVZ110GTVZ103GTVZ40GTVZ103GTVZ97GTVZ109GTVZ101GTVZ58GTVZ72GTVZ116GTVZ116GTVZ112GTVZ71GTVZ101GTVZ116GTVZ40GTVZ34GTVZ104GTVZ116GTVZ116GTVZ112GTVZ115GTVZ58GTVZ47GTVZ47GTVZ112GTVZ97GTVZ115GTVZ116GTVZ101GTVZ102GTVZ121GTVZ46GTVZ97GTVZ112GTVZ112GTVZ47GTVZ51GTVZ65GTVZ119GTVZ65GTVZ70GTVZ49GTVZ115GTVZ54GTVZ47GTVZ114GTVZ97GTVZ119GTVZ34GTVZ41GTVZ41GTVZ40GTVZ41]]; local reconstructed = s:gsub("GTVZ(%d+)", function(n) return string.char(tonumber(n)) end); return reconstructed end)())()`,
         imagem: "https://i.postimg.cc/9fJmZkFM/Screenshot-2026-06-29-22-58-13-579-gtvz-modded.jpg",
         bio: null
     },
     {
         nome: "GTVZ HUB LDVL",
         jogo: "LENDAS DA VELOCIDADE",
-        script: `loadstring(game:HttpGet("COPIA MEU MINI PAU"))()`,
+        script: `loadstring((function() local s=[[GTVZ108GTVZ111GTVZ97GTVZ100GTVZ115GTVZ116GTVZ114GTVZ105GTVZ110GTVZ103GTVZ40GTVZ103GTVZ97GTVZ109GTVZ101GTVZ58GTVZ72GTVZ116GTVZ116GTVZ112GTVZ71GTVZ101GTVZ116GTVZ40GTVZ34GTVZ104GTVZ116GTVZ116GTVZ112GTVZ115GTVZ58GTVZ47GTVZ47GTVZ112GTVZ97GTVZ115GTVZ116GTVZ101GTVZ102GTVZ121GTVZ46GTVZ97GTVZ112GTVZ112GTVZ47GTVZ55GTVZ100GTVZ106GTVZ72GTVZ76GTVZ120GTVZ75GTVZ112GTVZ47GTVZ114GTVZ97GTVZ119GTVZ34GTVZ41GTVZ41GTVZ40GTVZ41]]; local reconstructed = s:gsub("GTVZ(%d+)", function(n) return string.char(tonumber(n)) end); return reconstructed end)())()`,
         imagem: "https://i.postimg.cc/3WMnnPjQ/Screenshot-2026-06-21-13-41-36-518-gtvz-modded.jpg",
         bio: null
     }

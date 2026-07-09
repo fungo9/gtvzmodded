@@ -508,12 +508,12 @@
         // CONFIGURAÇÃO DE KEY INDIVIDUAL POR SCRIPT
         // ============================================
         const keyConfigPorScript = {
-            "GTVZ HUB UNI": false,
-            "GTVZ HUB CPB": true,
-            "GTVZ FARM HUB": false,
-            "GTVZ HUB PS": false,
-            "GTVZ HUB PB": false,
-            "GTVZ HUB LDVL": false
+            "GTVZ HUB UNI🟢": false,
+            "GTVZ HUB CPB🟠": true,
+            "GTVZ FARM HUB🔴": false,
+            "GTVZ HUB PS🟠": false,
+            "GTVZ HUB PB🟢": false,
+            "GTVZ HUB LDVL🟢": false
         };
 
         // ============================================
@@ -588,7 +588,7 @@
             document.body.removeChild(ta);
             const btn = document.getElementById(`copyBtn${index}`);
             const original = btn.innerText;
-            btn.innerText = '✅ COPIADO!';
+            btn.innerText = '✅COPIADO!';
             setTimeout(() => btn.innerText = original, 2000);
         }
 

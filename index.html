@@ -1,1075 +1,705 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GTVZ MODDED - Scripts GT</title>
-
-<style>
-:root {
-    --bg-gradient-start: #0a2f0a;
-    --bg-gradient-end: #031003;
-    --card-bg: #0a1f0a;
-    --card-border: #00ff0033;
-    --text-primary: white;
-    --text-secondary: #aaffaa;
-    --neon-color: #00ff00;
-    --neon-shadow: 0 0 10px #00ff00;
-    --btn-gradient-start: #006400;
-    --btn-gradient-end: #00aa00;
-    --btn-hover-start: #008000;
-    --btn-hover-end: #00ff00;
-    --input-bg: #052005;
-    --result-bg: #052005;
-    --result-border: #00ff0033;
-    --result-hover-border: #00ff00;
-    --copy-btn-bg: linear-gradient(45deg, #006400, #00aa00);
-    --raw-btn-bg: linear-gradient(45deg, #4a0080, #8000ff);
-    --key-needed-bg: #8b0000;
-    --key-free-bg: #006400;
-    --bio-bg: #0a2f0a;
-    --tab-active: #00ff00;
-    --tab-inactive: #0a3a0a;
-    --status-green: #00ff00;
-    --status-orange: #ffaa00;
-    --status-red: #ff3333;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body{
-margin:0;
-font-family:Arial, Helvetica, sans-serif;
-background: radial-gradient(circle at top, var(--bg-gradient-start), var(--bg-gradient-end));
-color:var(--text-primary);
-text-align:center;
-overflow-x:hidden;
-position:relative;
-min-height:100vh;
-}
-
-/* Overlay de boas-vindas - cobre toda a tela com blur */
-.welcome-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at center, #0a2f0a, #020802);
-    backdrop-filter: blur(12px);
-    z-index: 9999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    transition: opacity 1.2s ease-out, backdrop-filter 1s ease;
-    opacity: 1;
-    pointer-events: none; /* Permite clicar através mas mantém visível */
-}
-
-/* Quando o overlay some */
-.welcome-overlay.fade-out {
-    opacity: 0;
-    backdrop-filter: blur(0px);
-    visibility: hidden;
-}
-
-/* Caixa da mensagem de digitação */
-.welcome-message-box {
-    background: rgba(0, 20, 0, 0.7);
-    border: 2px solid var(--neon-color);
-    border-radius: 40px;
-    padding: 20px 40px;
-    box-shadow: 0 0 80px var(--neon-color), inset 0 0 20px rgba(0,255,0,0.3);
-    text-align: center;
-    backdrop-filter: blur(4px);
-    animation: pulseGlow 1.8s infinite alternate;
-}
-
-@keyframes pulseGlow {
-    0% { box-shadow: 0 0 20px var(--neon-color), inset 0 0 10px rgba(0,255,0,0.2); }
-    100% { box-shadow: 0 0 80px var(--neon-color), inset 0 0 30px rgba(0,255,0,0.6); }
-}
-
-.welcome-text {
-    font-size: 48px;
-    font-weight: bold;
-    letter-spacing: 4px;
-    color: var(--neon-color);
-    text-shadow: 0 0 15px var(--neon-color), 0 0 30px #00aa00;
-    font-family: 'Courier New', monospace;
-    white-space: nowrap;
-    border-right: 4px solid var(--neon-color);
-    display: inline-block;
-    animation: blinkCursor 0.7s step-end infinite;
-}
-
-/* Cursor piscando */
-@keyframes blinkCursor {
-    0%, 100% { border-color: var(--neon-color); }
-    50% { border-color: transparent; }
-}
-
-/* Para telas pequenas ajustar fonte */
-@media (max-width: 600px) {
-    .welcome-text {
-        font-size: 28px;
-        letter-spacing: 2px;
-        white-space: nowrap;
-    }
-    .welcome-message-box {
-        padding: 15px 25px;
-    }
-}
-
-/* Conteúdo principal inicialmente com blur extra, depois volta ao normal */
-.content {
-    position: relative;
-    z-index: 2;
-    transition: filter 0.8s ease-out;
-}
-
-/* Quando o overlay está ativo, o conteúdo fica desfocado e um pouco escurecido */
-body.blurred .content {
-    filter: blur(8px) brightness(0.7);
-    user-select: none;
-    pointer-events: none;
-}
-
-/* Remove blur depois que a animação acaba */
-body.blurred-remove .content {
-    filter: blur(0px) brightness(1);
-    pointer-events: auto;
-}
-
-.bubbles{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-pointer-events:none;
-z-index:1;
-overflow:hidden;
-}
-
-.bubble{
-position:absolute;
-width:var(--size);
-height:var(--size);
-background:rgba(0, 255, 0, 0.1);
-border-radius:50%;
-border:1px solid rgba(0, 255, 0, 0.5);
-box-shadow:0 0 15px var(--neon-color), 0 0 30px var(--neon-color);
-animation:moveBubble var(--duration) linear infinite;
-opacity:var(--opacity);
-animation-delay:0s;
-}
-
-@keyframes moveBubble{
-0%{
-transform:translateX(-100px) translateY(var(--y-start));
-opacity:0;
-}
-5%{
-opacity:var(--opacity);
-}
-95%{
-opacity:var(--opacity);
-}
-100%{
-transform:translateX(calc(100vw + 100px)) translateY(var(--y-end));
-opacity:0;
-}
-}
-
-header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:18px 25px;
-background:rgba(0,20,0,0.7);
-backdrop-filter: blur(6px);
-border-bottom:1px solid var(--neon-color);
-position:relative;
-z-index:3;
-}
-
-.logo{
-font-size:28px;
-font-weight:bold;
-letter-spacing:2px;
-animation: glow 2s infinite alternate;
-text-shadow:0 0 10px var(--neon-color);
-color:var(--neon-color);
-}
-
-@keyframes glow{
-from{ text-shadow:0 0 5px var(--neon-color), 0 0 10px var(--neon-color);}
-to{ text-shadow:0 0 20px var(--neon-color), 0 0 40px var(--neon-color);}
-}
-
-.menu{
-font-size:28px;
-cursor:pointer;
-transition:0.3s;
-color:var(--neon-color);
-}
-
-.menu:hover{
-transform:scale(1.2);
-color:var(--neon-color);
-}
-
-.menu-box{
-display:none;
-background:#051005;
-padding:20px;
-border:1px solid var(--neon-color);
-position:relative;
-z-index:3;
-opacity:0;
-transform:translateY(-20px);
-transition:opacity 0.4s ease, transform 0.4s ease;
-}
-
-.menu-box.show{
-display:block;
-opacity:1;
-transform:translateY(0);
-}
-
-.menu-box a{
-display:block;
-color:white;
-text-decoration:none;
-margin:12px;
-font-size:18px;
-transition:0.3s;
-opacity:0;
-transform:translateX(-10px);
-animation:fadeInItem 0.4s ease forwards;
-}
-
-.menu-box a:nth-child(1){ animation-delay:0.1s; }
-.menu-box a:nth-child(2){ animation-delay:0.2s; }
-.menu-box a:nth-child(3){ animation-delay:0.3s; }
-
-.menu-box a:hover{
-color:var(--neon-color);
-transform:translateX(6px) !important;
-text-shadow:0 0 10px var(--neon-color);
-}
-
-.menu-divider{
-width:100%;
-height:3px;
-background:linear-gradient(90deg, transparent, var(--neon-color), var(--neon-color), var(--neon-color), transparent);
-margin:20px 0 15px 0;
-box-shadow:0 0 25px var(--neon-color), 0 0 50px var(--neon-color);
-border-radius:2px;
-}
-
-@keyframes fadeInItem{
-0%{ opacity:0; transform:translateX(-10px); }
-100%{ opacity:1; transform:translateX(0); }
-}
-
-.hero{
-padding:70px 20px;
-position:relative;
-z-index:2;
-}
-
-.hero h1{
-font-size:40px;
-margin-bottom:10px;
-animation:floatText 3s ease-in-out infinite;
-text-shadow:0 0 15px var(--neon-color);
-color:var(--neon-color);
-}
-
-@keyframes floatText{
-0%{ transform:translateY(0px); }
-50%{ transform:translateY(-8px); }
-100%{ transform:translateY(0px); }
-}
-
-.hero p{
-opacity:0.9;
-color:var(--text-secondary);
-font-size:18px;
-}
-
-.canais-section{
-margin-top:40px;
-display:flex;
-flex-direction:column;
-align-items:center;
-gap:20px;
-width:100%;
-}
-
-.canais-container{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:20px;
-width:90%;
-max-width:800px;
-margin:0 auto;
-}
-
-.canal-card{
-flex:1;
-min-width:250px;
-max-width:350px;
-background:var(--card-bg);
-border:2px solid var(--card-border);
-border-radius:20px;
-padding:25px 20px;
-box-shadow:0 0 30px var(--card-border);
-cursor:pointer;
-transition:0.3s;
-}
-
-.canal-card:hover{
-transform:scale(1.05);
-border-color:var(--neon-color);
-box-shadow:0 0 50px var(--neon-color);
-}
-
-.canal-nome{
-font-size:24px;
-color:var(--neon-color);
-margin-bottom:10px;
-text-shadow:0 0 10px var(--neon-color);
-}
-
-.canal-sub{
-font-size:16px;
-color:var(--text-secondary);
-opacity:0.9;
-}
-
-.separator{
-width:80%;
-max-width:600px;
-height:2px;
-background:linear-gradient(90deg, transparent, var(--neon-color), var(--neon-color), var(--neon-color), transparent);
-margin:30px auto;
-box-shadow:0 0 20px var(--neon-color);
-}
-
-.scripts-grid {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 30px;
-    margin: 30px 0;
-    width: 100%;
-}
-
-footer {
-    margin-top: 50px;
-    opacity: 0.7;
-    font-size: 14px;
-    padding: 20px;
-    border-top: 1px solid var(--card-border);
-    color: var(--text-secondary);
-    position: relative;
-    z-index: 2;
-}
-
-/* ESTILO PARA O LAYOUT COM 3 ABAS LATERAIS */
-.script-with-side-tabs {
-    display: flex;
-    gap: 20px;
-    width: 90%;
-    max-width: 900px;
-    background: var(--card-bg);
-    border: 2px solid var(--card-border);
-    border-radius: 20px;
-    padding: 20px;
-    box-shadow: 0 0 30px var(--card-border);
-    transition: 0.3s;
-    margin: 0 auto 30px;
-}
-
-.script-with-side-tabs:hover {
-    border-color: var(--neon-color);
-    box-shadow: 0 0 40px var(--neon-color);
-}
-
-.side-tabs {
-    width: 80px;
-    flex-shrink: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.tab-btn {
-    background: var(--tab-inactive);
-    border: 1px solid var(--neon-color);
-    border-radius: 12px;
-    padding: 12px 5px;
-    cursor: pointer;
-    transition: 0.3s;
-    text-align: center;
-    font-size: 12px;
-    font-weight: bold;
-    color: var(--text-secondary);
-}
-
-.tab-btn:hover {
-    background: var(--neon-color);
-    color: #031003;
-    transform: translateX(3px);
-    box-shadow: 0 0 15px var(--neon-color);
-}
-
-.tab-btn.active {
-    background: var(--neon-color);
-    color: #031003;
-    box-shadow: 0 0 20px var(--neon-color);
-}
-
-.tab-label {
-    font-size: 11px;
-    font-weight: bold;
-}
-
-.script-content-tab {
-    flex: 1;
-    min-width: 0;
-}
-
-.tab-pane {
-    display: none;
-}
-
-.tab-pane.active {
-    display: block;
-}
-
-.script-name-header {
-    font-size: 24px;
-    color: var(--neon-color);
-    text-shadow: 0 0 10px var(--neon-color);
-    margin-bottom: 15px;
-    text-align: left;
-    border-bottom: 1px solid var(--neon-color);
-    padding-bottom: 8px;
-}
-
-.script-jogo {
-    font-size: 14px;
-    color: var(--text-secondary);
-    background: rgba(0, 255, 0, 0.1);
-    padding: 5px 12px;
-    border-radius: 20px;
-    border: 1px solid var(--neon-color);
-    display: inline-block;
-    margin-bottom: 15px;
-}
-
-.script-image-tab {
-    width: 100%;
-    height: 180px;
-    border-radius: 15px;
-    border: 2px solid var(--neon-color);
-    box-shadow: 0 0 30px var(--neon-color);
-    background: linear-gradient(145deg, #0a3a0a, #052005);
-    margin-bottom: 20px;
-    overflow: hidden;
-}
-
-.script-image-tab img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-
-.script-code-area {
-    background: #052005;
-    border-radius: 12px;
-    border: 1px solid var(--card-border);
-    padding: 15px;
-    margin-top: 10px;
-}
-
-.script-code-text {
-    font-family: 'Courier New', monospace;
-    font-size: 12px;
-    color: var(--text-secondary);
-    text-align: left;
-    white-space: pre-wrap;
-    word-break: break-all;
-    max-height: 150px;
-    overflow-y: auto;
-    line-height: 1.5;
-    user-select: none;
-    -webkit-user-select: none;
-    pointer-events: none;
-    background: #031003;
-    padding: 12px;
-    border-radius: 8px;
-}
-
-.script-code-text::-webkit-scrollbar {
-    width: 6px;
-}
-
-.script-code-text::-webkit-scrollbar-track {
-    background: #0a1f0a;
-}
-
-.script-code-text::-webkit-scrollbar-thumb {
-    background: var(--neon-color);
-    border-radius: 3px;
-}
-
-.button-group {
-    display: flex;
-    gap: 10px;
-    margin-top: 15px;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.copy-code-btn, .download-code-btn {
-    padding: 10px 20px;
-    border: 2px solid #000000;
-    border-radius: 25px;
-    color: white;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
-    transition: 0.3s;
-    box-shadow: 0 0 10px var(--neon-color);
-    width: auto;
-}
-
-.copy-code-btn {
-    background: linear-gradient(45deg, #006400, #00aa00);
-}
-
-.download-code-btn {
-    background: linear-gradient(45deg, #00008b, #4169e1);
-}
-
-.copy-code-btn:hover, .download-code-btn:hover {
-    transform: scale(1.02);
-    box-shadow: 0 0 20px var(--neon-color);
-}
-
-.info-card {
-    background: #052005;
-    border-radius: 12px;
-    padding: 20px;
-    text-align: center;
-    border: 1px solid var(--neon-color);
-}
-
-.key-info {
-    font-size: 48px;
-    margin-bottom: 15px;
-}
-
-.key-badge {
-    display: inline-block;
-    padding: 8px 25px;
-    border-radius: 30px;
-    font-size: 18px;
-    font-weight: bold;
-}
-
-.key-badge.key-needed {
-    background: #8b0000;
-    color: #ffcccc;
-    border: 2px solid #ff4444;
-}
-
-.key-badge.key-free {
-    background: #006400;
-    color: #ccffcc;
-    border: 2px solid #00ff00;
-}
-
-.key-description {
-    margin-top: 15px;
-    color: var(--text-secondary);
-    font-size: 14px;
-}
-
-.status-badge {
-    display: inline-block;
-    padding: 8px 25px;
-    border-radius: 30px;
-    font-size: 18px;
-    font-weight: bold;
-}
-
-.status-badge.green {
-    background: #005000;
-    color: #00ff00;
-    border: 2px solid #00ff00;
-}
-
-.status-badge.orange {
-    background: #553300;
-    color: #ffaa00;
-    border: 2px solid #ffaa00;
-}
-
-.status-badge.red {
-    background: #550000;
-    color: #ff5555;
-    border: 2px solid #ff5555;
-}
-
-.status-description {
-    margin-top: 15px;
-    color: var(--text-secondary);
-    font-size: 14px;
-}
-
-.script-bio-tab {
-    background: var(--bio-bg);
-    border: 1px solid var(--neon-color);
-    border-radius: 12px;
-    padding: 12px 15px;
-    margin-bottom: 15px;
-    text-align: center;
-    font-size: 13px;
-    color: var(--text-secondary);
-    line-height: 1.5;
-}
-
-@media (max-width: 700px) {
-    .script-with-side-tabs {
-        flex-direction: column;
-    }
-    .side-tabs {
-        width: 100%;
-        flex-direction: row;
-        justify-content: center;
-    }
-    .tab-btn {
-        flex: 1;
-    }
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GTVZ HUB - Scripts</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #e0ffe0;
+            min-height: 100vh;
+            background: #0a0e0a;
+            overflow-x: hidden;
+        }
+
+        /* Fundo otimizado - usando canvas-like com gradientes simples */
+        .fundo-bg {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            background: 
+                radial-gradient(ellipse at 30% 40%, rgba(0, 255, 65, 0.12) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 60%, rgba(0, 200, 50, 0.08) 0%, transparent 45%),
+                radial-gradient(ellipse at 50% 80%, rgba(0, 180, 40, 0.06) 0%, transparent 40%),
+                linear-gradient(180deg, #0a0e0a 0%, #0a1a0a 60%, #0a0e0a 100%);
+            animation: fundoMovimento 10s ease-in-out infinite alternate;
+            will-change: background-position;
+        }
+
+        /* Manchas simplificadas - sem blur pesado */
+        .manchas {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            background:
+                radial-gradient(circle at 25% 35%, rgba(0, 255, 65, 0.15) 0%, transparent 35%),
+                radial-gradient(circle at 75% 65%, rgba(0, 200, 50, 0.10) 0%, transparent 30%),
+                radial-gradient(circle at 50% 25%, rgba(0, 180, 40, 0.08) 0%, transparent 25%);
+            animation: manchasMovimento 15s ease-in-out infinite alternate;
+            will-change: transform;
+            pointer-events: none;
+        }
+
+        @keyframes fundoMovimento {
+            0% {
+                background-position: 0% 0%, 0% 0%, 0% 0%;
+            }
+            100% {
+                background-position: 20% 10%, 30% 20%, 10% 30%;
+            }
+        }
+
+        @keyframes manchasMovimento {
+            0% {
+                transform: scale(1) translate(0, 0);
+            }
+            100% {
+                transform: scale(1.08) translate(3%, 2%);
+            }
+        }
+
+        /* Overlay escuro */
+        .fundo-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 1;
+            background: rgba(5, 10, 5, 0.5);
+            pointer-events: none;
+        }
+
+        /* LOADER */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0a0e0a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+
+        .loader.hide {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-spinner {
+            width: 60px;
+            height: 60px;
+            border: 3px solid #1a3a1a;
+            border-top: 3px solid #00ff41;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* CONTEÚDO */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* LOGO REDONDA */
+        .logo-circle {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 25px;
+        }
+
+        .logo-circle img {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            border: 2px solid #00ff41;
+            box-shadow: 0 0 40px rgba(0, 255, 65, 0.2);
+            object-fit: cover;
+        }
+
+        /* CANAIS */
+        .channels-section {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin: 0 0 35px 0;
+            width: 100%;
+        }
+
+        .channel-card {
+            flex: 1;
+            min-width: 140px;
+            padding: 15px 18px;
+            border-radius: 12px;
+            border: 1px solid #1a3a1a;
+            cursor: pointer;
+            transition: 0.2s;
+            text-align: center;
+            background: rgba(10, 18, 10, 0.7);
+            backdrop-filter: blur(5px);
+        }
+
+        .channel-card:hover {
+            border-color: #00ff41;
+            transform: translateY(-2px);
+            background: rgba(10, 25, 10, 0.8);
+        }
+
+        .channel-card .name {
+            color: #00ff41;
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .channel-card .sub {
+            font-size: 11px;
+            color: #7dff7d;
+            opacity: 0.4;
+            margin-top: 4px;
+        }
+
+        /* SCRIPTS */
+        .scripts-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .script-card {
+            background: rgba(17, 26, 17, 0.75);
+            border-radius: 15px;
+            border: 1px solid #1a3a1a;
+            overflow: hidden;
+            transition: 0.2s;
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(8px);
+        }
+
+        .script-card:hover {
+            border-color: #00ff4166;
+        }
+
+        .script-card .card-header {
+            padding: 15px 18px 10px;
+            border-bottom: 1px solid #1a3a1a;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .script-card .card-header .title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #00ff41;
+        }
+
+        .script-card .card-header .game-tag {
+            font-size: 11px;
+            background: rgba(10, 31, 10, 0.7);
+            padding: 3px 12px;
+            border-radius: 20px;
+            border: 1px solid #1a3a1a;
+            color: #7dff7d;
+        }
+
+        .script-card .card-body {
+            padding: 14px 18px 18px;
+        }
+
+        /* LAYOUT COM ABAS */
+        .script-with-tabs {
+            display: flex;
+            gap: 12px;
+        }
+
+        .side-tabs {
+            width: 60px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .tab-btn {
+            background: rgba(10, 26, 10, 0.6);
+            border: 1px solid #1a3a1a;
+            border-radius: 8px;
+            padding: 8px 4px;
+            cursor: pointer;
+            transition: 0.2s;
+            text-align: center;
+            font-size: 10px;
+            font-weight: 600;
+            color: #7dff7d;
+        }
+
+        .tab-btn:hover {
+            background: rgba(0, 255, 65, 0.08);
+            border-color: #00ff4166;
+        }
+
+        .tab-btn.active {
+            background: rgba(0, 255, 65, 0.12);
+            border-color: #00ff41;
+            color: #00ff41;
+        }
+
+        .tab-label {
+            font-size: 9px;
+            font-weight: 700;
+        }
+
+        .tab-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .tab-pane {
+            display: none;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        .script-img {
+            width: 100%;
+            height: 150px;
+            background: rgba(10, 18, 10, 0.6);
+            overflow: hidden;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            border: 1px solid #1a3a1a;
+        }
+
+        .script-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .bio-text {
+            font-size: 12px;
+            color: #7dff7d;
+            opacity: 0.8;
+            background: rgba(10, 21, 10, 0.5);
+            padding: 8px 12px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            border-left: 3px solid #00ff41;
+            line-height: 1.5;
+        }
+
+        .code-area {
+            background: rgba(10, 18, 10, 0.5);
+            border-radius: 8px;
+            padding: 10px 12px;
+            border: 1px solid #1a3a1a;
+        }
+
+        .code-text {
+            font-family: 'Courier New', monospace;
+            font-size: 10px;
+            color: #7dff7d;
+            max-height: 100px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            word-break: break-all;
+            line-height: 1.5;
+            user-select: none;
+            pointer-events: none;
+            opacity: 0.85;
+        }
+
+        .code-text::-webkit-scrollbar {
+            width: 3px;
+        }
+
+        .code-text::-webkit-scrollbar-track {
+            background: #0a120a;
+        }
+
+        .code-text::-webkit-scrollbar-thumb {
+            background: #00ff4133;
+            border-radius: 3px;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 7px 16px;
+            border: none;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 12px;
+            cursor: pointer;
+            transition: 0.2s;
+            flex: 1;
+            min-width: 70px;
+        }
+
+        .btn-copy {
+            background: linear-gradient(135deg, #006400, #00aa00);
+            color: #fff;
+        }
+
+        .btn-copy:hover {
+            transform: scale(1.02);
+        }
+
+        .btn-download {
+            background: linear-gradient(135deg, #1a1a6a, #4444cc);
+            color: #fff;
+        }
+
+        .btn-download:hover {
+            transform: scale(1.02);
+        }
+
+        /* INFO CARDS */
+        .info-card {
+            background: rgba(10, 21, 10, 0.5);
+            border-radius: 10px;
+            padding: 20px 16px;
+            text-align: center;
+            border: 1px solid #1a3a1a;
+            margin-top: 8px;
+        }
+
+        .info-card .icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .info-card .badge-status {
+            display: inline-block;
+            padding: 6px 24px;
+            border-radius: 25px;
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .badge-status.key-needed {
+            background: #440000;
+            color: #ff4444;
+            border: 2px solid #ff4444;
+        }
+
+        .badge-status.key-free {
+            background: #004400;
+            color: #00ff41;
+            border: 2px solid #00ff41;
+        }
+
+        .info-card .desc {
+            margin-top: 12px;
+            color: #7dff7d;
+            opacity: 0.6;
+            font-size: 13px;
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 25px 20px;
+            border-top: 1px solid #1a3a1a;
+            margin-top: 35px;
+            color: #7dff7d;
+            opacity: 0.4;
+            font-size: 12px;
+            position: relative;
+            z-index: 2;
+        }
+
+        footer span {
+            color: #00ff41;
+        }
+
+        @media (max-width: 700px) {
+            .script-with-tabs {
+                flex-direction: column;
+            }
+            .side-tabs {
+                width: 100%;
+                flex-direction: row;
+                justify-content: center;
+            }
+            .tab-btn {
+                flex: 1;
+                padding: 6px 4px;
+            }
+            .channels-section {
+                flex-direction: column;
+            }
+            .channel-card {
+                flex: none;
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
 
-<!-- Overlay de boas-vindas com blur e animação de digitação -->
-<div class="welcome-overlay" id="welcomeOverlay">
-    <div class="welcome-message-box">
-        <div class="welcome-text" id="typingText"></div>
+    <!-- Fundo otimizado -->
+    <div class="fundo-bg"></div>
+    <div class="manchas"></div>
+    <div class="fundo-overlay"></div>
+
+    <!-- LOADER -->
+    <div class="loader" id="loader">
+        <div class="loader-spinner"></div>
     </div>
-</div>
 
-<div class="bubbles" id="bubbles"></div>
+    <!-- CONTEÚDO -->
+    <div class="container">
+        <!-- LOGO REDONDA -->
+        <div class="logo-circle">
+            <img src="https://i.postimg.cc/htG7VPFV/1763351649135.png" alt="GTVZ LOGO">
+        </div>
 
-<div class="content">
-<header>
-<div class="logo">GTVZ MODDED</div>
-<div class="menu" onclick="toggleMenu()">☰</div>
-</header>
-
-<div class="menu-box" id="menu">
-<a href="#" onclick="abrirCanal1()">CANAL GT_MINGUI</a>
-<a href="#" onclick="abrirCanal2()">CANAL GT_GTVZ MODDED</a>
-<a href="#" onclick="abrirDiscord()">DISCORD OFC</a>
-</div>
-
-<section class="hero">
-<h1>GTVZ MODDED</h1>
-<p>GTVZ MODDED | GTVZ HUB</p>
-
-<div class="canais-section">
-<h2 style="color:var(--neon-color); margin-bottom:10px;">MEUS CANAIS</h2>
-<div class="canais-container">
-<div class="canal-card" onclick="abrirCanal1()">
-<div class="canal-nome">GT_MINGUI</div>
-<div class="canal-sub">SE-INSCREVA</div>
-</div>
-<div class="canal-card" onclick="abrirCanal2()">
-<div class="canal-nome">GT_GTVZ MODDED</div>
-<div class="canal-sub">SE-INSCREVA</div>
-</div>
-</div>
-</div>
-
-<div class="separator"></div>
-
-<div id="scriptSection">
-<div class="scripts-grid" id="scriptsContainer"></div>
-</div>
-
-</section>
-
-<footer>
-GTVZ MODDED 2026 - TODOS OS DIREITOS RESERVADOS<br>
-<span style="color:var(--neon-color); font-size:12px;">BY GTVZ</span>
-</footer>
-</div>
-
-<script>
-// ============================================
-// CONFIGURAÇÃO DE STATUS DE KEY INDIVIDUAL POR SCRIPT
-// ============================================
-const keyConfigPorScript = {
-    "GTVZ HUB UNI": "SEM CHAVE",
-    "CLIPESE TRUE HUB": "SEM CHAVE",
-    "GTVZ HUB CPB": "CHAVE",
-    "GTVZ FARM HUB": "SEM CHAVE",
-    "GTVZ HUB PS": "SEM CHAVE",
-    "GTVZ HUB PB": "SEM CHAVE",
-    "GTVZ HUB LDVL": "SEM CHAVE",
-};
-
-// ============================================
-// CONFIGURAÇÃO DE STATUS DO SCRIPT (ATUALIZADO/DESATUALIZADO/MANUTENÇÃO)
-// ============================================
-const scriptStatusConfig = {
-    "GTVZ HUB UNI": { status: "orange", text: "MANUTENÇÃO", desc: "VOLTA EM BREVE" },
-    "CLIPESE TRUE HUB": { status: "orange", text: "ATUALIZADO", desc: "VOLTA EM BREVE" },
-    "GTVZ HUB CPB": { status: "orange", text: "ATUALIZADO", desc: "VOLTA EM BREVE" },
-    "GTVZ FARM HUB": { status: "red", text: "MANUTENÇÃO", desc: "EM MUDANÇA" },
-    "GTVZ HUB PS": { status: "orange", text: "MANUTENÇÃO", desc: "VOLTA EM BREVE" },
-    "GTVZ HUB PB": { status: "green", text: "MANUTENÇÃO", desc: "DISPONÍVEL PRA USO" },
-    "GTVZ HUB LDVL": { status: "green", text: "MANUTENÇÃO", desc: "DISPONÍVEL PRA USO" },
-};
-
-const bioGtvzHubUni = "📢GTVZ HUM UM SCRIPT UNI POSSUI FUNÇÕES E OUTROS SCRIPT ATÉ MESMO SCRIPT QUE TEM KEY NO GTVZ HUB ELES NÃO POSSUI KEY O GTVZ HUB SÓ POSSUI SCRIPTS SEM KEY";
-
-const scriptsData = [
-    {
-        nome: "GTVZ HUB UNI",
-        jogo: "TODOS",
-        script: `loadstring((function() local s=[[GTVZ108GTVZ111GTVZ97GTVZ100GTVZ115GTVZ116GTVZ114GTVZ105GTVZ110GTVZ103GTVZ40GTVZ103GTVZ97GTVZ109GTVZ101GTVZ58GTVZ72GTVZ116GTVZ116GTVZ112GTVZ71GTVZ101GTVZ116GTVZ40GTVZ34GTVZ104GTVZ116GTVZ116GTVZ112GTVZ115GTVZ58GTVZ47GTVZ47GTVZ112GTVZ97GTVZ115GTVZ116GTVZ101GTVZ102GTVZ121GTVZ46GTVZ97GTVZ112GTVZ112GTVZ47GTVZ48GTVZ82GTVZ86GTVZ74GTVZ115GTVZ81GTVZ105GTVZ109GTVZ47GTVZ114GTVZ97GTVZ119GTVZ34GTVZ41GTVZ41GTVZ40GTVZ41]]; local reconstructed = s:gsub("GTVZ(%d+)", function(n) return string.char(tonumber(n)) end); return reconstructed end)())()`,
-        imagem: "https://i.postimg.cc/1RN8XywD/Screenshot-2026-04-29-17-42-29-343-gtvz-modded-3.jpg",
-        bio: bioGtvzHubUni
-    },
-    {
-        nome: "CLIPESE TRUE HUB",
-        jogo: "BLOX FRUITS",
-        script: `loadstring((function() local s=[[GTVZ108GTVZ111GTVZ97GTVZ100GTVZ115GTVZ116GTVZ114GTVZ105GTVZ110GTVZ103GTVZ40GTVZ103GTVZ97GTVZ109GTVZ101GTVZ58GTVZ72GTVZ116GTVZ116GTVZ112GTVZ71GTVZ101GTVZ116GTVZ40GTVZ34GTVZ104GTVZ116GTVZ116GTVZ112GTVZ115GTVZ58GTVZ47GTVZ47GTVZ112GTVZ97GTVZ115GTVZ116GTVZ101GTVZ102GTVZ121GTVZ46GTVZ97GTVZ112GTVZ112GTVZ47GTVZ49GTVZ88GTVZ90GTVZ81GTVZ104GTVZ112GTVZ78GTVZ87GTVZ47GTVZ114GTVZ97GTVZ119GTVZ34GTVZ41GTVZ41GTVZ40GTVZ41]]; local reconstructed = s:gsub("GTVZ(%d+)", function(n) return string.char(tonumber(n)) end); return reconstructed end)())()`,
-        imagem: "https://i.postimg.cc/RF9BPd3S/Screenshot-2026-06-03-08-40-54-190-gtvz-modded.jpg",
-        bio: null
-    },
-    {
-        nome: "GTVZ HUB CPB",
-        jogo: "CAMPO DE BATALHA",
-        script: `loadstring((function() local s=[[GTVZ108GTVZ111GTVZ97GTVZ100GTVZ115GTVZ116GTVZ114GTVZ105GTVZ110GTVZ103GTVZ40GTVZ103GTVZ97GTVZ109GTVZ101GTVZ58GTVZ72GTVZ116GTVZ116GTVZ112GTVZ71GTVZ101GTVZ116GTVZ40GTVZ34GTVZ104GTVZ116GTVZ116GTVZ112GTVZ115GTVZ58GTVZ47GTVZ47GTVZ112GTVZ97GTVZ115GTVZ116GTVZ101GTVZ102GTVZ121GTVZ46GTVZ97GTVZ112GTVZ112GTVZ47GTVZ116GTVZ121GTVZ106GTVZ104GTVZ115GTVZ66GTVZ108GTVZ90GTVZ47GTVZ114GTVZ97GTVZ119GTVZ34GTVZ41GTVZ41GTVZ40GTVZ41]]; local reconstructed = s:gsub("GTVZ(%d+)", function(n) return string.char(tonumber(n)) end); return reconstructed end)())()`,
-        imagem: "https://i.postimg.cc/sgqKDKW8/Screenshot-2026-06-05-07-36-55-066-gtvz-modded.jpg",
-        bio: null
-    },
-    {
-        nome: "GTVZ FARM HUB",
-        jogo: "MM2",
-        script: `loadstring(game:HttpGet("COPIA MEU MINI PAU"))()`,
-        imagem: "https://i.postimg.cc/xCRSyPYL/Screenshot-2026-05-26-10-34-43-628-gtvz-modded.jpg",
-        bio: null
-    },
-    {
-        nome: "GTVZ HUB PS",
-        jogo: "FPS PSSEIO",
-        script: `loadstring((function() local s=[[GTVZ108GTVZ111GTVZ97GTVZ100GTVZ115GTVZ116GTVZ114GTVZ105GTVZ110GTVZ103GTVZ40GTVZ103GTVZ97GTVZ109GTVZ101GTVZ58GTVZ72GTVZ116GTVZ116GTVZ112GTVZ71GTVZ101GTVZ116GTVZ40GTVZ34GTVZ104GTVZ116GTVZ116GTVZ112GTVZ115GTVZ58GTVZ47GTVZ47GTVZ112GTVZ97GTVZ115GTVZ116GTVZ101GTVZ102GTVZ121GTVZ46GTVZ97GTVZ112GTVZ112GTVZ47GTVZ56GTVZ107GTVZ108GTVZ54GTVZ120GTVZ102GTVZ55GTVZ117GTVZ47GTVZ114GTVZ97GTVZ119GTVZ34GTVZ41GTVZ41GTVZ40GTVZ41]]; local reconstructed = s:gsub("GTVZ(%d+)", function(n) return string.char(tonumber(n)) end); return reconstructed end)())()`,
-        imagem: "https://i.postimg.cc/1zmCZrFx/Screenshot-2026-06-18-13-49-05-446-gtvz-modded.jpg",
-        bio: null
-    },
-    {
-        nome: "GTVZ HUB PB",
-        jogo: "PINTE OU BUSQUE",
-        script: `loadstring((function() local s=[[GTVZ108GTVZ111GTVZ97GTVZ100GTVZ115GTVZ116GTVZ114GTVZ105GTVZ110GTVZ103GTVZ40GTVZ103GTVZ97GTVZ109GTVZ101GTVZ58GTVZ72GTVZ116GTVZ116GTVZ112GTVZ71GTVZ101GTVZ116GTVZ40GTVZ34GTVZ104GTVZ116GTVZ116GTVZ112GTVZ115GTVZ58GTVZ47GTVZ47GTVZ112GTVZ97GTVZ115GTVZ116GTVZ101GTVZ102GTVZ121GTVZ46GTVZ97GTVZ112GTVZ112GTVZ47GTVZ51GTVZ65GTVZ119GTVZ65GTVZ70GTVZ49GTVZ115GTVZ54GTVZ47GTVZ114GTVZ97GTVZ119GTVZ34GTVZ41GTVZ41GTVZ40GTVZ41]]; local reconstructed = s:gsub("GTVZ(%d+)", function(n) return string.char(tonumber(n)) end); return reconstructed end)())()`,
-        imagem: "https://i.postimg.cc/9fJmZkFM/Screenshot-2026-06-29-22-58-13-579-gtvz-modded.jpg",
-        bio: null
-    },
-    {
-        nome: "GTVZ HUB LDVL",
-        jogo: "LENDAS DA VELOCIDADE",
-        script: `loadstring((function() local s=[[GTVZ108GTVZ111GTVZ97GTVZ100GTVZ115GTVZ116GTVZ114GTVZ105GTVZ110GTVZ103GTVZ40GTVZ103GTVZ97GTVZ109GTVZ101GTVZ58GTVZ72GTVZ116GTVZ116GTVZ112GTVZ71GTVZ101GTVZ116GTVZ40GTVZ34GTVZ104GTVZ116GTVZ116GTVZ112GTVZ115GTVZ58GTVZ47GTVZ47GTVZ112GTVZ97GTVZ115GTVZ116GTVZ101GTVZ102GTVZ121GTVZ46GTVZ97GTVZ112GTVZ112GTVZ47GTVZ55GTVZ100GTVZ106GTVZ72GTVZ76GTVZ120GTVZ75GTVZ112GTVZ47GTVZ114GTVZ97GTVZ119GTVZ34GTVZ41GTVZ41GTVZ40GTVZ41]]; local reconstructed = s:gsub("GTVZ(%d+)", function(n) return string.char(tonumber(n)) end); return reconstructed end)())()`,
-        imagem: "https://i.postimg.cc/3WMnnPjQ/Screenshot-2026-06-21-13-41-36-518-gtvz-modded.jpg",
-        bio: null
-    }
-];
-
-// Textos em português fixo
-const ptTexts = {
-    tabScript: "SCRIPT",
-    tabKey: "CHAVE",
-    tabStatus: "STATUS",
-    keyInfo: "INFORMAÇÃO DE CHAVE",
-    withKey: "COM CHAVE",
-    withoutKey: "SEM CHAVE",
-    keyDesc: "ESTE SCRIPT REQUER CHAVE PARA TE ACESSO",
-    noKeyDesc: "ESTE SCRIPT NÃO REQUER CHAVE",
-    statusInfo: "STATUS DO SCRIPT",
-    statusUpdated: "ATUALIZADO",
-    statusMaintenance: "MANUTENÇÃO",
-    statusOutdated: "DESATUALIZADO",
-    copyText: "COPIAR",
-    copiedText: "COPIADO",
-    downloadText: "BAIXAR"
-};
-
-function getStatusInfo(scriptNome) {
-    const config = scriptStatusConfig[scriptNome];
-    if (config) return config;
-    return { status: "green", text: "ATUALIZADO", desc: "" };
-}
-
-let scriptsLoaded = false;
-
-function downloadScript(scriptNome, scriptConteudo, index) {
-    const blob = new Blob([scriptConteudo], { type: "text/plain" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `${scriptNome.replace(/ /g, "_")}.txt`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-    
-    const btn = document.getElementById(`downloadBtn${index}`);
-    const originalText = btn.innerHTML;
-    btn.innerHTML = "BAIXADO!";
-    setTimeout(() => {
-        btn.innerHTML = originalText;
-    }, 2000);
-}
-
-function loadScripts() {
-    if(scriptsLoaded) return;
-    scriptsLoaded = true;
-    const container = document.getElementById('scriptsContainer');
-    container.innerHTML = '';
-    
-    scriptsData.forEach((script, index) => {
-        const imagemValida = script.imagem && script.imagem !== "" ? script.imagem : "https://i.postimg.cc/Znfb3tPf/file-0000000025f071f598654ef7618e92aa.png";
-        const statusKey = keyConfigPorScript[script.nome] || "SEM CHAVE";
-        const keyClass = statusKey === "CHAVE" ? "key-needed" : "key-free";
-        const keyText = statusKey === "CHAVE" ? ptTexts.withKey : ptTexts.withoutKey;
-        const isKeyNeeded = statusKey === "CHAVE";
-        
-        const statusInfo = getStatusInfo(script.nome);
-        let statusClass = '';
-        let statusDisplayText = '';
-        if (statusInfo.status === 'green') {
-            statusClass = 'green';
-            statusDisplayText = ptTexts.statusUpdated;
-        } else if (statusInfo.status === 'red') {
-            statusClass = 'red';
-            statusDisplayText = ptTexts.statusOutdated;
-        } else if (statusInfo.status === 'orange') {
-            statusClass = 'orange';
-            statusDisplayText = ptTexts.statusMaintenance;
-        } else {
-            statusClass = 'green';
-            statusDisplayText = ptTexts.statusUpdated;
-        }
-        
-        let bioHtml = '';
-        if (script.bio) {
-            bioHtml = `<div class="script-bio-tab"><span>📢 INFO:</span> ${script.bio}</div>`;
-        }
-        
-        const scriptCard = document.createElement('div');
-        scriptCard.className = 'script-with-side-tabs';
-        scriptCard.innerHTML = `
-            <div class="side-tabs">
-                <div class="tab-btn active" onclick="switchTab(${index}, 'script')">
-                    <span class="tab-label">${ptTexts.tabScript}</span>
-                </div>
-                <div class="tab-btn" onclick="switchTab(${index}, 'key')">
-                    <span class="tab-label">${ptTexts.tabKey}</span>
-                </div>
-                <div class="tab-btn" onclick="switchTab(${index}, 'status')">
-                    <span class="tab-label">${ptTexts.tabStatus}</span>
-                </div>
+        <!-- CANAIS -->
+        <div class="channels-section">
+            <div class="channel-card" onclick="abrirCanal1()">
+                <div class="name">GT_MINGUI</div>
+                <div class="sub">YOUTUBE</div>
             </div>
-            <div class="script-content-tab">
-                <div class="tab-pane active" id="scriptPane${index}">
-                    <div class="script-name-header">${script.nome}</div>
-                    <div class="script-jogo">${script.jogo}</div>
-                    <div class="script-image-tab">
-                        <img src="${imagemValida}" alt="${script.nome}" onerror="this.src='https://i.postimg.cc/Znfb3tPf/file-0000000025f071f598654ef7618e92aa.png'">
+            <div class="channel-card" onclick="abrirCanal2()">
+                <div class="name">GT_GTVZ MODDED</div>
+                <div class="sub">YOUTUBE</div>
+            </div>
+        </div>
+
+        <!-- SCRIPTS -->
+        <div id="scriptsContainer" class="scripts-grid"></div>
+    </div>
+
+    <footer>
+        GTVZ MODDED 2026 — Todos os direitos reservados<br>
+        <span>BY GTVZ</span>
+    </footer>
+
+    <script>
+        // ============================================
+        // CONFIGURAÇÃO DE KEY INDIVIDUAL POR SCRIPT
+        // ============================================
+        const keyConfigPorScript = {
+            "GTVZ HUB UNI": false,
+            "GTVZ HUB CPB": true,
+            "GTVZ FARM HUB": false,
+            "GTVZ HUB PS": false,
+            "GTVZ HUB PB": false,
+            "GTVZ HUB LDVL": false
+        };
+
+        // ============================================
+        // DADOS DOS SCRIPTS
+        // ============================================
+        const scriptsData = [{
+            nome: "GTVZ HUB UNI🟢",
+            jogo: "TODOS",
+            script: `loadstring((function() local s=[[GTVZ108GTVZ111GTVZ97GTVZ100GTVZ115GTVZ116GTVZ114GTVZ105GTVZ110GTVZ103GTVZ40GTVZ103GTVZ97GTVZ109GTVZ101GTVZ58GTVZ72GTVZ116GTVZ116GTVZ112GTVZ71GTVZ101GTVZ116GTVZ40GTVZ34GTVZ104GTVZ116GTVZ116GTVZ112GTVZ115GTVZ58GTVZ47GTVZ47GTVZ112GTVZ97GTVZ115GTVZ116GTVZ101GTVZ102GTVZ121GTVZ46GTVZ97GTVZ112GTVZ112GTVZ47GTVZ75GTVZ52GTVZ100GTVZ89GTVZ89GTVZ116GTVZ99GTVZ107GTVZ47GTVZ114GTVZ97GTVZ119GTVZ34GTVZ41GTVZ41GTVZ40GTVZ41]]; local reconstructed = s:gsub("GTVZ(%d+)", function(n) return string.char(tonumber(n)) end); return reconstructed end)())()`,
+            imagem: "https://i.postimg.cc/1RN8XywD/Screenshot-2026-04-29-17-42-29-343-gtvz-modded-3.jpg",
+            bio: "📢GTVZ HUM UM SCRIPT UNI POSSUI FUNÇÕES E OUTROS SCRIPT ATÉ MESMO SCRIPT QUE TEM KEY NO GTVZ HUB ELES NÃO POSSUI KEY O GTVZ HUB SÓ POSSUI SCRIPTS SEM KEY"
+        }, {
+            nome: "GTVZ HUB CPB🟠",
+            jogo: "CAMPO DE BATALHA",
+            script: `loadstring((function() local s=[[GTVZ108GTVZ111GTVZ97GTVZ100GTVZ115GTVZ116GTVZ114GTVZ105GTVZ110GTVZ103GTVZ40GTVZ103GTVZ97GTVZ109GTVZ101GTVZ58GTVZ72GTVZ116GTVZ116GTVZ112GTVZ71GTVZ101GTVZ116GTVZ40GTVZ34GTVZ104GTVZ116GTVZ116GTVZ112GTVZ115GTVZ58GTVZ47GTVZ47GTVZ112GTVZ97GTVZ115GTVZ116GTVZ101GTVZ102GTVZ121GTVZ46GTVZ97GTVZ112GTVZ112GTVZ47GTVZ116GTVZ121GTVZ106GTVZ104GTVZ115GTVZ66GTVZ108GTVZ90GTVZ47GTVZ114GTVZ97GTVZ119GTVZ34GTVZ41GTVZ41GTVZ40GTVZ41]]; local reconstructed = s:gsub("GTVZ(%d+)", function(n) return string.char(tonumber(n)) end); return reconstructed end)())()`,
+            imagem: "https://i.postimg.cc/sgqKDKW8/Screenshot-2026-06-05-07-36-55-066-gtvz-modded.jpg",
+            bio: null
+        }, {
+            nome: "GTVZ FARM HUB🔴",
+            jogo: "MM2",
+            script: `loadstring(game:HttpGet("COPIA MEU MINI PAU"))()`,
+            imagem: "https://i.postimg.cc/xCRSyPYL/Screenshot-2026-05-26-10-34-43-628-gtvz-modded.jpg",
+            bio: null
+        }, {
+            nome: "GTVZ HUB PS🟠",
+            jogo: "FPS PSSEIO",
+            script: `loadstring((function() local s=[[GTVZ108GTVZ111GTVZ97GTVZ100GTVZ115GTVZ116GTVZ114GTVZ105GTVZ110GTVZ103GTVZ40GTVZ103GTVZ97GTVZ109GTVZ101GTVZ58GTVZ72GTVZ116GTVZ116GTVZ112GTVZ71GTVZ101GTVZ116GTVZ40GTVZ34GTVZ104GTVZ116GTVZ116GTVZ112GTVZ115GTVZ58GTVZ47GTVZ47GTVZ112GTVZ97GTVZ115GTVZ116GTVZ101GTVZ102GTVZ121GTVZ46GTVZ97GTVZ112GTVZ112GTVZ47GTVZ56GTVZ107GTVZ108GTVZ54GTVZ120GTVZ102GTVZ55GTVZ117GTVZ47GTVZ114GTVZ97GTVZ119GTVZ34GTVZ41GTVZ41GTVZ40GTVZ41]]; local reconstructed = s:gsub("GTVZ(%d+)", function(n) return string.char(tonumber(n)) end); return reconstructed end)())()`,
+            imagem: "https://i.postimg.cc/1zmCZrFx/Screenshot-2026-06-18-13-49-05-446-gtvz-modded.jpg",
+            bio: null
+        }, {
+            nome: "GTVZ HUB PB🟢",
+            jogo: "PINTE OU BUSQUE",
+            script: `loadstring((function() local s=[[GTVZ108GTVZ111GTVZ97GTVZ100GTVZ115GTVZ116GTVZ114GTVZ105GTVZ110GTVZ103GTVZ40GTVZ103GTVZ97GTVZ109GTVZ101GTVZ58GTVZ72GTVZ116GTVZ116GTVZ112GTVZ71GTVZ101GTVZ116GTVZ40GTVZ34GTVZ104GTVZ116GTVZ116GTVZ112GTVZ115GTVZ58GTVZ47GTVZ47GTVZ112GTVZ97GTVZ115GTVZ116GTVZ101GTVZ102GTVZ121GTVZ46GTVZ97GTVZ112GTVZ112GTVZ47GTVZ51GTVZ65GTVZ119GTVZ65GTVZ70GTVZ49GTVZ115GTVZ54GTVZ47GTVZ114GTVZ97GTVZ119GTVZ34GTVZ41GTVZ41GTVZ40GTVZ41]]; local reconstructed = s:gsub("GTVZ(%d+)", function(n) return string.char(tonumber(n)) end); return reconstructed end)())()`,
+            imagem: "https://i.postimg.cc/9fJmZkFM/Screenshot-2026-06-29-22-58-13-579-gtvz-modded.jpg",
+            bio: null
+        }, {
+            nome: "GTVZ HUB LDVL🟢",
+            jogo: "LENDAS DA VELOCIDADE",
+            script: `loadstring((function() local s=[[GTVZ108GTVZ111GTVZ97GTVZ100GTVZ115GTVZ116GTVZ114GTVZ105GTVZ110GTVZ103GTVZ40GTVZ103GTVZ97GTVZ109GTVZ101GTVZ58GTVZ72GTVZ116GTVZ116GTVZ112GTVZ71GTVZ101GTVZ116GTVZ40GTVZ34GTVZ104GTVZ116GTVZ116GTVZ112GTVZ115GTVZ58GTVZ47GTVZ47GTVZ112GTVZ97GTVZ115GTVZ116GTVZ101GTVZ102GTVZ121GTVZ46GTVZ97GTVZ112GTVZ112GTVZ47GTVZ55GTVZ100GTVZ106GTVZ72GTVZ76GTVZ120GTVZ75GTVZ112GTVZ47GTVZ114GTVZ97GTVZ119GTVZ34GTVZ41GTVZ41GTVZ40GTVZ41]]; local reconstructed = s:gsub("GTVZ(%d+)", function(n) return string.char(tonumber(n)) end); return reconstructed end)())()`,
+            imagem: "https://i.postimg.cc/3WMnnPjQ/Screenshot-2026-06-21-13-41-36-518-gtvz-modded.jpg",
+            bio: null
+        }];
+
+        // ============================================
+        // FUNÇÃO PARA PEGAR CONFIGURAÇÃO DE KEY
+        // ============================================
+        function getKeyConfig(scriptNome) {
+            return keyConfigPorScript[scriptNome] || false;
+        }
+
+        // ============================================
+        // FUNÇÕES
+        // ============================================
+
+        function abrirCanal1() {
+            window.open("https://youtube.com/@gtvzmodded-7?si=NLtaOGasGcr6qSR3", "_blank");
+        }
+
+        function abrirCanal2() {
+            window.open("https://youtube.com/@gtxteam_psicopata?si=X2dOSofWDqWL6-yG", "_blank");
+        }
+
+        function copiarScript(index) {
+            const text = document.getElementById(`codeText${index}`).innerText;
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            ta.style.position = 'fixed';
+            ta.style.left = '-9999px';
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+            const btn = document.getElementById(`copyBtn${index}`);
+            const original = btn.innerText;
+            btn.innerText = '✅ COPIADO!';
+            setTimeout(() => btn.innerText = original, 2000);
+        }
+
+        function baixarScript(nome, index) {
+            const text = document.getElementById(`codeText${index}`).innerText;
+            const blob = new Blob([text], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = nome.replace(/ /g, '_') + '.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            const btn = document.getElementById(`downloadBtn${index}`);
+            const original = btn.innerText;
+            btn.innerText = '⬇ BAIXADO!';
+            setTimeout(() => btn.innerText = original, 2000);
+        }
+
+        function switchTab(index, tab) {
+            const panes = ['script', 'key'];
+            panes.forEach(p => {
+                const el = document.getElementById(`${p}Pane${index}`);
+                if (el) el.classList.remove('active');
+            });
+
+            const activePane = document.getElementById(`${tab}Pane${index}`);
+            if (activePane) activePane.classList.add('active');
+
+            const tabs = document.querySelectorAll(`#tabs${index} .tab-btn`);
+            tabs.forEach((btn, i) => {
+                btn.classList.remove('active');
+                if (panes[i] === tab) btn.classList.add('active');
+            });
+        }
+
+        function carregarScripts() {
+            const container = document.getElementById('scriptsContainer');
+            container.innerHTML = '';
+
+            scriptsData.forEach((script, index) => {
+                const img = script.imagem && script.imagem !== '' ? script.imagem :
+                    'https://i.postimg.cc/Znfb3tPf/file-0000000025f071f598654ef7618e92aa.png';
+
+                const hasKey = getKeyConfig(script.nome);
+                const keyClass = hasKey ? 'key-needed' : 'key-free';
+                const keyLabel = hasKey ? '🔒 COM CHAVE' : '🔓 SEM CHAVE';
+                const keyIcon = hasKey ? '🔒' : '🔓';
+                const keyDesc = hasKey ? 'ESTE SCRIPT REQUER CHAVE PARA ACESSO' : 'ESTE SCRIPT NÃO REQUER CHAVE';
+
+                const showBio = script.nome === "GTVZ HUB UNI" && script.bio;
+
+                const card = document.createElement('div');
+                card.className = 'script-card';
+                card.innerHTML = `
+                    <div class="card-header">
+                        <span class="title">${script.nome}</span>
+                        <span class="game-tag">${script.jogo}</span>
                     </div>
-                    ${bioHtml}
-                    <div class="script-code-area">
-                        <div class="script-code-text" id="scriptText${index}">${script.script}</div>
-                        <div class="button-group">
-                            <button class="copy-code-btn" onclick="copyScriptWithTab(${index})" id="copyBtn${index}">${ptTexts.copyText}</button>
-                            <button class="download-code-btn" onclick="downloadScript('${script.nome}', document.getElementById('scriptText${index}').innerText, ${index})" id="downloadBtn${index}">${ptTexts.downloadText}</button>
+                    <div class="card-body">
+                        <div class="script-with-tabs">
+                            <div class="side-tabs" id="tabs${index}">
+                                <div class="tab-btn active" onclick="switchTab(${index}, 'script')">
+                                    <span class="tab-label">SCRIPT</span>
+                                </div>
+                                <div class="tab-btn" onclick="switchTab(${index}, 'key')">
+                                    <span class="tab-label">CHAVE</span>
+                                </div>
+                            </div>
+                            <div class="tab-content">
+                                <!-- ABA SCRIPT -->
+                                <div class="tab-pane active" id="scriptPane${index}">
+                                    <div class="script-img">
+                                        <img src="${img}" alt="${script.nome}" onerror="this.src='https://i.postimg.cc/Znfb3tPf/file-0000000025f071f598654ef7618e92aa.png'">
+                                    </div>
+                                    ${showBio ? `<div class="bio-text">${script.bio}</div>` : ''}
+                                    <div class="code-area">
+                                        <div class="code-text" id="codeText${index}">${script.script}</div>
+                                    </div>
+                                    <div class="card-actions">
+                                        <button class="btn btn-copy" id="copyBtn${index}" onclick="copiarScript(${index})">COPIAR</button>
+                                        <button class="btn btn-download" id="downloadBtn${index}" onclick="baixarScript('${script.nome}', ${index})">⬇BAIXAR</button>
+                                    </div>
+                                </div>
+                                <!-- ABA CHAVE -->
+                                <div class="tab-pane" id="keyPane${index}">
+                                    <div class="info-card">
+                                        <div class="icon">${keyIcon}</div>
+                                        <div class="badge-status ${keyClass}">${keyLabel}</div>
+                                        <div class="desc">${keyDesc}</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="tab-pane" id="keyPane${index}">
-                    <div class="script-name-header">${ptTexts.keyInfo}</div>
-                    <div class="info-card">
-                        <div class="key-info">${isKeyNeeded ? '🔒' : '🔓'}</div>
-                        <div class="key-badge ${keyClass}">${keyText}</div>
-                        <div class="key-description">${isKeyNeeded ? ptTexts.keyDesc : ptTexts.noKeyDesc}</div>
-                    </div>
-                </div>
-                <div class="tab-pane" id="statusPane${index}">
-                    <div class="script-name-header">${ptTexts.statusInfo}</div>
-                    <div class="info-card">
-                        <div class="status-badge ${statusClass}">${statusDisplayText}</div>
-                        <div class="status-description">${statusInfo.desc}</div>
-                    </div>
-                </div>
-            </div>
-        `;
-        container.appendChild(scriptCard);
-    });
-}
-
-function switchTab(scriptIndex, tabName) {
-    const scriptCard = document.querySelectorAll('.script-with-side-tabs')[scriptIndex];
-    if(!scriptCard) return;
-    
-    const panes = ['script', 'key', 'status'];
-    panes.forEach(pane => {
-        const paneElement = document.getElementById(`${pane}Pane${scriptIndex}`);
-        if(paneElement) paneElement.classList.remove('active');
-    });
-    
-    const activePane = document.getElementById(`${tabName}Pane${scriptIndex}`);
-    if(activePane) activePane.classList.add('active');
-    
-    const tabs = scriptCard.querySelectorAll('.tab-btn');
-    tabs.forEach(tab => tab.classList.remove('active'));
-    
-    const activeTab = scriptCard.querySelectorAll('.tab-btn')[panes.indexOf(tabName)];
-    if(activeTab) activeTab.classList.add('active');
-}
-
-function copyScriptWithTab(index) {
-    const scriptText = document.getElementById(`scriptText${index}`);
-    const textToCopy = scriptText.innerText;
-    const textArea = document.createElement('textarea');
-    textArea.value = textToCopy;
-    textArea.style.position = 'fixed';
-    textArea.style.left = '-9999px';
-    document.body.appendChild(textArea);
-    textArea.select();
-    document.execCommand('copy');
-    document.body.removeChild(textArea);
-    const btn = document.getElementById(`copyBtn${index}`);
-    const originalText = btn.innerHTML;
-    btn.innerHTML = ptTexts.copiedText;
-    setTimeout(() => {
-        btn.innerHTML = originalText;
-    }, 2000);
-}
-
-function toggleMenu() {
-    let menu = document.getElementById("menu")
-    if(menu.classList.contains("show")){
-        menu.classList.remove("show");
-        setTimeout(() => { if(!menu.classList.contains("show")) menu.style.display = "none"; }, 400);
-    }else{
-        menu.style.display = "block";
-        setTimeout(() => menu.classList.add("show"), 10);
-    }
-}
-
-function abrirCanal1(){ window.open("https://youtube.com/@gtvzmodded-7?si=NLtaOGasGcr6qSR3", "_blank"); }
-function abrirCanal2(){ window.open("https://youtube.com/@gtxteam_psicopata?si=X2dOSofWDqWL6-yG", "_blank"); }
-function abrirDiscord(){ window.open("https://discord.gg/QkGKfxwDBe", "_blank"); }
-
-function criarBubbles() {
-    const bubblesContainer = document.getElementById('bubbles');
-    const numeroBubbles = 25;
-    for(let i = 0; i < numeroBubbles; i++) {
-        const bubble = document.createElement('div');
-        bubble.className = 'bubble';
-        const size = 5 + Math.random() * 35;
-        bubble.style.setProperty('--size', size + 'px');
-        const yStart = (Math.random() * 20 - 10) + 'vh';
-        const yEnd = (Math.random() * 20 - 10) + 'vh';
-        bubble.style.setProperty('--y-start', yStart);
-        bubble.style.setProperty('--y-end', yEnd);
-        bubble.style.left = '0';
-        bubble.style.top = (Math.random() * 100) + '%';
-        const duration = 6 + Math.random() * 12;
-        bubble.style.setProperty('--duration', duration + 's');
-        const opacity = 0.15 + Math.random() * 0.5;
-        bubble.style.setProperty('--opacity', opacity);
-        if (i % 4 === 0) {
-            bubble.style.left = 'auto';
-            bubble.style.right = '0';
-            bubble.style.animation = 'moveBubbleReverse var(--duration) linear infinite';
-            if (!document.getElementById('reverseStyle')) {
-                const styleSheet = document.createElement("style");
-                styleSheet.id = 'reverseStyle';
-                styleSheet.textContent = `
-                    @keyframes moveBubbleReverse{
-                        0%{ transform:translateX(100px) translateY(var(--y-start)); opacity:0; }
-                        5%{ opacity:var(--opacity); }
-                        95%{ opacity:var(--opacity); }
-                        100%{ transform:translateX(calc(-100vw - 100px)) translateY(var(--y-end)); opacity:0; }
-                    }
                 `;
-                document.head.appendChild(styleSheet);
-            }
+                container.appendChild(card);
+            });
         }
-        bubblesContainer.appendChild(bubble);
-    }
-}
 
-// ANIMAÇÃO DE BOAS VINDAS COM EFEITO DE DIGITAÇÃO E DESFOQUE
-function iniciarAnimacaoBoasVindas() {
-    const overlay = document.getElementById('welcomeOverlay');
-    const typingElement = document.getElementById('typingText');
-    const mensagemCompleta = "BEM VINDO GTVZ HUB";
-    let index = 0;
-    
-    // Aplica blur no conteúdo principal desde o início
-    document.body.classList.add('blurred');
-    
-    // Função de digitação (efeito escrevendo)
-    function typeWriter() {
-        if (index < mensagemCompleta.length) {
-            typingElement.innerHTML = mensagemCompleta.substring(0, index + 1);
-            index++;
-            setTimeout(typeWriter, 120); // Velocidade da digitação
-        } else {
-            // Quando terminar de escrever, espera 0.8s e depois dá fade-out no overlay e remove blur
+        // ============================================
+        // INICIALIZAÇÃO
+        // ============================================
+
+        window.addEventListener('load', function() {
             setTimeout(() => {
-                overlay.classList.add('fade-out');
-                document.body.classList.remove('blurred');
-                document.body.classList.add('blurred-remove');
-                // Remove o overlay após a transição para liberar interação
-                setTimeout(() => {
-                    overlay.style.display = 'none';
-                    document.body.classList.remove('blurred-remove');
-                }, 1000);
+                document.getElementById('loader').classList.add('hide');
             }, 800);
-        }
-    }
-    
-    // Inicia a animação de digitação
-    typeWriter();
-}
-
-// Iniciar tudo após carregamento
-window.onload = function() {
-    criarBubbles();
-    loadScripts();
-    iniciarAnimacaoBoasVindas();
-};
-</script>
+            carregarScripts();
+        });
+    </script>
 </body>
 </html>

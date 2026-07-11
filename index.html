@@ -19,7 +19,7 @@
             overflow-x: hidden;
         }
 
-        /* Fundo otimizado - usando canvas-like com gradientes simples */
+        /* Fundo otimizado */
         .fundo-bg {
             position: fixed;
             inset: 0;
@@ -33,7 +33,6 @@
             will-change: background-position;
         }
 
-        /* Manchas simplificadas - sem blur pesado */
         .manchas {
             position: fixed;
             inset: 0;
@@ -65,7 +64,6 @@
             }
         }
 
-        /* Overlay escuro */
         .fundo-overlay {
             position: fixed;
             inset: 0;
@@ -74,47 +72,52 @@
             pointer-events: none;
         }
 
-        /* LOADER */
-        .loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #0a0e0a;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 0.8s ease, visibility 0.8s ease;
-        }
-
-        .loader.hide {
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        .loader-spinner {
-            width: 60px;
-            height: 60px;
-            border: 3px solid #1a3a1a;
-            border-top: 3px solid #00ff41;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* CONTEÚDO */
+        /* CONTEÚDO - SEMPRE VISÍVEL */
         .container {
             max-width: 1100px;
             margin: 0 auto;
             padding: 30px 20px;
             position: relative;
             z-index: 2;
+        }
+
+        /* ANIMAÇÃO DE APARIÇÃO - OPACIDADE JÁ COMEÇA EM 1 */
+        .logo-circle {
+            opacity: 0;
+            animation: fadeInUp 0.6s ease 0.2s forwards;
+        }
+
+        .channels-section {
+            opacity: 0;
+            animation: fadeInUp 0.6s ease 0.4s forwards;
+        }
+
+        .scripts-grid .script-card {
+            opacity: 0;
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .scripts-grid .script-card:nth-child(1) { animation-delay: 0.6s; }
+        .scripts-grid .script-card:nth-child(2) { animation-delay: 0.8s; }
+        .scripts-grid .script-card:nth-child(3) { animation-delay: 1.0s; }
+        .scripts-grid .script-card:nth-child(4) { animation-delay: 1.2s; }
+        .scripts-grid .script-card:nth-child(5) { animation-delay: 1.4s; }
+        .scripts-grid .script-card:nth-child(6) { animation-delay: 1.6s; }
+
+        footer {
+            opacity: 0;
+            animation: fadeInUp 0.6s ease 1.8s forwards;
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* LOGO REDONDA */
@@ -465,19 +468,14 @@
 </head>
 <body>
 
-    <!-- Fundo otimizado -->
+    <!-- Fundo -->
     <div class="fundo-bg"></div>
     <div class="manchas"></div>
     <div class="fundo-overlay"></div>
 
-    <!-- LOADER -->
-    <div class="loader" id="loader">
-        <div class="loader-spinner"></div>
-    </div>
-
     <!-- CONTEÚDO -->
     <div class="container">
-        <!-- LOGO REDONDA -->
+        <!-- LOGO -->
         <div class="logo-circle">
             <img src="https://i.postimg.cc/htG7VPFV/1763351649135.png" alt="GTVZ LOGO">
         </div>
@@ -496,12 +494,12 @@
 
         <!-- SCRIPTS -->
         <div id="scriptsContainer" class="scripts-grid"></div>
-    </div>
 
-    <footer>
-        GTVZ MODDED 2026 — Todos os direitos reservados<br>
-        <span>BY GTVZ</span>
-    </footer>
+        <footer>
+            GTVZ MODDED 2026 — Todos os direitos reservados<br>
+            <span>BY GTVZ</span>
+        </footer>
+    </div>
 
     <script>
         // ============================================
@@ -546,7 +544,7 @@
         }, {
             nome: "GTVZ HUB PB🟢",
             jogo: "PINTE OU BUSQUE",
-            script: loadstring((function() local s=[[GTVZ108GTVZ111GTVZ97GTVZ100GTVZ115GTVZ116GTVZ114GTVZ105GTVZ110GTVZ103GTVZ40GTVZ103GTVZ97GTVZ109GTVZ101GTVZ58GTVZ72GTVZ116GTVZ116GTVZ112GTVZ71GTVZ101GTVZ116GTVZ40GTVZ34GTVZ104GTVZ116GTVZ116GTVZ112GTVZ115GTVZ58GTVZ47GTVZ47GTVZ112GTVZ97GTVZ115GTVZ116GTVZ101GTVZ102GTVZ121GTVZ46GTVZ97GTVZ112GTVZ112GTVZ47GTVZ74GTVZ103GTVZ75GTVZ121GTVZ84GTVZ105GTVZ84GTVZ57GTVZ47GTVZ114GTVZ97GTVZ119GTVZ34GTVZ41GTVZ41GTVZ40GTVZ41]]; local reconstructed = s:gsub("GTVZ(%d+)", function(n) return string.char(tonumber(n)) end); return reconstructed end)())()`,
+            script: `loadstring((function() local s=[[GTVZ108GTVZ111GTVZ97GTVZ100GTVZ115GTVZ116GTVZ114GTVZ105GTVZ110GTVZ103GTVZ40GTVZ103GTVZ97GTVZ109GTVZ101GTVZ58GTVZ72GTVZ116GTVZ116GTVZ112GTVZ71GTVZ101GTVZ116GTVZ40GTVZ34GTVZ104GTVZ116GTVZ116GTVZ112GTVZ115GTVZ58GTVZ47GTVZ47GTVZ112GTVZ97GTVZ115GTVZ116GTVZ101GTVZ102GTVZ121GTVZ46GTVZ97GTVZ112GTVZ112GTVZ47GTVZ74GTVZ103GTVZ75GTVZ121GTVZ84GTVZ105GTVZ84GTVZ57GTVZ47GTVZ114GTVZ97GTVZ119GTVZ34GTVZ41GTVZ41GTVZ40GTVZ41]]; local reconstructed = s:gsub("GTVZ(%d+)", function(n) return string.char(tonumber(n)) end); return reconstructed end)())()`,
             imagem: "https://i.postimg.cc/9fJmZkFM/Screenshot-2026-06-29-22-58-13-579-gtvz-modded.jpg",
             bio: null
         }, {
@@ -640,7 +638,7 @@
                 const keyIcon = hasKey ? '🔒' : '🔓';
                 const keyDesc = hasKey ? 'ESTE SCRIPT REQUER CHAVE PARA ACESSO' : 'ESTE SCRIPT NÃO REQUER CHAVE';
 
-                const showBio = script.nome === "GTVZ HUB UNI" && script.bio;
+                const showBio = script.nome === "GTVZ HUB UNI🟢" && script.bio;
 
                 const card = document.createElement('div');
                 card.className = 'script-card';
@@ -693,13 +691,7 @@
         // ============================================
         // INICIALIZAÇÃO
         // ============================================
-
-        window.addEventListener('load', function() {
-            setTimeout(() => {
-                document.getElementById('loader').classList.add('hide');
-            }, 800);
-            carregarScripts();
-        });
+        carregarScripts();
     </script>
 </body>
 </html>

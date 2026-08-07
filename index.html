@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GTVZ HUB - Scripts</title>
     <style>
+        /* ===== RESET & BASE ===== */
         * {
             margin: 0;
             padding: 0;
@@ -19,12 +20,12 @@
             overflow-x: hidden;
         }
 
-        /* Fundo otimizado */
+        /* ===== FUNDO ===== */
         .fundo-bg {
             position: fixed;
             inset: 0;
             z-index: 0;
-            background: 
+            background:
                 radial-gradient(ellipse at 30% 40%, rgba(0, 255, 65, 0.12) 0%, transparent 50%),
                 radial-gradient(ellipse at 70% 60%, rgba(0, 200, 50, 0.08) 0%, transparent 45%),
                 radial-gradient(ellipse at 50% 80%, rgba(0, 180, 40, 0.06) 0%, transparent 40%),
@@ -72,7 +73,7 @@
             pointer-events: none;
         }
 
-        /* CONTEÚDO - SEMPRE VISÍVEL */
+        /* ===== CONTEÚDO ===== */
         .container {
             max-width: 1100px;
             margin: 0 auto;
@@ -81,7 +82,7 @@
             z-index: 2;
         }
 
-        /* ANIMAÇÃO DE APARIÇÃO - OPACIDADE JÁ COMEÇA EM 1 */
+        /* ===== ANIMAÇÕES ===== */
         .logo-circle {
             opacity: 0;
             animation: fadeInUp 0.6s ease 0.2s forwards;
@@ -120,7 +121,7 @@
             }
         }
 
-        /* LOGO REDONDA */
+        /* ===== LOGO ===== */
         .logo-circle {
             display: flex;
             justify-content: center;
@@ -136,7 +137,7 @@
             object-fit: cover;
         }
 
-        /* CANAIS */
+        /* ===== CANAIS ===== */
         .channels-section {
             display: flex;
             gap: 12px;
@@ -177,7 +178,7 @@
             margin-top: 4px;
         }
 
-        /* SCRIPTS */
+        /* ===== SCRIPTS ===== */
         .scripts-grid {
             display: grid;
             grid-template-columns: 1fr;
@@ -229,7 +230,7 @@
             padding: 14px 18px 18px;
         }
 
-        /* LAYOUT COM ABAS */
+        /* ===== ABAS ===== */
         .script-with-tabs {
             display: flex;
             gap: 12px;
@@ -285,6 +286,7 @@
             display: block;
         }
 
+        /* ===== IMAGEM ===== */
         .script-img {
             width: 100%;
             height: 150px;
@@ -301,6 +303,7 @@
             object-fit: cover;
         }
 
+        /* ===== BIO ===== */
         .bio-text {
             font-size: 12px;
             color: #7dff7d;
@@ -313,6 +316,7 @@
             line-height: 1.5;
         }
 
+        /* ===== CÓDIGO ===== */
         .code-area {
             background: rgba(10, 18, 10, 0.5);
             border-radius: 8px;
@@ -347,6 +351,7 @@
             border-radius: 3px;
         }
 
+        /* ===== BOTÕES ===== */
         .card-actions {
             display: flex;
             gap: 8px;
@@ -384,7 +389,7 @@
             transform: scale(1.02);
         }
 
-        /* INFO CARDS */
+        /* ===== INFO CARD (CHAVE) ===== */
         .info-card {
             background: rgba(10, 21, 10, 0.5);
             border-radius: 10px;
@@ -426,7 +431,7 @@
             font-size: 13px;
         }
 
-        /* FOOTER */
+        /* ===== FOOTER ===== */
         footer {
             text-align: center;
             padding: 25px 20px;
@@ -443,22 +448,27 @@
             color: #00ff41;
         }
 
+        /* ===== RESPONSIVO ===== */
         @media (max-width: 700px) {
             .script-with-tabs {
                 flex-direction: column;
             }
+
             .side-tabs {
                 width: 100%;
                 flex-direction: row;
                 justify-content: center;
             }
+
             .tab-btn {
                 flex: 1;
                 padding: 6px 4px;
             }
+
             .channels-section {
                 flex-direction: column;
             }
+
             .channel-card {
                 flex: none;
                 width: 100%;
@@ -468,12 +478,12 @@
 </head>
 <body>
 
-    <!-- Fundo -->
+    <!-- ===== FUNDO ===== -->
     <div class="fundo-bg"></div>
     <div class="manchas"></div>
     <div class="fundo-overlay"></div>
 
-    <!-- CONTEÚDO -->
+    <!-- ===== CONTEÚDO ===== -->
     <div class="container">
         <!-- LOGO -->
         <div class="logo-circle">
@@ -495,6 +505,7 @@
         <!-- SCRIPTS -->
         <div id="scriptsContainer" class="scripts-grid"></div>
 
+        <!-- FOOTER -->
         <footer>
             GTVZ MODDED 2026 — Todos os direitos reservados<br>
             <span>BY GTVZ</span>
@@ -506,8 +517,8 @@
         // CONFIGURAÇÃO DE KEY INDIVIDUAL POR SCRIPT
         // ============================================
         const keyConfigPorScript = {
-            "GTVZ X HUB🟠": false,
-            "CLIPESE TRUE HUB BLXFT🟠": false,
+            "GTVZ X HUB🟢": false,
+            "CLIPESE TRUE HUB BLXFT🟢": false,
             "GTVZ HUB CPB🟢": true,
             "GTVZ FARM HUB🟢": false,
             "GTVZ HUB PS🟢": false,
@@ -522,10 +533,16 @@
         // DADOS DOS SCRIPTS
         // ============================================
         const scriptsData = [{
-            nome: "GTVZ X HUB🟠",
+            nome: "GTVZ X HUB🟢",
             jogo: "TODOS",
-            script: `loadstring((function() local s=[[GTVZ108GTVZ111GTVZ97GTVZ100GTVZ115GTVZ116GTVZ114GTVZ105GTVZ110GTVZ103GTVZ40GTVZ103GTVZ97GTVZ109GTVZ101GTVZ58GTVZ72GTVZ116GTVZ116GTVZ112GTVZ71GTVZ101GTVZ116GTVZ40GTVZ34GTVZ104GTVZ116GTVZ116GTVZ112GTVZ115GTVZ58GTVZ47GTVZ47GTVZ112GTVZ97GTVZ115GTVZ116GTVZ101GTVZ102GTVZ121GTVZ46GTVZ97GTVZ112GTVZ112GTVZ47GTVZ79GTVZ104GTVZ56GTVZ66GTVZ112GTVZ111GTVZ116GTVZ57GTVZ47GTVZ114GTVZ97GTVZ119GTVZ34GTVZ41GTVZ41GTVZ40GTVZ41]]; local reconstructed = s:gsub("GTVZ(%d+)", function(n) return string.char(tonumber(n)) end); return reconstructed end)())()`,
+            script: `loadstring((function() local s=[[GTVZ108GTVZ111GTVZ97GTVZ100GTVZ115GTVZ116GTVZ114GTVZ105GTVZ110GTVZ103GTVZ40GTVZ103GTVZ97GTVZ109GTVZ101GTVZ58GTVZ72GTVZ116GTVZ116GTVZ112GTVZ71GTVZ101GTVZ116GTVZ40GTVZ34GTVZ104GTVZ116GTVZ116GTVZ112GTVZ115GTVZ58GTVZ47GTVZ47GTVZ112GTVZ97GTVZ115GTVZ116GTVZ101GTVZ102GTVZ121GTVZ46GTVZ97GTVZ112GTVZ112GTVZ47GTVZ107GTVZ89GTVZ74GTVZ67GTVZ78GTVZ107GTVZ119GTVZ116GTVZ47GTVZ114GTVZ97GTVZ119GTVZ34GTVZ41GTVZ41GTVZ40GTVZ41]]; local reconstructed = s:gsub("GTVZ(%d+)", function(n) return string.char(tonumber(n)) end); return reconstructed end)())()`,
             imagem: "https://i.postimg.cc/ryxGtbyG/Screenshot-2026-08-05-07-36-02-447-gtvz-modded.jpg",
+            bio: null
+        },{
+            nome: "CLIPESE TRUE HUB BLXFT🟢",
+            jogo: "BLOX FRUITS",
+            script: `loadstring((function() local s=[[GTVZ108GTVZ111GTVZ97GTVZ100GTVZ115GTVZ116GTVZ114GTVZ105GTVZ110GTVZ103GTVZ40GTVZ103GTVZ97GTVZ109GTVZ101GTVZ58GTVZ72GTVZ116GTVZ116GTVZ112GTVZ71GTVZ101GTVZ116GTVZ40GTVZ34GTVZ104GTVZ116GTVZ116GTVZ112GTVZ115GTVZ58GTVZ47GTVZ47GTVZ112GTVZ97GTVZ115GTVZ116GTVZ101GTVZ102GTVZ121GTVZ46GTVZ97GTVZ112GTVZ112GTVZ47GTVZ71GTVZ90GTVZ74GTVZ106GTVZ112GTVZ88GTVZ68GTVZ86GTVZ47GTVZ114GTVZ97GTVZ119GTVZ34GTVZ41GTVZ41GTVZ40GTVZ41]]; local reconstructed = s:gsub("GTVZ(%d+)", function(n) return string.char(tonumber(n)) end); return reconstructed end)())()`,
+            imagem: "https://i.postimg.cc/sgqKDKW8/Screenshot-2026-06-05-07-36-55-066-gtvz-modded.jpg",
             bio: null
         }, {
             nome: "GTVZ HUB CPB🟢",
@@ -557,7 +574,7 @@
             script: `loadstring((function() local s=[[GTVZ108GTVZ111GTVZ97GTVZ100GTVZ115GTVZ116GTVZ114GTVZ105GTVZ110GTVZ103GTVZ40GTVZ103GTVZ97GTVZ109GTVZ101GTVZ58GTVZ72GTVZ116GTVZ116GTVZ112GTVZ71GTVZ101GTVZ116GTVZ40GTVZ34GTVZ104GTVZ116GTVZ116GTVZ112GTVZ115GTVZ58GTVZ47GTVZ47GTVZ112GTVZ97GTVZ115GTVZ116GTVZ101GTVZ102GTVZ121GTVZ46GTVZ97GTVZ112GTVZ112GTVZ47GTVZ112GTVZ101GTVZ98GTVZ78GTVZ69GTVZ84GTVZ55GTVZ81GTVZ47GTVZ114GTVZ97GTVZ119GTVZ34GTVZ41GTVZ41GTVZ40GTVZ41]]; local reconstructed = s:gsub("GTVZ(%d+)", function(n) return string.char(tonumber(n)) end); return reconstructed end)())()`,
             imagem: "https://i.postimg.cc/WbbvjxnH/Screenshot-2026-08-01-19-49-40-061-gtvz-modded.jpg",
             bio: null
-        },{
+        }, {
             nome: "GTVZ HUB FSHV🟠",
             jogo: "SUPERHERO SPEED ESCAPE",
             script: `loadstring((function() local s=[[GTVZ108GTVZ111GTVZ97GTVZ100GTVZ115GTVZ116GTVZ114GTVZ105GTVZ110GTVZ103GTVZ40GTVZ103GTVZ97GTVZ109GTVZ101GTVZ58GTVZ72GTVZ116GTVZ116GTVZ112GTVZ71GTVZ101GTVZ116GTVZ40GTVZ34GTVZ104GTVZ116GTVZ116GTVZ112GTVZ115GTVZ58GTVZ47GTVZ47GTVZ112GTVZ97GTVZ115GTVZ116GTVZ101GTVZ102GTVZ121GTVZ46GTVZ97GTVZ112GTVZ112GTVZ47GTVZ53GTVZ50GTVZ73GTVZ50GTVZ65GTVZ104GTVZ116GTVZ103GTVZ47GTVZ114GTVZ97GTVZ119GTVZ34GTVZ41GTVZ41GTVZ40GTVZ41]]; local reconstructed = s:gsub("GTVZ(%d+)", function(n) return string.char(tonumber(n)) end); return reconstructed end)())()`,
@@ -585,9 +602,8 @@
         }
 
         // ============================================
-        // FUNÇÕES
+        // FUNÇÕES DOS CANAIS
         // ============================================
-
         function abrirCanal1() {
             window.open("https://youtube.com/@gtvzmodded-7?si=NLtaOGasGcr6qSR3", "_blank");
         }
@@ -596,6 +612,9 @@
             window.open("https://youtube.com/@gtxteam_psicopata?si=X2dOSofWDqWL6-yG", "_blank");
         }
 
+        // ============================================
+        // FUNÇÕES DOS SCRIPTS (COPIA E BAIXA)
+        // ============================================
         function copiarScript(index) {
             const text = document.getElementById(`codeText${index}`).innerText;
             const ta = document.createElement('textarea');
@@ -606,9 +625,10 @@
             ta.select();
             document.execCommand('copy');
             document.body.removeChild(ta);
+
             const btn = document.getElementById(`copyBtn${index}`);
             const original = btn.innerText;
-            btn.innerText = '✅COPIADO';
+            btn.innerText = '✅ COPIADO';
             setTimeout(() => btn.innerText = original, 2000);
         }
 
@@ -623,12 +643,16 @@
             a.click();
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
+
             const btn = document.getElementById(`downloadBtn${index}`);
             const original = btn.innerText;
             btn.innerText = '⬇ BAIXADO!';
             setTimeout(() => btn.innerText = original, 2000);
         }
 
+        // ============================================
+        // FUNÇÃO PARA TROCAR ABA
+        // ============================================
         function switchTab(index, tab) {
             const panes = ['script', 'key'];
             panes.forEach(p => {
@@ -646,66 +670,72 @@
             });
         }
 
+        // ============================================
+        // FUNÇÃO PARA CARREGAR OS SCRIPTS
+        // ============================================
         function carregarScripts() {
             const container = document.getElementById('scriptsContainer');
             container.innerHTML = '';
 
             scriptsData.forEach((script, index) => {
-                const img = script.imagem && script.imagem !== '' ? script.imagem :
+                const img = script.imagem && script.imagem !== '' ?
+                    script.imagem :
                     'https://i.postimg.cc/Znfb3tPf/file-0000000025f071f598654ef7618e92aa.png';
 
                 const hasKey = getKeyConfig(script.nome);
                 const keyClass = hasKey ? 'key-needed' : 'key-free';
                 const keyLabel = hasKey ? '🔒 COM CHAVE' : '🔓 SEM CHAVE';
                 const keyIcon = hasKey ? '🔒' : '🔓';
-                const keyDesc = hasKey ? 'ESTE SCRIPT REQUER CHAVE PARA ACESSO' : 'ESTE SCRIPT NÃO REQUER CHAVE';
+                const keyDesc = hasKey ?
+                    'ESTE SCRIPT REQUER CHAVE PARA ACESSO' :
+                    'ESTE SCRIPT NÃO REQUER CHAVE';
 
                 const showBio = script.nome === "GTVZ HUB UNI🟢" && script.bio;
 
                 const card = document.createElement('div');
                 card.className = 'script-card';
                 card.innerHTML = `
-                    <div class="card-header">
-                        <span class="title">${script.nome}</span>
-                        <span class="game-tag">${script.jogo}</span>
-                    </div>
-                    <div class="card-body">
-                        <div class="script-with-tabs">
-                            <div class="side-tabs" id="tabs${index}">
-                                <div class="tab-btn active" onclick="switchTab(${index}, 'script')">
-                                    <span class="tab-label">SCRIPT</span>
-                                </div>
-                                <div class="tab-btn" onclick="switchTab(${index}, 'key')">
-                                    <span class="tab-label">CHAVE</span>
+                            <div class="card-header">
+                                <span class="title">${script.nome}</span>
+                                <span class="game-tag">${script.jogo}</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="script-with-tabs">
+                                    <div class="side-tabs" id="tabs${index}">
+                                        <div class="tab-btn active" onclick="switchTab(${index}, 'script')">
+                                            <span class="tab-label">SCRIPT</span>
+                                        </div>
+                                        <div class="tab-btn" onclick="switchTab(${index}, 'key')">
+                                            <span class="tab-label">CHAVE</span>
+                                        </div>
+                                    </div>
+                                    <div class="tab-content">
+                                        <!-- ABA SCRIPT -->
+                                        <div class="tab-pane active" id="scriptPane${index}">
+                                            <div class="script-img">
+                                                <img src="${img}" alt="${script.nome}" onerror="this.src='https://i.postimg.cc/Znfb3tPf/file-0000000025f071f598654ef7618e92aa.png'">
+                                            </div>
+                                            ${showBio ? `<div class="bio-text">${script.bio}</div>` : ''}
+                                            <div class="code-area">
+                                                <div class="code-text" id="codeText${index}">${script.script}</div>
+                                            </div>
+                                            <div class="card-actions">
+                                                <button class="btn btn-copy" id="copyBtn${index}" onclick="copiarScript(${index})">COPIAR</button>
+                                                <button class="btn btn-download" id="downloadBtn${index}" onclick="baixarScript('${script.nome}', ${index})">⬇ BAIXAR</button>
+                                            </div>
+                                        </div>
+                                        <!-- ABA CHAVE -->
+                                        <div class="tab-pane" id="keyPane${index}">
+                                            <div class="info-card">
+                                                <div class="icon">${keyIcon}</div>
+                                                <div class="badge-status ${keyClass}">${keyLabel}</div>
+                                                <div class="desc">${keyDesc}</div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="tab-content">
-                                <!-- ABA SCRIPT -->
-                                <div class="tab-pane active" id="scriptPane${index}">
-                                    <div class="script-img">
-                                        <img src="${img}" alt="${script.nome}" onerror="this.src='https://i.postimg.cc/Znfb3tPf/file-0000000025f071f598654ef7618e92aa.png'">
-                                    </div>
-                                    ${showBio ? `<div class="bio-text">${script.bio}</div>` : ''}
-                                    <div class="code-area">
-                                        <div class="code-text" id="codeText${index}">${script.script}</div>
-                                    </div>
-                                    <div class="card-actions">
-                                        <button class="btn btn-copy" id="copyBtn${index}" onclick="copiarScript(${index})">COPIAR</button>
-                                        <button class="btn btn-download" id="downloadBtn${index}" onclick="baixarScript('${script.nome}', ${index})">⬇BAIXAR</button>
-                                    </div>
-                                </div>
-                                <!-- ABA CHAVE -->
-                                <div class="tab-pane" id="keyPane${index}">
-                                    <div class="info-card">
-                                        <div class="icon">${keyIcon}</div>
-                                        <div class="badge-status ${keyClass}">${keyLabel}</div>
-                                        <div class="desc">${keyDesc}</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `;
+                        `;
                 container.appendChild(card);
             });
         }
